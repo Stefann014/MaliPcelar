@@ -1,0 +1,2 @@
+rootProject.name='MaliPcelar'
+include ':app'

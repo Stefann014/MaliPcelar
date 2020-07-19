@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MaliPcelar</string>
+    <string name="google_map_api_key">AIzaSyBETypVelODVcyN2Pp_aYjSGs65-mDXW9s</string>
+    <string name="action_settings">Settings</string>
+</resources>
