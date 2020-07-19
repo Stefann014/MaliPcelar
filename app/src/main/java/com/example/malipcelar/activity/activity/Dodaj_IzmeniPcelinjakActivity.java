@@ -4,19 +4,24 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -55,6 +60,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +73,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_ZAHTEV = 1234;
     private static final int DEFAULT_ZOOM = 15;
+    private static final int GALLERY_REQUEST_CODE = 100;
+    private static final int CAMERA_REQUEST_CODE = 200;
+    private static final float PREFERRED_WIDTH = 120;
+    private static final float PREFERRED_HEIGHT = 105;
 
     public static final String EXTRA_RB =
             "com.example.malipcelar.activity.activity.EXTRA_RB";
@@ -87,6 +97,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private ImageView mGps;
     private ImageView mInfo;
     private ImageView mSkini;
+    private ImageView pcelinjakSlika;
 
     //vars
     private Boolean mLokacijaDozvoljena;
@@ -98,6 +109,8 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     TextView txtRedniBroj;
     TextView txtNaziv;
     Button btnSacuvaj;
+    Button btnDodajIzGalerije;
+    Button btnSlikaj;
     private RequestQueue mQueue;
     double nVisina;
     List<Integer> zauzetiRBovi;
@@ -145,7 +158,9 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             return;
         }
 
-        if (redniBroj == (getIntent().getIntExtra(EXTRA_RB,-1))) {
+        if (redniBroj == (getIntent().getIntExtra(EXTRA_RB, -1))) {
+            //izmena
+
             String naziv = txtNaziv.getText().toString().trim();
 
             Double latituda = null;
@@ -159,7 +174,11 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             String lokacija = latituda + "," + longituda;
             int visina = (int) nVisina;
             String nadmorskaVisina = visina + "";//-1000
-            String slika = null; //null
+
+            Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
+            String slika = bitmapToString((image));
+
+            //Log.d(TAG, slika);
 
             if (naziv.isEmpty()) {
                 Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
@@ -180,12 +199,13 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
             setResult(RESULT_OK, podaci);
             finish();
+            return;
         }
+        //novi
         if (zauzetiRBovi.contains(redniBroj)) {
             Toast.makeText(getApplicationContext(), "Pokusavate da unosite postojeci redni broj", Toast.LENGTH_LONG).show();
             return;
         }
-
 
         String naziv = txtNaziv.getText().toString().trim();
 
@@ -199,7 +219,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         String lokacija = latituda + "," + longituda;
         int visina = (int) nVisina;
         String nadmorskaVisina = visina + "";//-1000
-        String slika = null; //null
 
 
         if (naziv.isEmpty()) {
@@ -210,6 +229,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             Toast.makeText(this, "Niste postavili lokaciju", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
+        String slika = bitmapToString((image));
+
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB, redniBroj);
         podaci.putExtra(EXTRA_NAZIV_PCELINJAKA, naziv);
@@ -231,6 +254,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             setTitle("Izmeni pcelinjak");
             txtRedniBroj.setText(intent.getIntExtra(EXTRA_RB, -1) + "");
             txtNaziv.setText(intent.getStringExtra(EXTRA_NAZIV_PCELINJAKA));
+            String slika = intent.getStringExtra(EXTRA_SLIKA);
+            if (slika != null) {
+                pcelinjakSlika.setImageBitmap(stringToBitmap(slika));
+            }
         } else {
             setTitle("Dodaj pcelinjak");
         }
@@ -283,6 +310,17 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 }
             }
         });
+
+        btnSlikaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                }
+            }
+        });
+
     }
 
     private void vratiNadmorskuVisinu(double latitude, double longitude) {
@@ -323,11 +361,16 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         autoCompleteTV = (AutoCompleteTextView) findViewById(R.id.txtPretrazi);
         mGps = (ImageView) findViewById(R.id.ic_gps);
         mInfo = (ImageView) findViewById(R.id.mesto_info);
+        pcelinjakSlika = (ImageView) findViewById(R.id.pcelinjak_slika);
+
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.frgMap);
         mMarker = null;
         txtRedniBroj = findViewById(R.id.txtRedniBroj);
         txtNaziv = findViewById(R.id.txtNaziv);
         btnSacuvaj = findViewById(R.id.btnSacuvaj);
+        btnDodajIzGalerije = findViewById(R.id.btnDodajIzGalerije);
+        btnSlikaj = findViewById(R.id.btnSlikaj);
         mSkini = findViewById(R.id.skini_pin);
         mQueue = Volley.newRequestQueue(this);
         nVisina = -1000;
@@ -611,6 +654,48 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            pcelinjakSlika.setImageBitmap(imageBitmap);
+        }
+    }
+
+    private static String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    /*
+        public static Bitmap resizeBitmap(Bitmap bitmap) {
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            float scaleWidth = PREFERRED_WIDTH / width;
+            float scaleHeight = PREFERRED_HEIGHT / height;
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(scaleWidth, scaleHeight);
+            Bitmap resizedBitmap = Bitmap.createBitmap(
+                    bitmap, 0, 0, width, height, matrix, false);
+            bitmap.recycle();
+            return resizedBitmap;
+        }*/
+    private static Bitmap stringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 

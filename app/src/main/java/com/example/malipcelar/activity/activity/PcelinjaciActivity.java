@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -196,6 +197,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
             }
             Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
+            //Log.d("OJ HA",slika);
         } else {
             Toast.makeText(this, "Pcelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
         }
