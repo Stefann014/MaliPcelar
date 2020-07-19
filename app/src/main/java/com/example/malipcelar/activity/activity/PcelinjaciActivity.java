@@ -195,6 +195,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
             pcelinjakViewModel.update(pcelinjak);
             if (stariRb != -1) {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
+
             }
             adapter.notifyDataSetChanged();
             Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();

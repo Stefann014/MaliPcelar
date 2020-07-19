@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -62,6 +64,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +78,8 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private static final int DEFAULT_ZOOM = 15;
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int CAMERA_REQUEST_CODE = 200;
-
+    private static final float PREFERRED_WIDTH = 250;
+    private static final float PREFERRED_HEIGHT = 250;
 
     public static final String EXTRA_RB =
             "com.example.malipcelar.activity.activity.EXTRA_RB";
@@ -175,7 +179,12 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             String nadmorskaVisina = visina + "";//-1000
 
             Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
-            String slika = bitmapToString((image));
+            String slika;
+            if (image.getWidth() == 250 && image.getHeight() == 250) {
+                slika = bitmapToString(image);
+            } else {
+                slika = bitmapToString(resizeBitmap(image));
+            }
 
             //Log.d(TAG, slika);
 
@@ -232,7 +241,12 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         }
 
         Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
-        String slika = bitmapToString((image));
+        String slika;
+        if (image.getWidth() == 250 && image.getHeight() == 250) {
+            slika = bitmapToString(image);
+        } else {
+            slika = bitmapToString(resizeBitmap(image));
+        }
 
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB, redniBroj);
@@ -319,6 +333,16 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
                 }
+            }
+        });
+
+        btnDodajIzGalerije.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
             }
         });
 
@@ -667,6 +691,16 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             pcelinjakSlika.setImageBitmap(imageBitmap);
         }
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
+            try {
+                Uri selectedImage = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                pcelinjakSlika.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
     private static String bitmapToString(Bitmap bitmap) {
@@ -676,20 +710,21 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
-    /*
-        public static Bitmap resizeBitmap(Bitmap bitmap) {
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-            float scaleWidth = PREFERRED_WIDTH / width;
-            float scaleHeight = PREFERRED_HEIGHT / height;
 
-            Matrix matrix = new Matrix();
-            matrix.postScale(scaleWidth, scaleHeight);
-            Bitmap resizedBitmap = Bitmap.createBitmap(
-                    bitmap, 0, 0, width, height, matrix, false);
-            bitmap.recycle();
-            return resizedBitmap;
-        }*/
+    public static Bitmap resizeBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float scaleWidth = PREFERRED_WIDTH / width;
+        float scaleHeight = PREFERRED_HEIGHT / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bitmap, 0, 0, width, height, matrix, false);
+        bitmap.recycle();
+        return resizedBitmap;
+    }
+
     private static Bitmap stringToBitmap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
