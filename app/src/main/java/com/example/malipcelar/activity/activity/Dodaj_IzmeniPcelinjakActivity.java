@@ -165,6 +165,12 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            if (visina == -1000) {
+                Toast.makeText(this, "Niste postavili lokaciju", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent podaci = new Intent();
             podaci.putExtra(EXTRA_RB, redniBroj);
             podaci.putExtra(EXTRA_NAZIV_PCELINJAKA, naziv);
@@ -200,7 +206,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             Toast.makeText(this, "Unesite pcelinjak", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (visina == -1000) {
+            Toast.makeText(this, "Niste postavili lokaciju", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB, redniBroj);
         podaci.putExtra(EXTRA_NAZIV_PCELINJAKA, naziv);
