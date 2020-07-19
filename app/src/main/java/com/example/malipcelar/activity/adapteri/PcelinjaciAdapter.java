@@ -1,8 +1,12 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +36,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         public boolean areContentsTheSame(Pcelinjak oldItem, Pcelinjak newItem) {
             return oldItem.getNazivPcelinjaka().equals(newItem.getNazivPcelinjaka()) &&
                     oldItem.getLokacija().equals(newItem.getLokacija()) &&
-                    oldItem.getNadmorskaVisina().equals(newItem.getNadmorskaVisina());
+                    oldItem.getNadmorskaVisina().equals(newItem.getNadmorskaVisina()) && oldItem.getSlika().equals(newItem.getSlika());
         }
     };
 
@@ -50,6 +54,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.toString());
         holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
         holder.txtNadmorskaVisina.setText(trenuntiPcelinjak.getNadmorskaVisina() + "m");
+        holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
     }
 
     public Pcelinjak getPcelinjakAt(int position) {
@@ -60,12 +65,14 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         private TextView txtRBiNazivPcelinjaka;
         private TextView txtLokacija;
         private TextView txtNadmorskaVisina;
+        private ImageView pcelinjak_slika;
 
         public PcelinjakHolder(View itemView) {
             super(itemView);
             txtRBiNazivPcelinjaka = itemView.findViewById(R.id.txtRBiNaziv);
             txtLokacija = itemView.findViewById(R.id.txtLokacija);
             txtNadmorskaVisina = itemView.findViewById(R.id.txtNadmorskaVisina);
+            pcelinjak_slika = itemView.findViewById(R.id.pcelinjak_slika);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,5 +94,13 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         this.listener = listener;
     }
 
-
+    private static Bitmap stringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 }

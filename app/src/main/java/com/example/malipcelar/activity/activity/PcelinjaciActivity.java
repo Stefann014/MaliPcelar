@@ -112,7 +112,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
         stariRb = -1;
     }
 
-    private void srediRecycleView() {
+    public void srediRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -177,7 +177,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
             Pcelinjak pcelinjak = new Pcelinjak(pcelinjakRB, nazivPcelinjaka, lokacija, nadmorskaVisina, slika);
             pcelinjakViewModel.insert(pcelinjak);
             Toast.makeText(this, "Pcelinjak je sacuvan", Toast.LENGTH_SHORT).show();
-
+            adapter.notifyDataSetChanged();
         } else if (requestCode == IZMENI_PCELINJAK && resultCode == RESULT_OK) {
 
             int id = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
@@ -196,6 +196,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
             if (stariRb != -1) {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
             }
+            adapter.notifyDataSetChanged();
             Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
             //Log.d("OJ HA",slika);
         } else {

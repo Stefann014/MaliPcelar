@@ -1,12 +1,12 @@
 package com.example.malipcelar.activity.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -75,8 +75,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private static final int DEFAULT_ZOOM = 15;
     private static final int GALLERY_REQUEST_CODE = 100;
     private static final int CAMERA_REQUEST_CODE = 200;
-    private static final float PREFERRED_WIDTH = 120;
-    private static final float PREFERRED_HEIGHT = 105;
+
 
     public static final String EXTRA_RB =
             "com.example.malipcelar.activity.activity.EXTRA_RB";
@@ -199,6 +198,8 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
             setResult(RESULT_OK, podaci);
             finish();
+
+
             return;
         }
         //novi
