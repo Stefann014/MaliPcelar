@@ -3,8 +3,10 @@ package com.example.malipcelar.activity.domen;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "opsta_napomena_table")
-public class OpstaNapomena {
+public class OpstaNapomena implements Serializable {
 
     // autoincrement...
     @PrimaryKey(autoGenerate = true)

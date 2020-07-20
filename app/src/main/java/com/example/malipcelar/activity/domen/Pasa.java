@@ -1,8 +1,9 @@
 package com.example.malipcelar.activity.domen;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pasa {
+public class Pasa implements Serializable {
     Date datumOd;
     Date datumDo;
     double ukupnoMeda;

@@ -1,8 +1,9 @@
 package com.example.malipcelar.activity.domen;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Kosnica {
+public class Kosnica implements Serializable {
     int redniBrojKosnice;
     String nazivKosnice;
     Timestamp godinaProizvodnjeMatice;

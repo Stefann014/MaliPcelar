@@ -21,6 +21,7 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.PcelinjakHolder> {
 
     private OnItemClickListener listener;
+    private OnDropdownClickListener listenerr;
 
     public PcelinjaciAdapter() {
         super(DIFF_CALLBACK);
@@ -66,6 +67,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         private TextView txtLokacija;
         private TextView txtNadmorskaVisina;
         private ImageView pcelinjak_slika;
+        private ImageView izmeni;
 
         public PcelinjakHolder(View itemView) {
             super(itemView);
@@ -73,6 +75,17 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
             txtLokacija = itemView.findViewById(R.id.txtLokacija);
             txtNadmorskaVisina = itemView.findViewById(R.id.txtNadmorskaVisina);
             pcelinjak_slika = itemView.findViewById(R.id.pcelinjak_slika);
+            izmeni = itemView.findViewById(R.id.ic_izmeni);
+
+            izmeni.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listenerr != null && position != RecyclerView.NO_POSITION) {
+                        listenerr.onItemClickk(getItem(position));
+                    }
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,8 +103,16 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         void onItemClick(Pcelinjak pcelinjak);
     }
 
+    public interface OnDropdownClickListener {
+        void onItemClickk(Pcelinjak pcelinjak);
+    }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setOnIzmeniClickListener(OnDropdownClickListener listenerr) {
+        this.listenerr = listenerr;
     }
 
     private static Bitmap stringToBitmap(String encodedString) {

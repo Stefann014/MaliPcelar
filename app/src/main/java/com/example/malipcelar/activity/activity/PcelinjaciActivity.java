@@ -3,7 +3,7 @@ package com.example.malipcelar.activity.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +36,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
     private static final int DODAJ_NOVI_PCELINJAK = 3;
     private static final int IZMENI_PCELINJAK = 4;
 
+
     //vars
     FloatingActionButton btnDodajPcelinjak;
     private PcelinjakViewModel pcelinjakViewModel;
@@ -44,6 +45,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
     List<Pcelinjak> pcelinjaci;
     List<Integer> zauzetiRBovi;
     int stariRb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +60,21 @@ public class PcelinjaciActivity extends AppCompatActivity {
         srediIzmeniPcelinjakNaKlik();
     }
 
+
     private void srediIzmeniPcelinjakNaKlik() {
         adapter.setOnItemClickListener(new PcelinjaciAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pcelinjak pcelinjak) {
+                Intent intent = new Intent(PcelinjaciActivity.this, KosniceActivity.class);
+                intent.putExtra(KosniceActivity.EXTRA_PCELINJAK, pcelinjak);
+                startActivity(intent);
+            }
+        });
 
+        adapter.setOnIzmeniClickListener(new PcelinjaciAdapter.OnDropdownClickListener() {
+
+            @Override
+            public void onItemClickk(Pcelinjak pcelinjak) {
                 Intent intent = new Intent(PcelinjaciActivity.this, Dodaj_IzmeniPcelinjakActivity.class);
                 intent.putExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, pcelinjak.getRedniBrojPcelinjaka());
                 stariRb = pcelinjak.getRedniBrojPcelinjaka();
@@ -77,6 +89,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
                 startActivityForResult(intent, IZMENI_PCELINJAK);
             }
         });
+
     }
 
     private void srediKomunikacijuSaViewModel() {
@@ -130,7 +143,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
                 startActivityForResult(intent, DODAJ_NOVI_PCELINJAK);
             }
         });
-
     }
 
     public boolean isServiceOK() {
@@ -199,7 +211,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
             Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
-            //Log.d("OJ HA",slika);
+
         } else {
             Toast.makeText(this, "Pcelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
         }

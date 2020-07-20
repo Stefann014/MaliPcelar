@@ -2,11 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.malipcelar">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -20,36 +19,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-        <activity android:name=".activity.activity.Dodaj_IzmeniPcelinjakActivity"
-            android:parentActivityName=".activity.activity.PcelinjaciActivity"/>
-
-        <activity android:name=".activity.activity.PcelinjaciActivity"
+        <activity android:name=".activity.activity.KosniceActivity">
+            android:parentActivityName=".activity.activity.PcelinjaciActivity" />
+        </activity>
+        <activity
+            android:name=".activity.activity.Dodaj_IzmeniPcelinjakActivity"
+            android:parentActivityName=".activity.activity.PcelinjaciActivity" />
+        <activity
+            android:name=".activity.activity.PcelinjaciActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".activity.activity.Dodaj_IzmeniOpstuNapomenuActivity"
             android:parentActivityName=".activity.activity.OpsteNapomeneActivity" />
-
         <activity
             android:name=".activity.activity.OpsteNapomeneActivity"
             android:launchMode="singleTop" />
-
-
-
         <activity android:name=".activity.activity.PocetniActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -57,7 +52,6 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
     </application>
 
 </manifest>

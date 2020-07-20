@@ -1,8 +1,9 @@
 package com.example.malipcelar.activity.domen;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Lecenje {
+public class Lecenje implements Serializable {
     Date datumLecenja;
     Kosnica kosnica;
     String lecenjeOd;

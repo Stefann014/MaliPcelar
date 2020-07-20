@@ -105,7 +105,7 @@
         app:layout_constraintTop_toTopOf="@+id/frgMap">
 
         <ImageView
-            android:id="@+id/ic_pretrazi"
+            android:id="@+id/ic_izmeni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/ic_pretrazi"
+            android:layout_toRightOf="@+id/ic_izmeni"
             android:background="@null"
             android:hint="Unesite adresu, grad ili poštanski broj"
             android:imeOptions="actionSearch"
