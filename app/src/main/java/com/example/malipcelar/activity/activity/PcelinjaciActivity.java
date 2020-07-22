@@ -64,8 +64,8 @@ public class PcelinjaciActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new PcelinjaciAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pcelinjak pcelinjak) {
-                Intent intent = new Intent(PcelinjaciActivity.this, Dodaj_IzmeniKosnicuActivity.class);
-                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_PCELINJAK, pcelinjak);
+                Intent intent = new Intent(PcelinjaciActivity.this, KosnicaActivity.class);
+                intent.putExtra(KosnicaActivity.EXTRA_PCELINJAK, pcelinjak);
                 startActivity(intent);
             }
         });
@@ -227,7 +227,7 @@ public class PcelinjaciActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.izbrisiSve:
-                pcelinjakViewModel.deleteAllOPcelinjaci();
+                pcelinjakViewModel.deleteAllPcelinjaci();
                 Toast.makeText(this, "Svi pcelinjaci su izbrisani", Toast.LENGTH_SHORT).show();
                 return true;
             default:

@@ -1,30 +1,52 @@
 package com.example.malipcelar.activity.domen;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import static androidx.room.ForeignKey.CASCADE;
+
+
+@Entity(tableName = "kosnica_table", primaryKeys = {"rb_kosnice", "pcelinjak"},foreignKeys = @ForeignKey(entity = Pcelinjak.class,
+        parentColumns = "rb_pcelinjaka",
+        childColumns = "pcelinjak", onUpdate = CASCADE, onDelete = CASCADE))
 public class Kosnica implements Serializable {
+
+    @ColumnInfo(name = "rb_kosnice")
     int redniBrojKosnice;
+
+    @ColumnInfo(name = "pcelinjak")
+    int rednibrojPcelinjaka;
+
+    @ColumnInfo(name = "naziv_kosnice")
     String nazivKosnice;
-    Timestamp godinaProizvodnjeMatice;
+    @ColumnInfo(name = "godina_proizvodnje_matice")
+    String godinaProizvodnjeMatice;
+    @ColumnInfo(name = "selekciona")
     Boolean selekciona;
+    @ColumnInfo(name = "prirodna")
     Boolean prirodna;
+    @ColumnInfo(name = "bolesti")
     String bolesti;
+    @ColumnInfo(name = "napomena")
     String napomena;
-    Pcelinjak pcelinjak;
+
 
     public Kosnica() {
     }
 
-    public Kosnica(int redniBrojKosnice, String naziv, Timestamp godinaProizvodnjeMatice, Boolean selekciona, Boolean prirodna, String bolesti, String napomena, Pcelinjak pcelinjak) {
+    public Kosnica(int redniBrojKosnice, int rednibrojPcelinjaka, String naziv, String godinaProizvodnjeMatice, Boolean selekciona, Boolean prirodna, String bolesti, String napomena) {
         this.redniBrojKosnice = redniBrojKosnice;
+        this.rednibrojPcelinjaka = rednibrojPcelinjaka;
         this.nazivKosnice = naziv;
         this.godinaProizvodnjeMatice = godinaProizvodnjeMatice;
         this.selekciona = selekciona;
         this.prirodna = prirodna;
         this.bolesti = bolesti;
         this.napomena = napomena;
-        this.pcelinjak = pcelinjak;
     }
 
     public int getRedniBrojKosnice() {
@@ -43,11 +65,11 @@ public class Kosnica implements Serializable {
         this.nazivKosnice = nazivKosnice;
     }
 
-    public Timestamp getGodinaProizvodnjeMatice() {
+    public String getGodinaProizvodnjeMatice() {
         return godinaProizvodnjeMatice;
     }
 
-    public void setGodinaProizvodnjeMatice(Timestamp godinaProizvodnjeMatice) {
+    public void setGodinaProizvodnjeMatice(String godinaProizvodnjeMatice) {
         this.godinaProizvodnjeMatice = godinaProizvodnjeMatice;
     }
 
@@ -83,12 +105,12 @@ public class Kosnica implements Serializable {
         this.napomena = napomena;
     }
 
-    public Pcelinjak getPcelinjak() {
-        return pcelinjak;
+    public int getRednibrojPcelinjaka() {
+        return rednibrojPcelinjaka;
     }
 
-    public void setPcelinjak(Pcelinjak pcelinjak) {
-        this.pcelinjak = pcelinjak;
+    public void setRednibrojPcelinjaka(int rednibrojPcelinjaka) {
+        this.rednibrojPcelinjaka = rednibrojPcelinjaka;
     }
 
     @Override

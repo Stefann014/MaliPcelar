@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.activity.Dodaj_IzmeniKosnicuActivity">
+        <activity android:name=".activity.activity.KosnicaActivity">
             android:parentActivityName=".activity.activity.PcelinjaciActivity" />
         </activity>
         <activity

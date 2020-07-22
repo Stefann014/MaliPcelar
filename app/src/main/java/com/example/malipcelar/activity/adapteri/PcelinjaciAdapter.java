@@ -37,7 +37,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         public boolean areContentsTheSame(Pcelinjak oldItem, Pcelinjak newItem) {
             return oldItem.getNazivPcelinjaka().equals(newItem.getNazivPcelinjaka()) &&
                     oldItem.getLokacija().equals(newItem.getLokacija()) &&
-                    oldItem.getNadmorskaVisina().equals(newItem.getNadmorskaVisina()) && oldItem.getSlika().equals(newItem.getSlika());
+                    oldItem.getNadmorskaVisina().equals(newItem.getNadmorskaVisina());
         }
     };
 
@@ -55,7 +55,9 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.toString());
         holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
         holder.txtNadmorskaVisina.setText(trenuntiPcelinjak.getNadmorskaVisina() + "m");
-        holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
+        if (trenuntiPcelinjak.getSlika() != null && !trenuntiPcelinjak.getSlika().equals("")) {
+            holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
+        }
     }
 
     public Pcelinjak getPcelinjakAt(int position) {

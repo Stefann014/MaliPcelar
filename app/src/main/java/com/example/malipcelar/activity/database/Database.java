@@ -8,8 +8,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.malipcelar.activity.dao.KosnicaDAO;
 import com.example.malipcelar.activity.dao.OpsteNapomeneDAO;
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
+import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 
@@ -17,7 +19,7 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 // verzija se odnosi na bazu kada se menja , ona se uvek inkrementira
 
 
-@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class}, version = 1)
+@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class}, version = 1)
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
@@ -26,11 +28,13 @@ public abstract class Database extends RoomDatabase {
 
     public abstract PcelinjakDAO pcelinjakDAO();
 
+    public abstract KosnicaDAO kosnicaDAO();
+
     //singleton pattern
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database2")
+                    Database.class, "database3") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();
@@ -49,18 +53,23 @@ public abstract class Database extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private OpsteNapomeneDAO napomenaDAO;
         private PcelinjakDAO pcelinjakDAO;
+        private KosnicaDAO kosnicaDAO;
 
         private PopulateDbAsyncTask(Database db) {
             napomenaDAO = db.opsteNapomeneDAO();
             pcelinjakDAO = db.pcelinjakDAO();
+            kosnicaDAO = db.kosnicaDAO();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             dodajOpsteNapomene(napomenaDAO);
             dodajPcelinjake(pcelinjakDAO);
+            dodajKosnice(kosnicaDAO);
             return null;
         }
+
+
     }
 
     private static void dodajOpsteNapomene(OpsteNapomeneDAO napomenaDAO) {
@@ -75,7 +84,12 @@ public abstract class Database extends RoomDatabase {
         pcelinjakDAO.insert(new Pcelinjak(2, "Pcelinjak", "47.24,22.49", "300", null));
         pcelinjakDAO.insert(new Pcelinjak(3, "Pcelinjak", "45.23,22.46", "400", null));
         pcelinjakDAO.insert(new Pcelinjak(4, "Pcelinjak", "45.23,22.46", "500", null));
-
     }
 
+    private static void dodajKosnice(KosnicaDAO kosnicaDAO) {
+        kosnicaDAO.insert(new Kosnica(1,2,"Kosnica 1.","2010",true,true,"",""));
+        kosnicaDAO.insert(new Kosnica(2,2,"Kosnica 12.","2012",true,true,"",""));
+        kosnicaDAO.insert(new Kosnica(3,2,"Kosnica 122.","2013",true,true,"",""));
+        kosnicaDAO.insert(new Kosnica(3,1,"Kosnica 13.","2014",true,true,"",""));
+    }
 }
