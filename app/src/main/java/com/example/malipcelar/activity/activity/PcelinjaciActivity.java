@@ -3,7 +3,6 @@ package com.example.malipcelar.activity.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -65,8 +64,8 @@ public class PcelinjaciActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new PcelinjaciAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pcelinjak pcelinjak) {
-                Intent intent = new Intent(PcelinjaciActivity.this, KosniceActivity.class);
-                intent.putExtra(KosniceActivity.EXTRA_PCELINJAK, pcelinjak);
+                Intent intent = new Intent(PcelinjaciActivity.this, Dodaj_IzmeniKosnicuActivity.class);
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_PCELINJAK, pcelinjak);
                 startActivity(intent);
             }
         });

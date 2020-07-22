@@ -1,7 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -143,7 +142,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dodaj__izmeni_pcelinjak_activity);
+        setContentView(R.layout.dodaj_izmeni_pcelinjak_activity);
 
         srediAtribute();
         srediListenere();
