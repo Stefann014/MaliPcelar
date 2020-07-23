@@ -28,6 +28,10 @@ public class KosnicaRepository {
         return kosnicaDAO.getKosnicaByRB(rb_kosnice, pcelinjak);
     }
 
+    public LiveData<List<Integer>> getAllRBKosniceZaPcelinjak(int pcelinjak) {
+        return kosnicaDAO.getAllRBKosniceZaPcelinjak(pcelinjak);
+    }
+
     //asinh
 
     public void insert(Kosnica kosnica) {

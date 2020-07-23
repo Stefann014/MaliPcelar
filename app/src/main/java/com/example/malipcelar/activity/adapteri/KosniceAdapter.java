@@ -30,6 +30,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
         @Override
         public boolean areContentsTheSame(Kosnica oldItem, Kosnica newItem) {
+
             return oldItem.getNazivKosnice().equals(newItem.getNazivKosnice()) &&
                     oldItem.getGodinaProizvodnjeMatice().equals(newItem.getGodinaProizvodnjeMatice()) && oldItem.getSelekciona().booleanValue() == newItem.getSelekciona().booleanValue() &&
                     oldItem.getPrirodna().booleanValue() == newItem.getPrirodna().booleanValue() && oldItem.getBolesti().equals(newItem.getBolesti()) && oldItem.getNapomena().equals(newItem.getNapomena());

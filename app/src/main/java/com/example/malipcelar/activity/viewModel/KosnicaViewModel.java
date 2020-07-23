@@ -47,6 +47,10 @@ public class KosnicaViewModel extends AndroidViewModel {
         return kosnicaRepository.getKosnicaByRBKosnice(rb_kosnice,pcelinjak);
     }
 
+    public LiveData<List<Integer>> getAllRBKosniceZaPcelinjak(int pcelinjak){
+        return  kosnicaRepository.getAllRBKosniceZaPcelinjak(pcelinjak);
+    }
+
     public void updateRb(int stariRb, int noviRb) {
         kosnicaRepository.updateRb(stariRb,noviRb);
     }
