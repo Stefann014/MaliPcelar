@@ -51,7 +51,7 @@
 
     <TextView
         android:id="@+id/txtNz"
-        android:layout_width="114dp"
+        android:layout_width="115dp"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"

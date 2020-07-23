@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import static androidx.room.ForeignKey.CASCADE;
 
