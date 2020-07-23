@@ -185,8 +185,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 slika = bitmapToString(resizeBitmap(image));
             }
 
-            //Log.d(TAG, slika);
-
             if (naziv.isEmpty()) {
                 Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
                 return;
@@ -206,7 +204,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
             setResult(RESULT_OK, podaci);
             finish();
-
 
             return;
         }
@@ -253,7 +250,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         podaci.putExtra(EXTRA_LOKACIJA, lokacija);
         podaci.putExtra(EXTRA_NADMORSKA_VISINA, nadmorskaVisina);
         podaci.putExtra(EXTRA_SLIKA, slika);
-/*
+        /*
         int id = getIntent().getIntExtra(EXTRA_RB, -1);
         if (id != -1) {
             podaci.putExtra(EXTRA_RB, id);
