@@ -1,21 +1,27 @@
 package com.example.malipcelar.activity.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.malipcelar.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
@@ -45,6 +51,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
     TextView txtBolesti;
     TextView txtNapomena;
     List<Integer> zauzetiRbOvi;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +68,51 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         rbPrirodna = findViewById(R.id.rbPrirodna);
         txtBolesti = findViewById(R.id.txtBolesti);
         txtNapomena = findViewById(R.id.txtNapomena);
+        radioGroup = findViewById(R.id.radioGroup);
+        srediSpinner();
 
         zauzetiRbOvi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
+    }
+
+    private void srediSpinner() {
+        Long mili = System.currentTimeMillis();
+
+        Date date = new Date(mili);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        //Add one to month {0 - 11}
+
+        ArrayList<String> godine = new ArrayList<>();
+        godine.add(year - 5 + "");
+        godine.add(year - 4 + "");
+        godine.add(year - 3 + "");
+        godine.add(year - 2 + "");
+        godine.add(year - 1 + "");
+
+        godine.add(year + "");
+
+        godine.add(year + 1 + "");
+        godine.add(year + 2 + "");
+        godine.add(year + 3 + "");
+        godine.add(year + 4 + "");
+        godine.add(year + 5 + "");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, godine); // ako je greska tu je
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGodinaProizvodnje.setAdapter(adapter);
+        spGodinaProizvodnje.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
     }
 
     @Override
@@ -147,8 +197,26 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         }
 
         String godina = (String) spGodinaProizvodnje.getSelectedItem();
-        Boolean selekcionisana = rbSelekcionisana.isSelected();
-        Boolean prirodna = rbPrirodna.isSelected();
+
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(getApplicationContext(), "Morate selektovati vrstu matice", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+        Toast.makeText(getApplicationContext(), selectedRadioButton.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
+
+        Boolean prirodna = false;
+        Boolean selekcionisana = false;
+
+        if (selectedRadioButton.getText().toString().equals("Prirodna")) {
+            prirodna = true;
+        }
+        if (selectedRadioButton.getText().toString().equals("Selekcionisana")) {
+            selekcionisana = true;
+        }
 
         String bolesti = txtBolesti.getText().toString().trim();
         String napomena = txtNapomena.getText().toString().trim();
@@ -156,6 +224,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB_KOSNICE, redniBroj);
         podaci.putExtra(EXTRA_GODINA_PROIZVODNJE_MATICE, godina);
+
         podaci.putExtra(EXTRA_RB_SELEKCIONISANA, selekcionisana);
         podaci.putExtra(EXTRA_RB_PRIRODNA, prirodna);
         podaci.putExtra(EXTRA_BOLESTI, bolesti);

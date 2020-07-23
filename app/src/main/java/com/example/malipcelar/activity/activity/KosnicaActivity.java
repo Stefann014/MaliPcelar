@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,6 +52,7 @@ public class KosnicaActivity extends AppCompatActivity {
         srediAtribute();
         srediListenere();
         srediKomunikacijuSaViewModel();
+        srediBrisanje();
     }
 
 
@@ -153,6 +155,21 @@ public class KosnicaActivity extends AppCompatActivity {
         }*/
     }
 
+    private void srediBrisanje() {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                kosnicaViewModel.delete(adapter.getKosnicaAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(KosnicaActivity.this, "Kosniica je izbrisana", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
