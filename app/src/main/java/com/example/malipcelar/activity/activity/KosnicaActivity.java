@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.KosniceAdapter;
+import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
-import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -43,6 +43,7 @@ public class KosnicaActivity extends AppCompatActivity {
     final KosniceAdapter adapter = new KosniceAdapter();
     List<Kosnica> kosnice;
     List<Integer> zauzetiRBovi;
+    int stariRb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class KosnicaActivity extends AppCompatActivity {
         srediListenere();
         srediKomunikacijuSaViewModel();
         srediBrisanje();
+        srediIzmeniKosnicuNaKlik();
     }
 
 
@@ -63,6 +65,7 @@ public class KosnicaActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvKosnice);
         kosnice = null;
         zauzetiRBovi = null;
+        stariRb = -1;
         srediRecycleView();
     }
 
@@ -118,41 +121,45 @@ public class KosnicaActivity extends AppCompatActivity {
 
             int kosnicaRB = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             String godinaProizvodnjeMatice = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE);
-            Boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA,false);
-            Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA,false);
+            Boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
+            Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
             String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
             String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
 
-            Kosnica k = new Kosnica(kosnicaRB,pcelinjak.getRedniBrojPcelinjaka(),"",godinaProizvodnjeMatice,selekcionisana,prirodna,bolesti,napomena);
+            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), "", godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
             kosnicaViewModel.insert(k);
 
             Toast.makeText(this, "Kosnica je sacuvana", Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
-        }/* else if (requestCode == IZMENI_PCELINJAK && resultCode == RESULT_OK) {
+        } else if (requestCode == IZMENI_KOSNICU && resultCode == RESULT_OK) {
 
-            int id = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
+            int id = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             if (id == -1) {
-                Toast.makeText(this, "Pcelinjak ne moze biti izmenjen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Kosnica ne moze biti izmenjen", Toast.LENGTH_SHORT).show();
                 return;
             }
-            int pcelinjakRB = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
-            String nazivPcelinjaka = data.getStringExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_NAZIV_PCELINJAKA);
-            String lokacija = data.getStringExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_LOKACIJA);
-            String nadmorskaVisina = data.getStringExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_NADMORSKA_VISINA);
-            String slika = data.getStringExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_SLIKA);
-            Pcelinjak pcelinjak = new Pcelinjak(pcelinjakRB, nazivPcelinjaka, lokacija, nadmorskaVisina, slika);
 
-            pcelinjakViewModel.update(pcelinjak);
+            int kosnicaRB = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
+            String godinaProizvodnjeMatice = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE);
+            Boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
+            Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
+            String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
+            String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
+
+
+            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), "", godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
+
+            kosnicaViewModel.update(k);
             if (stariRb != -1) {
-                pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
+                kosnicaViewModel.updateRb(stariRb, kosnicaRB);
 
             }
             adapter.notifyDataSetChanged();
-            Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, k.toString(), Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "Pcelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
-        }*/
+            Toast.makeText(this, "Kosnica nije izmenjena", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void srediBrisanje() {
@@ -169,6 +176,28 @@ public class KosnicaActivity extends AppCompatActivity {
                 Toast.makeText(KosnicaActivity.this, "Kosniica je izbrisana", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+    private void srediIzmeniKosnicuNaKlik() {
+        adapter.setOnItemClickListener(new KosniceAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Kosnica kosnica) {
+
+                Intent intent = new Intent(KosnicaActivity.this, Dodaj_IzmeniKosnicuActivity.class);
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, kosnica.getRedniBrojKosnice());
+                stariRb = kosnica.getRedniBrojKosnice();
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE, kosnica.getGodinaProizvodnjeMatice());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, kosnica.getSelekciona());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, kosnica.getPrirodna());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI, kosnica.getBolesti());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA, kosnica.getNapomena());
+
+                ArrayList<Integer> zauzeti = (ArrayList<Integer>) zauzetiRBovi;
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_ZAUZETI_RB, zauzeti);
+
+                startActivityForResult(intent, IZMENI_KOSNICU);
+            }
+        });
     }
 
     @Override

@@ -59,6 +59,30 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         setContentView(R.layout.dodaj_izmeni_kosnicu_activity);
 
         srediAtribute();
+        srediIntent();
+    }
+
+    private void srediIntent() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_RB_KOSNICE)) {
+            setTitle("Izmeni kosnicu");
+            txtRedniBroj.setText(intent.getIntExtra(EXTRA_RB_KOSNICE, -1) + "");
+            txtBolesti.setText(intent.getStringExtra(EXTRA_BOLESTI));
+            txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
+
+            Boolean prirodna = intent.getBooleanExtra(EXTRA_RB_PRIRODNA, false);
+            String godina = intent.getStringExtra(EXTRA_GODINA_PROIZVODNJE_MATICE);
+
+            if (prirodna) {
+                radioGroup.check(R.id.rbPrirodna);
+            } else {
+                radioGroup.check(R.id.rbSelekcionisana);
+            }
+            spGodinaProizvodnje.setSelection(((ArrayAdapter<String>) spGodinaProizvodnje.getAdapter()).getPosition(godina));
+
+        } else {
+            setTitle("Dodaj pcelinjak");
+        }
     }
 
     private void srediAtribute() {
@@ -142,54 +166,47 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Molimo unesite brojnu vrednost", Toast.LENGTH_LONG).show();
             return;
         }
-        /*
-        if (redniBroj == (getIntent().getIntExtra(EXTRA_RB, -1))) {
+
+        if (redniBroj == (getIntent().getIntExtra(EXTRA_RB_KOSNICE, -1))) {
             //izmena
 
-            String naziv = txtNaziv.getText().toString().trim();
+            String godina = (String) spGodinaProizvodnje.getSelectedItem();
 
-            Double latituda = null;
-            Double longituda = null;
-
-            if (mMarker != null) {
-                latituda = mMarker.getPosition().latitude;
-                longituda = mMarker.getPosition().longitude;
-            }
-
-            String lokacija = latituda + "," + longituda;
-            int visina = (int) nVisina;
-            String nadmorskaVisina = visina + "";//-1000
-
-            Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
-            String slika;
-            if (image.getWidth() == 250 && image.getHeight() == 250) {
-                slika = bitmapToString(image);
-            } else {
-                slika = bitmapToString(resizeBitmap(image));
-            }
-
-            if (naziv.isEmpty()) {
-                Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
+            if (radioGroup.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(getApplicationContext(), "Morate selektovati vrstu matice", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            if (visina == -1000) {
-                Toast.makeText(this, "Niste postavili lokaciju", Toast.LENGTH_SHORT).show();
-                return;
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            // find the radiobutton by returned id
+            RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+            Toast.makeText(getApplicationContext(), selectedRadioButton.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
+
+            Boolean prirodna = false;
+            Boolean selekcionisana = false;
+
+            if (selectedRadioButton.getText().toString().equals("Prirodna")) {
+                prirodna = true;
             }
+            if (selectedRadioButton.getText().toString().equals("Selekcionisana")) {
+                selekcionisana = true;
+            }
+            String bolesti = txtBolesti.getText().toString().trim();
+            String napomena = txtNapomena.getText().toString().trim();
 
             Intent podaci = new Intent();
-            podaci.putExtra(EXTRA_RB, redniBroj);
-            podaci.putExtra(EXTRA_NAZIV_PCELINJAKA, naziv);
-            podaci.putExtra(EXTRA_LOKACIJA, lokacija);
-            podaci.putExtra(EXTRA_NADMORSKA_VISINA, nadmorskaVisina);
-            podaci.putExtra(EXTRA_SLIKA, slika);
+            podaci.putExtra(EXTRA_RB_KOSNICE, redniBroj);
+            podaci.putExtra(EXTRA_GODINA_PROIZVODNJE_MATICE, godina);
+            podaci.putExtra(EXTRA_RB_SELEKCIONISANA, selekcionisana);
+            podaci.putExtra(EXTRA_RB_PRIRODNA, prirodna);
+            podaci.putExtra(EXTRA_BOLESTI, bolesti);
+            podaci.putExtra(EXTRA_NAPOMENA, napomena);
 
             setResult(RESULT_OK, podaci);
             finish();
 
             return;
-        }*/
+        }
         //novi
         if (zauzetiRbOvi.contains(redniBroj)) {
             Toast.makeText(getApplicationContext(), "Pokusavate da unosite postojeci redni broj", Toast.LENGTH_LONG).show();

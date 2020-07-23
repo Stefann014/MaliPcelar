@@ -269,6 +269,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             if (slika != null) {
                 pcelinjakSlika.setImageBitmap(stringToBitmap(slika));
             }
+
         } else {
             setTitle("Dodaj pcelinjak");
         }
