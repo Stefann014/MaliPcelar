@@ -1,48 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/cardViewKosnica"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/CardView.Light"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="#E4E3E3">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:paddingBottom="12dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:elevation="12dp"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/circleImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/woman" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/txtGodina"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtRedniBrojKosnice"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="38dp"
-            android:text="1997"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:id="@+id/txtRBiNazivKosnice"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="134dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="1. Kosnica"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_marginStart="12dp"
+            android:text="Naziv i redni broj kosnice"
+            app:layout_constraintBottom_toTopOf="@+id/txtPcelinjak"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view" />
 
         <TextView
             android:id="@+id/txtPcelinjak"
-            android:layout_width="72dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtRBiNazivKosnice"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="208dp"
-            android:text="Pcelinjak" />
+            android:layout_marginStart="12dp"
+            android:text="Pcelinjak"
+            android:textColor="#8A000000"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/arrowBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:visibility="gone"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtPcelinjak"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/phoneIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/ic_phone_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <Button
+                android:id="@+id/phoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="(999) 345 32 45"
+                android:layout_marginStart="32dp"
+                android:textColor="#000"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toTopOf="@+id/phoneIcon"
+                app:layout_constraintStart_toEndOf="@id/phoneIcon"
+                app:layout_constraintBottom_toTopOf="@+id/phoneDesc"/>
+
+            <TextView
+                android:id="@+id/phoneDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Mobile"
+                android:layout_marginStart="32dp"
+                android:textColor="#8A000000"
+                style="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+                app:layout_constraintStart_toEndOf="@id/phoneIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"/>
+
+            <ImageView
+                android:id="@+id/mailIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/ic_mail_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>
+
+            <TextView
+                android:id="@+id/mailNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="workemail@gmail.com"
+                android:layout_marginStart="32dp"
+                android:textColor="#000"
+                style="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toTopOf="@+id/mailIcon"
+                app:layout_constraintStart_toEndOf="@id/mailIcon"
+                app:layout_constraintBottom_toTopOf="@+id/mailDesc"/>
+
+            <TextView
+                android:id="@+id/mailDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Work"
+                android:layout_marginStart="32dp"
+                android:textColor="#8A000000"
+                style="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintTop_toBottomOf="@+id/mailNumber"
+                app:layout_constraintStart_toEndOf="@id/mailIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/mailIcon"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.cardview.widget.CardView>

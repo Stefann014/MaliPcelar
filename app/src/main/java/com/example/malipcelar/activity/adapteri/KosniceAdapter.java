@@ -47,7 +47,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     public void onBindViewHolder(@NonNull KosniceAdapter.KosnicaHolder holder, int position) {
         Kosnica trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
-        holder.txtGodina.setText(trenutnaKosnica.getGodinaProizvodnjeMatice());
+        //holder.txtGodina.setText(trenutnaKosnica.getGodinaProizvodnjeMatice());
         holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka()+" pcelinjak");
     }
 
@@ -58,13 +58,13 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     class KosnicaHolder extends RecyclerView.ViewHolder {
         private TextView txtRBiNazivKosnice;
         private TextView txtPcelinjak;
-        private TextView txtGodina;
+        //private TextView txtGodina;
 
         public KosnicaHolder(View itemView) {
             super(itemView);
-            txtRBiNazivKosnice = itemView.findViewById(R.id.txtRBiNazivKosnice);
+            txtRBiNazivKosnice = itemView.findViewById(R.id.txtRedniBrojKosnice);
             txtPcelinjak = itemView.findViewById(R.id.txtPcelinjak);
-            txtGodina = itemView.findViewById(R.id.txtGodina);
+            //txtGodina = itemView.findViewById(R.id.txtGodina);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
