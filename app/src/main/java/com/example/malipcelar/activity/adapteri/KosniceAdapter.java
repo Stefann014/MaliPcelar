@@ -1,12 +1,17 @@
 package com.example.malipcelar.activity.adapteri;
 
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +22,7 @@ import com.example.malipcelar.activity.domen.Kosnica;
 public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> {
 
     private KosniceAdapter.OnItemClickListener listener;
+    private KosniceAdapter.OnDropdownClickListener listenerr;
 
     public KosniceAdapter() {
         super(DIFF_CALLBACK);
@@ -59,12 +65,34 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         private TextView txtRBiNazivKosnice;
         private TextView txtPcelinjak;
         //private TextView txtGodina;
+        ConstraintLayout expandableView;
+        Button arrowBtn;
+        CardView cardView;
 
         public KosnicaHolder(View itemView) {
             super(itemView);
             txtRBiNazivKosnice = itemView.findViewById(R.id.txtRedniBrojKosnice);
             txtPcelinjak = itemView.findViewById(R.id.txtPcelinjak);
             //txtGodina = itemView.findViewById(R.id.txtGodina);
+            arrowBtn = itemView.findViewById(R.id.arrowBtn);
+            expandableView = itemView.findViewById(R.id.expandableView);
+            cardView = itemView.findViewById(R.id.cardViewKosnica);
+
+
+            arrowBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (expandableView.getVisibility()==View.GONE){
+                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                        expandableView.setVisibility(View.VISIBLE);
+                        arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    } else {
+                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                        expandableView.setVisibility(View.GONE);
+                        arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    }
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,5 +112,13 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
     public void setOnItemClickListener(KosniceAdapter.OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public interface OnDropdownClickListener {
+        void onItemClickk(Kosnica kosnica);
+    }
+
+    public void setOnIzmeniClickListener(KosniceAdapter.OnDropdownClickListener listenerr) {
+        this.listenerr = listenerr;
     }
 }

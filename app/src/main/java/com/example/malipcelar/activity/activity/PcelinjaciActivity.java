@@ -64,8 +64,8 @@ public class PcelinjaciActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new PcelinjaciAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pcelinjak pcelinjak) {
-                Intent intent = new Intent(PcelinjaciActivity.this, KosnicaActivity.class);
-                intent.putExtra(KosnicaActivity.EXTRA_PCELINJAK, pcelinjak);
+                Intent intent = new Intent(PcelinjaciActivity.this, KosniceActivity.class);
+                intent.putExtra(KosniceActivity.EXTRA_PCELINJAK, pcelinjak);
                 startActivity(intent);
             }
         });

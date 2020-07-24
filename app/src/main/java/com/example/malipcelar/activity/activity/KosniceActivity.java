@@ -2,14 +2,20 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -27,7 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KosnicaActivity extends AppCompatActivity {
+public class KosniceActivity extends AppCompatActivity {
 
     private static final int DODAJ_NOVU_KOSNICU = 1;
     private static final int IZMENI_KOSNICU = 2;
@@ -44,6 +50,11 @@ public class KosnicaActivity extends AppCompatActivity {
     List<Kosnica> kosnice;
     List<Integer> zauzetiRBovi;
     int stariRb;
+    ConstraintLayout expandableView;
+    Button arrowBtn;
+    CardView cardView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +77,19 @@ public class KosnicaActivity extends AppCompatActivity {
         kosnice = null;
         zauzetiRBovi = null;
         stariRb = -1;
+        expandableView = findViewById(R.id.expandableView);
+        arrowBtn = findViewById(R.id.arrowBtn);
+        cardView = findViewById(R.id.cardViewKosnica);
+
         srediRecycleView();
+
     }
 
     private void srediListenere() {
         btnDodajKosnicu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KosnicaActivity.this, Dodaj_IzmeniKosnicuActivity.class);
+                Intent intent = new Intent(KosniceActivity.this, Dodaj_IzmeniKosnicuActivity.class);
 
                 ArrayList<Integer> zauzeti = (ArrayList<Integer>) zauzetiRBovi;
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_ZAUZETI_RB, zauzeti);
@@ -99,7 +115,7 @@ public class KosnicaActivity extends AppCompatActivity {
         kosnicaViewModel.getAllKosniceByRbPcelinjaka(pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Kosnica>>() {
             @Override
             public void onChanged(@Nullable List<Kosnica> kosnice) {
-                KosnicaActivity.this.kosnice = kosnice;
+                KosniceActivity.this.kosnice = kosnice;
                 adapter.submitList(kosnice);
             }
         });
@@ -173,7 +189,7 @@ public class KosnicaActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 kosnicaViewModel.delete(adapter.getKosnicaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(KosnicaActivity.this, "Kosniica je izbrisana", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KosniceActivity.this, "Kosniica je izbrisana", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
     }
@@ -183,7 +199,7 @@ public class KosnicaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Kosnica kosnica) {
 
-                Intent intent = new Intent(KosnicaActivity.this, Dodaj_IzmeniKosnicuActivity.class);
+                Intent intent = new Intent(KosniceActivity.this, Dodaj_IzmeniKosnicuActivity.class);
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, kosnica.getRedniBrojKosnice());
                 stariRb = kosnica.getRedniBrojKosnice();
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE, kosnica.getGodinaProizvodnjeMatice());
@@ -198,6 +214,27 @@ public class KosnicaActivity extends AppCompatActivity {
                 startActivityForResult(intent, IZMENI_KOSNICU);
             }
         });
+/*
+        adapter.setOnIzmeniClickListener(new KosniceAdapter.OnDropdownClickListener() {
+
+            @Override
+            public void onItemClickk(Kosnica kosnica) {
+                Log.d("TAG","ODJE SAM");
+
+                if (expandableView.getVisibility()==View.GONE){
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.VISIBLE);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                } else {
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                }
+
+            }
+        });
+*/
+
     }
 
     @Override

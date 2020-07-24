@@ -21,9 +21,9 @@
 
         <activity
             android:name=".activity.activity.Dodaj_IzmeniKosnicuActivity"
-            android:parentActivityName=".activity.activity.KosnicaActivity" />
+            android:parentActivityName=".activity.activity.KosniceActivity" />
         <activity
-            android:name=".activity.activity.KosnicaActivity"
+            android:name=".activity.activity.KosniceActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.activity.PcelinjaciActivity" />
         <activity
