@@ -22,7 +22,7 @@ public class PregledActivity extends AppCompatActivity {
         setContentView(R.layout.pregled_activity);
 
         srediAtribute();
-        Log.d("TAG",""+kosnica);
+        Log.d("TAG", "" + kosnica);
     }
 
     private void srediAtribute() {
