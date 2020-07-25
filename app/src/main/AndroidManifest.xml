@@ -20,6 +20,9 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".activity.activity.PregledActivity"
+            android:parentActivityName=".activity.activity.KosniceActivity" />
+        <activity
             android:name=".activity.activity.Dodaj_IzmeniKosnicuActivity"
             android:parentActivityName=".activity.activity.KosniceActivity" />
         <activity

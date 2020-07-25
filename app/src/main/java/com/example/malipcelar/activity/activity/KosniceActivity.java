@@ -2,8 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.KosniceAdapter;
-import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
@@ -55,7 +52,6 @@ public class KosniceActivity extends AppCompatActivity {
     CardView cardView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +73,8 @@ public class KosniceActivity extends AppCompatActivity {
         kosnice = null;
         zauzetiRBovi = null;
         stariRb = -1;
-        expandableView = findViewById(R.id.expandableView);
-        arrowBtn = findViewById(R.id.arrowBtn);
+        expandableView = findViewById(R.id.prosirivView);
+        arrowBtn = findViewById(R.id.btnStrelica);
         cardView = findViewById(R.id.cardViewKosnica);
 
         srediRecycleView();
@@ -214,26 +210,17 @@ public class KosniceActivity extends AppCompatActivity {
                 startActivityForResult(intent, IZMENI_KOSNICU);
             }
         });
-/*
+
         adapter.setOnIzmeniClickListener(new KosniceAdapter.OnDropdownClickListener() {
 
             @Override
             public void onItemClickk(Kosnica kosnica) {
-                Log.d("TAG","ODJE SAM");
-
-                if (expandableView.getVisibility()==View.GONE){
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.VISIBLE);
-                    arrowBtn.setBackgroundResource(R.drawable.ic_dropdown_strelica_gore);
-                } else {
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.GONE);
-                    arrowBtn.setBackgroundResource(R.drawable.ic_dropdown_strelica_dole);
-                }
-
+                Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
+                startActivity(intent);
             }
         });
-*/
+
 
     }
 

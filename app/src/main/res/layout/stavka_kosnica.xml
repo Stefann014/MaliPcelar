@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/circleImage"
+                android:id="@+id/slikaKosnica"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
 
         <Button
-            android:id="@+id/arrowBtn"
+            android:id="@+id/btnStrelica"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="12dp"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toTopOf="@+id/viewId" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/expandableView"
+            android:id="@+id/prosirivView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="12dp"
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:id="@+id/pregledIcon"
+                android:id="@+id/iconPregled"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
@@ -113,18 +113,18 @@
                 android:text="Datum pregleda"
                 android:textColor="#000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/pregledIcon"
+                app:layout_constraintStart_toEndOf="@id/iconPregled"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/lecenjeIcon"
+                android:id="@+id/iconLecenje"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="25dp"
                 android:src="@drawable/ic_lecenje"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pregledIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/iconPregled" />
 
             <Button
                 android:id="@+id/btnLecenje"
@@ -137,18 +137,18 @@
                 android:text="Datum lecenja"
                 android:textColor="#000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/lecenjeIcon"
+                app:layout_constraintStart_toEndOf="@+id/iconLecenje"
                 app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
 
             <ImageView
-                android:id="@+id/prihranaIcon"
+                android:id="@+id/iconPrihrana"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="28dp"
                 android:src="@drawable/ic_prihrana"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lecenjeIcon" />
+                app:layout_constraintTop_toBottomOf="@+id/iconLecenje" />
 
             <Button
                 android:id="@+id/btnPrihrana"
@@ -161,7 +161,7 @@
                 android:text="Datum prihrane"
                 android:textColor="#000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/prihranaIcon"
+                app:layout_constraintStart_toEndOf="@+id/iconPrihrana"
                 app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
