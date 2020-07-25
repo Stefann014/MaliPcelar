@@ -224,11 +224,11 @@ public class KosniceActivity extends AppCompatActivity {
                 if (expandableView.getVisibility()==View.GONE){
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.VISIBLE);
-                    arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_dropdown_strelica_gore);
                 } else {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.GONE);
-                    arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    arrowBtn.setBackgroundResource(R.drawable.ic_dropdown_strelica_dole);
                 }
 
             }
