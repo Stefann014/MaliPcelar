@@ -22,11 +22,11 @@ public interface PregledDAO {
 
     @Delete
     void delete(Pregled pregled);
-/*
+
     @Query("DELETE FROM pregled_table")
     void deleteAllPregledi();
 
 
-    @Query("SELECT * FROM pregled_table WHERE kosnica_id = :kosnicaID ORDER BY date(datum_pregleda) DESC")
-    LiveData<List<Pregled>> getAllPregledi(int kosnicaID);*/
+    @Query("SELECT * FROM pregled_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID ORDER BY date(datum_pregleda) DESC")
+    LiveData<List<Pregled>> getAllPreglediZaKosnicu(int kosnicaID, int pcelinjakID);
 }

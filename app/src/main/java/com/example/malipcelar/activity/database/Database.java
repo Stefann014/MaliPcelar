@@ -104,7 +104,6 @@ public abstract class Database extends RoomDatabase {
     }
 
     private static void dodajPreglede(PregledDAO pregledDAO) {
-        /*  pregledDAO.insert(new Pregled("2020-05-05", 1,1, true, false, true, true, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ""));
-         */
+        //pregledDAO.insert(new Pregled("2020-05-05", 1,1, true, false, true, true, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ""));
     }
 }

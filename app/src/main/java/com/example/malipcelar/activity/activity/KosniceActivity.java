@@ -215,6 +215,7 @@ public class KosniceActivity extends AppCompatActivity {
             @Override
             public void onPregledClick(Kosnica kosnica) {
                 Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                intent.putExtra(PregledActivity.EXTRA_PCELINJAK, pcelinjak);
                 intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
                 startActivity(intent);
             }
