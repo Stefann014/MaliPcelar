@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Pregled implements Serializable {
+
     Date datumPregleda;
     Kosnica kosnica;
     boolean matica;

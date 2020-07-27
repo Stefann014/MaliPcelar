@@ -98,7 +98,7 @@
         android:inputType="textPersonName"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupMatica" />
 
     <TextView
         android:id="@+id/txtNap"

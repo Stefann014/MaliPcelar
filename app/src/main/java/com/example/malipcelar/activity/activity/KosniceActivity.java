@@ -224,7 +224,7 @@ public class KosniceActivity extends AppCompatActivity {
 
             @Override
             public void onLecenjeClick(Kosnica kosnica) {
-                Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                Intent intent = new Intent(KosniceActivity.this, LecenjeActivity.class);
                 intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
                 startActivity(intent);
             }
@@ -234,7 +234,7 @@ public class KosniceActivity extends AppCompatActivity {
 
             @Override
             public void onPrihranaClick(Kosnica kosnica) {
-                Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                Intent intent = new Intent(KosniceActivity.this, PrihranaActivity.class);
                 intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
                 startActivity(intent);
             }

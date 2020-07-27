@@ -1,9 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity.Dodaj_IzmeniPregledActivity">
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/txtDatumPregleda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Datum pregleda: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnDatumPregleda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:text="Datum pregleda"
+            app:layout_constraintStart_toEndOf="@+id/txtDatumPregleda"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ulica popunjenih pcelom:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnDatumPregleda" />
+
+        <EditText
+            android:id="@+id/txtBrojUlicaPopunjenihPcelom"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/btnDatumPregleda" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Da li je primeceno:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupMatica"
+            android:layout_width="130dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <RadioButton
+                android:id="@+id/rbMatica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Matica" />
+
+            <RadioButton
+                android:id="@+id/rbMladoLeglo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mlado leglo" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Da li je primecen maticnjak:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupMatica" />
+
+        <CheckBox
+            android:id="@+id/cbMaticnjak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="22dp"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupMatica" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Primeceno rojenje:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <CheckBox
+            android:id="@+id/cbRojenje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/txtBrRam"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ramova sa leglom:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ramova \nsa vencom hrane u plodistu:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRam" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ramova sa polenom:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ramova sa leglom \npodignutih u mediste:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj oduzetih ramova \nsa leglom: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ramova sa medom za vadjenje:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj izvadjenih ramova sa medom:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ubacenih osnova: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Broj ubacenih praznih ramova:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="40dp"
+            android:text="Napomena:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <EditText
+            android:id="@+id/txtBrOduzetihRamovaSaLeglom"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaPolenom"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaLeglom"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="26dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/txtBrRam"
+            app:layout_constraintTop_toBottomOf="@+id/cbRojenje" />
+
+        <EditText
+            android:id="@+id/txtNapomene"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <EditText
+            android:id="@+id/txtBrUbacenihPraznihRamova"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrUbacenihOsnova" />
+
+        <EditText
+            android:id="@+id/txtBrUbacenihOsnova"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaMedom"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaMedomZaVadjenje" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaMedomZaVadjenje"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrOduzetihRamovaSaLeglom" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaLeglomPodignutihUMediste"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaPolenom" />
+
+        <EditText
+            android:id="@+id/txtBrRamovaSaVencomHraneUPlodistu"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRam" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
