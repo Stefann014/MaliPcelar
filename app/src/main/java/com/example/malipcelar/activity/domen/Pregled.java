@@ -16,7 +16,7 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Pregled implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int predmetID;
+    private int pregledID;
 
     @ColumnInfo(name = "datum_pregleda")
     String datumPregleda;
@@ -83,12 +83,12 @@ public class Pregled implements Serializable {
         this.napomena = napomena;
     }
 
-    public int getPredmetID() {
-        return predmetID;
+    public int getPregledID() {
+        return pregledID;
     }
 
-    public void setPredmetID(int predmetID) {
-        this.predmetID = predmetID;
+    public void setPregledID(int pregledID) {
+        this.pregledID = pregledID;
     }
 
     public String getDatumPregleda() {

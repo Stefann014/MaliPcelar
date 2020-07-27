@@ -1,16 +1,346 @@
 package com.example.malipcelar.activity.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.fragmenti.DatumPickerFragment;
 
-public class Dodaj_IzmeniPregledActivity extends AppCompatActivity {
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
+    public static final String EXTRA_ID =
+            "com.example.malipcelar.activity.activity.EXTRA_ID";
+    public static final String EXTRA_DATUM_PREGLEDA =
+            "com.example.malipcelar.activity.activity.EXTRA_DATUM_PREGLEDA";
+    public static final String EXTRA_MATICA =
+            "com.example.malipcelar.activity.activity.EXTRA_MATICA";
+    public static final String EXTRA_MLADO_LEGLO =
+            "com.example.malipcelar.activity.activity.EXTRA_MLADO_LEGLO";
+    public static final String EXTRA_MATICNJAK =
+            "com.example.malipcelar.activity.activity.EXTRA_MATICNJAK";
+    public static final String EXTRA_KONSTANTOVANO_ROJENJE =
+            "com.example.malipcelar.activity.activity.EXTRA_KONSTANTOVANO_ROJENJE";
+    public static final String EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM";
+    public static final String EXTRA_BROJ_RAMOVA_SA_LEGLOM =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_RAMOVA_SA_LEGLOM";
+    public static final String EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU";
+    public static final String EXTRA_BROJ_RAMOVA_SA_POLENOM =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_RAMOVA_SA_POLENOM";
+    public static final String EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE";
+    public static final String EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM";
+    public static final String EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE";
+    public static final String EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM";
+    public static final String EXTRA_BROJ_UBACENIH_OSNOVA =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_UBACENIH_OSNOVA";
+    public static final String EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA =
+            "com.example.malipcelar.activity.activity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA";
+    public static final String EXTRA_NAPOMENA =
+            "com.example.malipcelar.activity.activity.EXTRA_NAPOMENA";
+
+    Button btnDatumPregleda;
+    TextView txtBrUlicaPopunjenihPcelom;
+    RadioButton rbMatica;
+    RadioButton rbMladoLeglo;
+    CheckBox cbMaticnjak;
+    CheckBox cbKonstantovanoRojenje;
+    TextView txtBrRamovaSaLeglom;
+    TextView txtBrRamovaSaVencomHraneUPlodistu;
+    TextView txtBrRamovaSaPolenom;
+    TextView txtBrRamovaSaLeglomPodignutihUMediste;
+    TextView txtBrOduzetihRamovaSaLeglom;
+    TextView txtBrRamovaSaMedomZaVadjenje;
+    TextView txtBrIzvadjenihRamovaSaMedom;
+    TextView txtBrUbacenihOsnova;
+    TextView txtBrUbacenihPraznihRamova;
+    TextView txtNapomena;
+    RadioGroup radioGroupMatica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dodaj_izmeni_pregled_activity);
+
+        srediAtribute();
+        srediListenere();
+        srediIntent();
+    }
+
+    private void srediAtribute() {
+        btnDatumPregleda = findViewById(R.id.btnDatumPregleda);
+        txtBrUlicaPopunjenihPcelom = findViewById(R.id.txtBrojUlicaPopunjenihPcelom);
+        rbMatica = findViewById(R.id.rbMatica);
+        rbMladoLeglo = findViewById(R.id.rbMladoLeglo);
+        cbMaticnjak = findViewById(R.id.cbMaticnjak);
+        cbKonstantovanoRojenje = findViewById(R.id.cbRojenje);
+        txtBrRamovaSaLeglom = findViewById(R.id.txtBrRamovaSaLeglom);
+        txtBrRamovaSaVencomHraneUPlodistu = findViewById(R.id.txtBrRamovaSaVencomHraneUPlodistu);
+        txtBrRamovaSaPolenom = findViewById(R.id.txtBrRamovaSaPolenom);
+        txtBrRamovaSaLeglomPodignutihUMediste = findViewById(R.id.txtBrRamovaSaLeglomPodignutihUMediste);
+        txtBrOduzetihRamovaSaLeglom = findViewById(R.id.txtBrOduzetihRamovaSaLeglom);
+        txtBrRamovaSaMedomZaVadjenje = findViewById(R.id.txtBrRamovaSaMedomZaVadjenje);
+        txtBrIzvadjenihRamovaSaMedom = findViewById(R.id.txtBrRamovaSaMedom);
+        txtBrUbacenihOsnova = findViewById(R.id.txtBrUbacenihOsnova);
+        txtBrUbacenihPraznihRamova = findViewById(R.id.txtBrUbacenihPraznihRamova);
+        txtNapomena = findViewById(R.id.txtNapomene);
+        radioGroupMatica = findViewById(R.id.radioGroupMatica);
+        srediDatum();
+    }
+
+    private void srediDatum() {
+        Date c = Calendar.getInstance().getTime();
+        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        btnDatumPregleda.setText(currentDateString);
+    }
+
+    private void sacuvajPregled() {
+
+        String datum = prevediDatumUFormatZaBazu(btnDatumPregleda.getText().toString().trim());
+        String txtBrUlicaPopunjenihPcelom = this.txtBrUlicaPopunjenihPcelom.getText().toString().trim();
+        String txtBrRamovaSaLeglom = this.txtBrRamovaSaLeglom.getText().toString().trim();
+        String txtBrRamovaSaVencomHraneUPlodistu = this.txtBrRamovaSaVencomHraneUPlodistu.getText().toString().trim();
+        String txtBrRamovaSaPolenom = this.txtBrRamovaSaPolenom.getText().toString().trim();
+        String txtBrRamovaSaLeglomPodignutihUMediste = this.txtBrRamovaSaLeglomPodignutihUMediste.getText().toString().trim();
+        String txtBrOduzetihRamovaSaLeglom = this.txtBrOduzetihRamovaSaLeglom.getText().toString().trim();
+        String txtBrRamovaSaMedomZaVadjenje = this.txtBrRamovaSaMedomZaVadjenje.getText().toString().trim();
+        String txtBrIzvadjenihRamovaSaMedom = this.txtBrIzvadjenihRamovaSaMedom.getText().toString().trim();
+        String txtBrUbacenihOsnova = this.txtBrUbacenihOsnova.getText().toString().trim();
+        String txtBrUbacenihPraznihRamova = this.txtBrUbacenihPraznihRamova.getText().toString().trim();
+        String txtNapomena = this.txtNapomena.getText().toString().trim();
+
+        int brUlicaPopunjenihPcelom = -1;
+        int brRamovaSaLeglom = -1;
+        int brRamovaSaVencomHraneUPlodistu = -1;
+        int brRamovaSaPolenom = -1;
+        int brRamovaSaLeglomPodignutihUMediste = -1;
+        int brOduzetihRamovaSaLeglom = -1;
+        int brRamovaSaMedomZaVadjenje = -1;
+        int brIzvadjenihRamovaSaMedom = -1;
+        int brUbacenihOsnova = -1;
+        int brUbacenihPraznihRamova = -1;
+
+        if (!txtBrUlicaPopunjenihPcelom.isEmpty()) {
+            try {
+                brUlicaPopunjenihPcelom = Integer.parseInt(txtBrUlicaPopunjenihPcelom);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrRamovaSaLeglom.isEmpty()) {
+            try {
+                brRamovaSaLeglom = Integer.parseInt(txtBrRamovaSaLeglom);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrRamovaSaVencomHraneUPlodistu.isEmpty()) {
+            try {
+                brRamovaSaVencomHraneUPlodistu = Integer.parseInt(txtBrRamovaSaVencomHraneUPlodistu);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrRamovaSaPolenom.isEmpty()) {
+            try {
+                brRamovaSaPolenom = Integer.parseInt(txtBrRamovaSaPolenom);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrRamovaSaLeglomPodignutihUMediste.isEmpty()) {
+            try {
+                brRamovaSaLeglomPodignutihUMediste = Integer.parseInt(txtBrRamovaSaLeglomPodignutihUMediste);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrOduzetihRamovaSaLeglom.isEmpty()) {
+            try {
+                brOduzetihRamovaSaLeglom = Integer.parseInt(txtBrOduzetihRamovaSaLeglom);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrRamovaSaMedomZaVadjenje.isEmpty()) {
+            try {
+                brRamovaSaMedomZaVadjenje = Integer.parseInt(txtBrRamovaSaMedomZaVadjenje);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrIzvadjenihRamovaSaMedom.isEmpty()) {
+            try {
+                brIzvadjenihRamovaSaMedom = Integer.parseInt(txtBrIzvadjenihRamovaSaMedom);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrUbacenihOsnova.isEmpty()) {
+            try {
+                brUbacenihOsnova = Integer.parseInt(txtBrUbacenihOsnova);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        if (!txtBrUbacenihPraznihRamova.isEmpty()) {
+            try {
+                brUbacenihPraznihRamova = Integer.parseInt(txtBrUbacenihPraznihRamova);
+            } catch (Exception e) {
+                Toast.makeText(this, "Unesite broj", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+
+        int selectedId = radioGroupMatica.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+
+        boolean matica = false;
+        boolean mladoLeglo = false;
+        if (selectedRadioButton != null) {
+            if (selectedRadioButton.getText().toString().equals("Matica")) {
+                matica = true;
+            }
+            if (selectedRadioButton.getText().toString().equals("Mlado leglo")) {
+                mladoLeglo = true;
+            }
+        }
+        boolean maticnjak = false;
+        boolean konstantovanoRojenje = false;
+
+        if (cbMaticnjak.isChecked()) {
+            maticnjak = true;
+        }
+
+        if (cbKonstantovanoRojenje.isChecked()) {
+            konstantovanoRojenje = true;
+        }
+
+        Intent podaci = new Intent();
+        podaci.putExtra(EXTRA_DATUM_PREGLEDA, datum);
+        podaci.putExtra(EXTRA_MATICA, false);
+        podaci.putExtra(EXTRA_MLADO_LEGLO, false);
+        podaci.putExtra(EXTRA_MATICNJAK, false);
+        podaci.putExtra(EXTRA_KONSTANTOVANO_ROJENJE, false);
+        podaci.putExtra(EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, -1);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM, -1);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, -1);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_POLENOM, -1);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, -1);
+        podaci.putExtra(EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, -1);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, -1);
+        podaci.putExtra(EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, -1);
+        podaci.putExtra(EXTRA_BROJ_UBACENIH_OSNOVA, -1);
+        podaci.putExtra(EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
+        podaci.putExtra(EXTRA_NAPOMENA, txtNapomena);
+
+
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if (id != -1) {
+            podaci.putExtra(EXTRA_ID, id);
+        }
+        setResult(RESULT_OK, podaci);
+        finish();
+    }
+
+
+    private void srediListenere() {
+        btnDatumPregleda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatumPickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+    }
+
+    private void srediIntent() {
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Izmeni Napomenu");
+            /*txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
+            String datum = intent.getStringExtra(EXTRA_DATUM);
+            // treba nam sad u formatu 20.05.1997
+            String[] datumi = datum.split("-");
+            String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
+            btnDatumPregleda.setText(dobarDatum);
+        */
+        } else {
+            setTitle("Dodaj napomenu");
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        btnDatumPregleda.setText(currentDateString);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sacuvaj_napomenu:
+                sacuvajPregled();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @NonNull
+    private String prevediDatumUFormatZaBazu(String datum) {
+        //treba nam format yyyy-MM-dd
+        datum = datum.substring(0, datum.length() - 1);
+        datum = datum.replace('.', '-');
+        String[] datumi = datum.split("-");
+        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
+        return dobarDatum;
     }
 }

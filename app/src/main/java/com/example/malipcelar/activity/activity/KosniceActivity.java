@@ -47,8 +47,8 @@ public class KosniceActivity extends AppCompatActivity {
     List<Integer> zauzetiRBovi;
     int stariRb;
     ConstraintLayout expandableView;
-    Button arrowBtn;
-    CardView cardView;
+    Button btnStrelica;
+    CardView cvKosnica;
 
 
     @Override
@@ -73,8 +73,8 @@ public class KosniceActivity extends AppCompatActivity {
         zauzetiRBovi = null;
         stariRb = -1;
         expandableView = findViewById(R.id.prosirivView);
-        arrowBtn = findViewById(R.id.btnStrelica);
-        cardView = findViewById(R.id.cardViewKosnica);
+        btnStrelica = findViewById(R.id.btnStrelica);
+        cvKosnica = findViewById(R.id.cardViewKosnica);
 
         srediRecycleView();
 

@@ -38,7 +38,7 @@ public abstract class Database extends RoomDatabase {
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database4") // menjaj naziv kad izmenis nesto
+                    Database.class, "database1") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();
@@ -99,8 +99,8 @@ public abstract class Database extends RoomDatabase {
        /* kosnicaDAO.insert(new Kosnica(1, 2, "Kosnica 1.", "2010", true, true, "", ""));
         kosnicaDAO.insert(new Kosnica(2, 2, "Kosnica 12.", "2012", true, true, "", ""));
         kosnicaDAO.insert(new Kosnica(3, 2, "Kosnica 122.", "2013", true, true, "", ""));
-    */
         kosnicaDAO.insert(new Kosnica(3, 1, "Kosnica 13.", "2014", true, true, "", ""));
+    */
     }
 
     private static void dodajPreglede(PregledDAO pregledDAO) {
