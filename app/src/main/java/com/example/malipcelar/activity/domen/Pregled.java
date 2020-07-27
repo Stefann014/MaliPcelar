@@ -1,36 +1,71 @@
 package com.example.malipcelar.activity.domen;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "pregled_table", foreignKeys = { // resevaj slozen spoljni
+        @ForeignKey(entity = Kosnica.class, parentColumns = {"rb_kosnice", "pcelinjak"},
+                childColumns = {"kosnica_id", "pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Pregled implements Serializable {
 
-    Date datumPregleda;
-    Kosnica kosnica;
+    @PrimaryKey(autoGenerate = true)
+    private int predmetID;
+
+    @ColumnInfo(name = "datum_pregleda")
+    String datumPregleda;
+
+    @ColumnInfo(name = "kosnica_id")
+    int kosnicaID;
+
+    @ColumnInfo(name = "pcelinjak_id")
+    int pcelinjakID;
+
+    @ColumnInfo(name = "matica")
     boolean matica;
+    @ColumnInfo(name = "mlado_leglo")
     boolean mladoLeglo;
+    @ColumnInfo(name = "maticnjak")
     boolean maticnjak;
+    @ColumnInfo(name = "konstantovano_rojenje")
     boolean konstantovanoRojenje;
+    @ColumnInfo(name = "broj_ulica_popunjenih_pcelom")
     int brojUlicaPopunjenihPcelom;
+    @ColumnInfo(name = "broj_ramova_sa_leglom")
     int brojRamovaSaLeglom;
+    @ColumnInfo(name = "broj_ramova_sa_vencom_hrane_u_plodistu")
     int brojRamovaSaVencomHraneUPlodistu;
+    @ColumnInfo(name = "broj_ramova_sa_polenom")
     int brojRamovaSaPolenom;
+    @ColumnInfo(name = "broj_ramova_sa_leglom_podignutih_u_mediste")
     int brojRamovaSaLeglomPodignutihUMediste;
+    @ColumnInfo(name = "broj_oduzetih_ramova_sa_leglom")
     int brojOduzetihRamovaSaLeglom;
+    @ColumnInfo(name = "broj_ramova_sa_medom_za_vadjenje")
     int brojRamovaSaMedomZaVadjenje;
+    @ColumnInfo(name = "broj_izvadjenih_ramova_sa_medom")
     int brojIzvadjenihRamovaSaMedom;
+    @ColumnInfo(name = "broj_ubacenih_osnova")
     int brojUbacenihOsnova;
+    @ColumnInfo(name = "broj_ubacenih_praznih_ramova")
     int brojUbacenihPraznihRamova;
+    @ColumnInfo(name = "napomena")
     String napomena;
+
 
     public Pregled() {
     }
 
-    public Pregled(Date datumPregleda, Kosnica kosnica, boolean matica, boolean mladoLeglo, boolean maticnjak, boolean konstantovanoRojenje, int brojUlicaPopunjenihPcelom, int brojRamovaSaLeglom, int brojRamovaSaVencomHraneUPlodistu, int brojRamovaSaPolenom, int brojRamovaSaLeglomPodignutihUMediste, int brojOduzetihRamovaSaLeglom, int brojRamovaSaMedomZaVadjenje, int brojIzvadjenihRamovaSaMedom, int brojUbacenihOsnova, int brojUbacenihPraznihRamova, String napomena) {
+    public Pregled(String datumPregleda, int kosnicaID, int pcelinjakID, boolean matica, boolean mladoLeglo, boolean maticnjak, boolean konstantovanoRojenje, int brojUlicaPopunjenihPcelom, int brojRamovaSaLeglom, int brojRamovaSaVencomHraneUPlodistu, int brojRamovaSaPolenom, int brojRamovaSaLeglomPodignutihUMediste, int brojOduzetihRamovaSaLeglom, int brojRamovaSaMedomZaVadjenje, int brojIzvadjenihRamovaSaMedom, int brojUbacenihOsnova, int brojUbacenihPraznihRamova, String napomena) {
         this.datumPregleda = datumPregleda;
-        this.kosnica = kosnica;
+        this.kosnicaID = kosnicaID;
+        this.pcelinjakID = pcelinjakID;
         this.matica = matica;
         this.mladoLeglo = mladoLeglo;
         this.maticnjak = maticnjak;
@@ -48,20 +83,36 @@ public class Pregled implements Serializable {
         this.napomena = napomena;
     }
 
-    public Date getDatumPregleda() {
+    public int getPredmetID() {
+        return predmetID;
+    }
+
+    public void setPredmetID(int predmetID) {
+        this.predmetID = predmetID;
+    }
+
+    public String getDatumPregleda() {
         return datumPregleda;
     }
 
-    public void setDatumPregleda(Date datumPregleda) {
+    public void setDatumPregleda(String datumPregleda) {
         this.datumPregleda = datumPregleda;
     }
 
-    public Kosnica getKosnica() {
-        return kosnica;
+    public int getKosnicaID() {
+        return kosnicaID;
     }
 
-    public void setKosnica(Kosnica kosnica) {
-        this.kosnica = kosnica;
+    public void setKosnicaID(int kosnicaID) {
+        this.kosnicaID = kosnicaID;
+    }
+
+    public int getPcelinjakID() {
+        return pcelinjakID;
+    }
+
+    public void setPcelinjakID(int pcelinjakID) {
+        this.pcelinjakID = pcelinjakID;
     }
 
     public boolean isMatica() {
@@ -187,7 +238,7 @@ public class Pregled implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return datumPregleda+"";
+        return datumPregleda + "";
     }
 }
 

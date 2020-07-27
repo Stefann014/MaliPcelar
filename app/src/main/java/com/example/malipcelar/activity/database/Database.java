@@ -11,15 +11,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.malipcelar.activity.dao.KosnicaDAO;
 import com.example.malipcelar.activity.dao.OpsteNapomeneDAO;
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
+import com.example.malipcelar.activity.dao.PregledDAO;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.domen.Pregled;
 
 // moze se dodati vises entiteta u bazu!
 // verzija se odnosi na bazu kada se menja , ona se uvek inkrementira
 
 
-@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class}, version = 1)
+@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class, Pregled.class}, version = 1)
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
@@ -30,11 +32,13 @@ public abstract class Database extends RoomDatabase {
 
     public abstract KosnicaDAO kosnicaDAO();
 
+    public abstract PregledDAO pregledDAO();
+
     //singleton pattern
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database3") // menjaj naziv kad izmenis nesto
+                    Database.class, "database4") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();
@@ -54,11 +58,13 @@ public abstract class Database extends RoomDatabase {
         private OpsteNapomeneDAO napomenaDAO;
         private PcelinjakDAO pcelinjakDAO;
         private KosnicaDAO kosnicaDAO;
+        private PregledDAO pregledDAO;
 
         private PopulateDbAsyncTask(Database db) {
             napomenaDAO = db.opsteNapomeneDAO();
             pcelinjakDAO = db.pcelinjakDAO();
             kosnicaDAO = db.kosnicaDAO();
+            pregledDAO = db.pregledDAO();
         }
 
         @Override
@@ -66,6 +72,7 @@ public abstract class Database extends RoomDatabase {
             dodajOpsteNapomene(napomenaDAO);
             dodajPcelinjake(pcelinjakDAO);
             dodajKosnice(kosnicaDAO);
+            dodajPreglede(pregledDAO);
             return null;
         }
 
@@ -73,23 +80,31 @@ public abstract class Database extends RoomDatabase {
     }
 
     private static void dodajOpsteNapomene(OpsteNapomeneDAO napomenaDAO) {
-        napomenaDAO.insert(new OpstaNapomena("Opšte", "Napomena 1", "2026-02-02"));
+        /*napomenaDAO.insert(new OpstaNapomena("Opšte", "Napomena 1", "2026-02-02"));
         napomenaDAO.insert(new OpstaNapomena("Hitno", "Napomena 2", "2019-02-02"));
         napomenaDAO.insert(new OpstaNapomena("Opšte", "Napomena 3", "2026-07-02"));
         napomenaDAO.insert(new OpstaNapomena("Hitno", "Napomena 4", "2021-02-01"));
+   */
     }
 
     private static void dodajPcelinjake(PcelinjakDAO pcelinjakDAO) {
-        pcelinjakDAO.insert(new Pcelinjak(1, "Pcelinjak", "45.23,22.46", "155", ""));
+     /*   pcelinjakDAO.insert(new Pcelinjak(1, "Pcelinjak", "45.23,22.46", "155", ""));
         pcelinjakDAO.insert(new Pcelinjak(2, "Pcelinjak", "47.24,22.49", "300", null));
         pcelinjakDAO.insert(new Pcelinjak(3, "Pcelinjak", "45.23,22.46", "400", null));
         pcelinjakDAO.insert(new Pcelinjak(4, "Pcelinjak", "45.23,22.46", "500", null));
+   */
     }
 
     private static void dodajKosnice(KosnicaDAO kosnicaDAO) {
-        kosnicaDAO.insert(new Kosnica(1,2,"Kosnica 1.","2010",true,true,"",""));
-        kosnicaDAO.insert(new Kosnica(2,2,"Kosnica 12.","2012",true,true,"",""));
-        kosnicaDAO.insert(new Kosnica(3,2,"Kosnica 122.","2013",true,true,"",""));
-        kosnicaDAO.insert(new Kosnica(3,1,"Kosnica 13.","2014",true,true,"",""));
+       /* kosnicaDAO.insert(new Kosnica(1, 2, "Kosnica 1.", "2010", true, true, "", ""));
+        kosnicaDAO.insert(new Kosnica(2, 2, "Kosnica 12.", "2012", true, true, "", ""));
+        kosnicaDAO.insert(new Kosnica(3, 2, "Kosnica 122.", "2013", true, true, "", ""));
+    */
+        kosnicaDAO.insert(new Kosnica(3, 1, "Kosnica 13.", "2014", true, true, "", ""));
+    }
+
+    private static void dodajPreglede(PregledDAO pregledDAO) {
+        /*  pregledDAO.insert(new Pregled("2020-05-05", 1,1, true, false, true, true, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ""));
+         */
     }
 }

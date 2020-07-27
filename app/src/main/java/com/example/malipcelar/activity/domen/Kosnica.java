@@ -9,7 +9,7 @@ import java.io.Serializable;
 import static androidx.room.ForeignKey.CASCADE;
 
 
-@Entity(tableName = "kosnica_table", primaryKeys = {"rb_kosnice", "pcelinjak"},foreignKeys = @ForeignKey(entity = Pcelinjak.class,
+@Entity(tableName = "kosnica_table", primaryKeys = {"rb_kosnice", "pcelinjak"}, foreignKeys = @ForeignKey(entity = Pcelinjak.class,
         parentColumns = "rb_pcelinjaka",
         childColumns = "pcelinjak", onUpdate = CASCADE, onDelete = CASCADE))
 public class Kosnica implements Serializable {
