@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity;
+package com.example.malipcelar.activity.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

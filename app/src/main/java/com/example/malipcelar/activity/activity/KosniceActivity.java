@@ -2,7 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -211,16 +210,35 @@ public class KosniceActivity extends AppCompatActivity {
             }
         });
 
-        adapter.setOnIzmeniClickListener(new KosniceAdapter.OnDropdownClickListener() {
+        adapter.onPregledClickListener(new KosniceAdapter.OnPregledClickListener() {
 
             @Override
-            public void onItemClickk(Kosnica kosnica) {
+            public void onPregledClick(Kosnica kosnica) {
                 Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
                 intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
                 startActivity(intent);
             }
         });
 
+        adapter.onLecenjeClickListener(new KosniceAdapter.OnLecenjeClickListener() {
+
+            @Override
+            public void onLecenjeClick(Kosnica kosnica) {
+                Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
+                startActivity(intent);
+            }
+        });
+
+        adapter.onPrihranaClickListener(new KosniceAdapter.OnPrihranaClickListener() {
+
+            @Override
+            public void onPrihranaClick(Kosnica kosnica) {
+                Intent intent = new Intent(KosniceActivity.this, PregledActivity.class);
+                intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -22,7 +22,9 @@ import com.example.malipcelar.activity.domen.Kosnica;
 public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> {
 
     private KosniceAdapter.OnItemClickListener listener;
-    private KosniceAdapter.OnDropdownClickListener listenerr;
+    private OnPregledClickListener listener1;
+    private OnLecenjeClickListener listener2;
+    private OnPrihranaClickListener listener3;
 
     public KosniceAdapter() {
         super(DIFF_CALLBACK);
@@ -53,7 +55,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     public void onBindViewHolder(@NonNull KosniceAdapter.KosnicaHolder holder, int position) {
         Kosnica trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
-        holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka()+" pcelinjak");
+        holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + " pcelinjak");
     }
 
     public Kosnica getKosnicaAt(int position) {
@@ -63,12 +65,13 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     class KosnicaHolder extends RecyclerView.ViewHolder {
         private TextView txtRBiNazivKosnice;
         private TextView txtPcelinjak;
+
         private Button btnPregled;
         private Button btnLecenje;
-        private Button btnPrihrane;
+        private Button btnPrihrana;
+        private Button btnStrelica;
 
         private ConstraintLayout expandableView;
-        private Button btnStrelica;
         private CardView cardView;
 
         public KosnicaHolder(View itemView) {
@@ -76,18 +79,18 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
             txtRBiNazivKosnice = itemView.findViewById(R.id.txtRedniBrojKosnice);
             txtPcelinjak = itemView.findViewById(R.id.txtPcelinjak);
 
-            btnStrelica = itemView.findViewById(R.id.btnStrelica);
             expandableView = itemView.findViewById(R.id.prosirivView);
             cardView = itemView.findViewById(R.id.cardViewKosnica);
 
+            btnStrelica = itemView.findViewById(R.id.btnStrelica);
             btnPregled = itemView.findViewById(R.id.btnPregled);
             btnLecenje = itemView.findViewById(R.id.btnLecenje);
-            btnPrihrane = itemView.findViewById(R.id.btnPrihrana);
+            btnPrihrana = itemView.findViewById(R.id.btnPrihrana);
 
             btnStrelica.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (expandableView.getVisibility()==View.GONE){
+                    if (expandableView.getVisibility() == View.GONE) {
                         TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                         expandableView.setVisibility(View.VISIBLE);
                         btnStrelica.setBackgroundResource(R.drawable.ic_dropdown_strelica_gore);
@@ -103,8 +106,28 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listenerr != null && position != RecyclerView.NO_POSITION) {
-                        listenerr.onItemClickk(getItem(position));
+                    if (listener1 != null && position != RecyclerView.NO_POSITION) {
+                        listener1.onPregledClick(getItem(position));
+                    }
+                }
+            });
+
+            btnLecenje.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener2 != null && position != RecyclerView.NO_POSITION) {
+                        listener2.onLecenjeClick(getItem(position));
+                    }
+                }
+            });
+
+            btnPrihrana.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener3 != null && position != RecyclerView.NO_POSITION) {
+                        listener3.onPrihranaClick(getItem(position));
                     }
                 }
             });
@@ -130,11 +153,28 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         this.listener = listener;
     }
 
-    public interface OnDropdownClickListener {
-        void onItemClickk(Kosnica kosnica);
+    public interface OnPregledClickListener {
+        void onPregledClick(Kosnica kosnica);
     }
 
-    public void setOnIzmeniClickListener(KosniceAdapter.OnDropdownClickListener listenerr) {
-        this.listenerr = listenerr;
+    public interface OnLecenjeClickListener {
+        void onLecenjeClick(Kosnica kosnica);
+    }
+
+
+    public interface OnPrihranaClickListener {
+        void onPrihranaClick(Kosnica kosnica);
+    }
+
+    public void onPregledClickListener(OnPregledClickListener listener1) {
+        this.listener1 = listener1;
+    }
+
+    public void onLecenjeClickListener(OnLecenjeClickListener listener2) {
+        this.listener2 = listener2;
+    }
+
+    public void onPrihranaClickListener(OnPrihranaClickListener listener3) {
+        this.listener3 = listener3;
     }
 }
