@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity.repozitorijum;
+package com.example.malipcelar.activity.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -9,7 +9,6 @@ import com.example.malipcelar.activity.dao.PcelinjakDAO;
 import com.example.malipcelar.activity.database.Database;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PcelinjakRepository {

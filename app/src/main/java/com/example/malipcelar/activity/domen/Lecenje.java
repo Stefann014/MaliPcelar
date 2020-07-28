@@ -1,49 +1,81 @@
 package com.example.malipcelar.activity.domen;
 
-import java.io.Serializable;
-import java.util.Date;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "lecenje_table", foreignKeys = {
+        @ForeignKey(entity = Kosnica.class, parentColumns = {"rb_kosnice", "pcelinjak"},
+                childColumns = {"kosnica_id", "pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Lecenje implements Serializable {
-    Date datumLecenja;
-    Kosnica kosnica;
-    String lecenjeOd;
+    @PrimaryKey(autoGenerate = true)
+    int lecenjeID;
+    @ColumnInfo(name = "kosnica_id")
+    int kosnicaID;
+    @ColumnInfo(name = "pcelinjak_id")
+    int pcelinjakID;
+    @ColumnInfo(name = "datum_lecenja")
+    String datumLecenja;
+    @ColumnInfo(name = "bolest")
+    String bolest;
 
     public Lecenje() {
     }
 
-    public Lecenje(Date datumLecenja, Kosnica kosnica, String lecenjeOd) {
+    public Lecenje(int kosnicaID, int pcelinjakID, String datumLecenja, String bolest) {
+        this.kosnicaID = kosnicaID;
+        this.pcelinjakID = pcelinjakID;
         this.datumLecenja = datumLecenja;
-        this.kosnica = kosnica;
-        this.lecenjeOd = lecenjeOd;
+        this.bolest = bolest;
     }
 
-    public Date getDatumLecenja() {
+    public int getLecenjeID() {
+        return lecenjeID;
+    }
+
+    public void setLecenjeID(int lecenjeID) {
+        this.lecenjeID = lecenjeID;
+    }
+
+    public int getKosnicaID() {
+        return kosnicaID;
+    }
+
+    public void setKosnicaID(int kosnicaID) {
+        this.kosnicaID = kosnicaID;
+    }
+
+    public int getPcelinjakID() {
+        return pcelinjakID;
+    }
+
+    public void setPcelinjakID(int pcelinjakID) {
+        this.pcelinjakID = pcelinjakID;
+    }
+
+    public String getDatumLecenja() {
         return datumLecenja;
     }
 
-    public void setDatumLecenja(Date datumLecenja) {
+    public void setDatumLecenja(String datumLecenja) {
         this.datumLecenja = datumLecenja;
     }
 
-    public Kosnica getKosnica() {
-        return kosnica;
+    public String getBolest() {
+        return bolest;
     }
 
-    public void setKosnica(Kosnica kosnica) {
-        this.kosnica = kosnica;
+    public void setBolest(String bolest) {
+        this.bolest = bolest;
     }
 
-    public String getLecenjeOd() {
-        return lecenjeOd;
-    }
-
-    public void setLecenjeOd(String lecenjeOd) {
-        this.lecenjeOd = lecenjeOd;
-    }
-
-    @Override
     public String toString() {
-        return datumLecenja +", kosnica RB: " + kosnica.getRedniBrojKosnice() +
-                ", lecenje od '" + lecenjeOd;
+        return datumLecenja + ", kosnica RB: " + kosnicaID +
+                ", lecenje od '" + bolest;
     }
 }

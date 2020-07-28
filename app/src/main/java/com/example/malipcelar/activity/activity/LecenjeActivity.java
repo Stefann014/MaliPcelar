@@ -3,14 +3,25 @@ package com.example.malipcelar.activity.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.adapteri.LecenjeAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
+import com.example.malipcelar.activity.domen.Lecenje;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.viewModel.LecenjeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class LecenjeActivity extends AppCompatActivity {
 
@@ -24,8 +35,13 @@ public class LecenjeActivity extends AppCompatActivity {
 
     Kosnica kosnica;
     Pcelinjak pcelinjak;
+    List<Lecenje> lecenja;
 
     FloatingActionButton btnDodajLecenje;
+    RecyclerView recyclerView;
+    LecenjeViewModel lecenjeViewModel;
+
+    final LecenjeAdapter adapter = new LecenjeAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +50,19 @@ public class LecenjeActivity extends AppCompatActivity {
 
         srediAtribute();
         srediListenere();
+        srediViewModel();
+        srediBrisanje();
     }
 
     private void srediAtribute() {
         Intent intent = getIntent();
         kosnica = (Kosnica) intent.getSerializableExtra(EXTRA_KOSNICA);
         pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
+        recyclerView = findViewById(R.id.rvLecenja);
 
         btnDodajLecenje = findViewById(R.id.btnDodajLecenje);
+        lecenja = null;
+        srediRecycleView();
     }
 
     private void srediListenere() {
@@ -53,4 +74,38 @@ public class LecenjeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void srediRecycleView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void srediViewModel() {
+        lecenjeViewModel = ViewModelProviders.of(this).get(LecenjeViewModel.class);
+        lecenjeViewModel.getAllLecenjaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Lecenje>>() {
+            @Override
+            public void onChanged(@Nullable List<Lecenje> lecenja) {
+                adapter.submitList(lecenja);
+            }
+        });
+    }
+
+    private void srediBrisanje() {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                lecenjeViewModel.delete(adapter.getLecenjeAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(LecenjeActivity.this, "Lecenje je izbrisano", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+
+    }
+
 }

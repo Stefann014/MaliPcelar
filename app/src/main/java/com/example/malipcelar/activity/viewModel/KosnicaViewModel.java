@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Kosnica;
-import com.example.malipcelar.activity.repozitorijum.KosnicaRepository;
+import com.example.malipcelar.activity.repository.KosnicaRepository;
 
 import java.util.List;
 

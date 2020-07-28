@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.OpstaNapomena;
-import com.example.malipcelar.activity.repozitorijum.OpstaNapomenaRepository;
+import com.example.malipcelar.activity.repository.OpstaNapomenaRepository;
 
 import java.util.List;
 

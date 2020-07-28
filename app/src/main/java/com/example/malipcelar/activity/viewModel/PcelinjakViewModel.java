@@ -7,9 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Pcelinjak;
-import com.example.malipcelar.activity.repozitorijum.PcelinjakRepository;
+import com.example.malipcelar.activity.repository.PcelinjakRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PcelinjakViewModel extends AndroidViewModel {

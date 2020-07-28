@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Pregled;
-import com.example.malipcelar.activity.repozitorijum.PregledRepository;
+import com.example.malipcelar.activity.repository.PregledRepository;
 
 import java.util.List;
 

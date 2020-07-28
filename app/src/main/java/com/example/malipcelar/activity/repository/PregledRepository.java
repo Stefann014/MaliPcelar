@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity.repozitorijum;
+package com.example.malipcelar.activity.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
