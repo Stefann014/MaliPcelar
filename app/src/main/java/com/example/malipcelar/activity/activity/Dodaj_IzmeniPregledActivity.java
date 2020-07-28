@@ -226,7 +226,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
         }
 
         int selectedId = radioGroupMatica.getCheckedRadioButtonId();
-        // find the radiobutton by returned id
+
         RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
 
         boolean matica = false;
@@ -252,20 +252,20 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
 
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_DATUM_PREGLEDA, datum);
-        podaci.putExtra(EXTRA_MATICA, false);
-        podaci.putExtra(EXTRA_MLADO_LEGLO, false);
-        podaci.putExtra(EXTRA_MATICNJAK, false);
-        podaci.putExtra(EXTRA_KONSTANTOVANO_ROJENJE, false);
-        podaci.putExtra(EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, -1);
-        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM, -1);
-        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, -1);
-        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_POLENOM, -1);
-        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, -1);
-        podaci.putExtra(EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, -1);
-        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, -1);
-        podaci.putExtra(EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, -1);
-        podaci.putExtra(EXTRA_BROJ_UBACENIH_OSNOVA, -1);
-        podaci.putExtra(EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
+        podaci.putExtra(EXTRA_MATICA, matica);
+        podaci.putExtra(EXTRA_MLADO_LEGLO, mladoLeglo);
+        podaci.putExtra(EXTRA_MATICNJAK, maticnjak);
+        podaci.putExtra(EXTRA_KONSTANTOVANO_ROJENJE, konstantovanoRojenje);
+        podaci.putExtra(EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, brUlicaPopunjenihPcelom);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM, brRamovaSaLeglom);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, brRamovaSaVencomHraneUPlodistu);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_POLENOM, brRamovaSaPolenom);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, brRamovaSaLeglomPodignutihUMediste);
+        podaci.putExtra(EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, brOduzetihRamovaSaLeglom);
+        podaci.putExtra(EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, brRamovaSaMedomZaVadjenje);
+        podaci.putExtra(EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, brIzvadjenihRamovaSaMedom);
+        podaci.putExtra(EXTRA_BROJ_UBACENIH_OSNOVA, brUbacenihOsnova);
+        podaci.putExtra(EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, brUbacenihPraznihRamova);
         podaci.putExtra(EXTRA_NAPOMENA, txtNapomena);
 
 
@@ -276,7 +276,6 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
         setResult(RESULT_OK, podaci);
         finish();
     }
-
 
     private void srediListenere() {
         btnDatumPregleda.setOnClickListener(new View.OnClickListener() {
@@ -290,19 +289,82 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
     }
 
     private void srediIntent() {
-        Intent intent = getIntent();
+        Intent data = getIntent();
 
-        if (intent.hasExtra(EXTRA_ID)) {
-            setTitle("Izmeni Napomenu");
-            /*txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
-            String datum = intent.getStringExtra(EXTRA_DATUM);
+        if (data.hasExtra(EXTRA_ID)) {
+            setTitle("Izmeni pregled");
+            txtNapomena.setText(data.getStringExtra(EXTRA_NAPOMENA));
+            String datum = data.getStringExtra(EXTRA_DATUM_PREGLEDA);
+
+            boolean matica = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICA, false);
+            boolean mladoLeglo = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MLADO_LEGLO, false);
+            boolean maticnjak = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICNJAK, false);
+            boolean konstantovanoRojenje = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_KONSTANTOVANO_ROJENJE, false);
+
+            if (matica) {
+                radioGroupMatica.check(R.id.rbMatica);
+            } else if (mladoLeglo) {
+                radioGroupMatica.check(R.id.rbMladoLeglo);
+            }
+            if (maticnjak) {
+                cbMaticnjak.setChecked(true);
+            }
+            if (konstantovanoRojenje) {
+                cbKonstantovanoRojenje.setChecked(true);
+            }
+
+            int brojUlicaPopunjenihPcelom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, -1);
+            int brojRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, -1);
+            int brojRamovaSaVencomHraneUPlodistu = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, -1);
+            int brojRamovaSaPolenom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, -1);
+            int brojRamovaSaLeglomPodignutihUMediste = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, -1);
+            int brojOduzetihRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, -1);
+            int brojRamovaSaMedomZaVadjenje = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, -1);
+            int brojIzvadjenihRamovaSaMedom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, -1);
+            int brojUbacenihOsnova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, -1);
+            int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
+
+
+            if (brojUlicaPopunjenihPcelom != -1) {
+                txtBrUlicaPopunjenihPcelom.setText(brojUlicaPopunjenihPcelom + "");
+            }
+            if (brojRamovaSaLeglom != -1) {
+                txtBrRamovaSaLeglom.setText(brojRamovaSaLeglom + "");
+            }
+            if (brojRamovaSaVencomHraneUPlodistu != -1) {
+                txtBrRamovaSaVencomHraneUPlodistu.setText(brojRamovaSaVencomHraneUPlodistu + "");
+            }
+            if (brojRamovaSaPolenom != -1) {
+                txtBrRamovaSaPolenom.setText(brojRamovaSaPolenom + "");
+            }
+            if (brojRamovaSaLeglomPodignutihUMediste != -1) {
+                txtBrRamovaSaLeglomPodignutihUMediste.setText(brojRamovaSaLeglomPodignutihUMediste + "");
+            }
+            if (brojOduzetihRamovaSaLeglom != -1) {
+                txtBrOduzetihRamovaSaLeglom.setText(brojOduzetihRamovaSaLeglom + "");
+            }
+            if (brojRamovaSaMedomZaVadjenje != -1) {
+                txtBrRamovaSaMedomZaVadjenje.setText(brojRamovaSaMedomZaVadjenje + "");
+            }
+
+            if (brojIzvadjenihRamovaSaMedom != -1) {
+                txtBrIzvadjenihRamovaSaMedom.setText(brojIzvadjenihRamovaSaMedom + "");
+            }
+            if (brojUbacenihOsnova != -1) {
+                txtBrUbacenihOsnova.setText(brojUbacenihOsnova + "");
+            }
+            if (brojUbacenihPraznihRamova != -1) {
+                txtBrUbacenihPraznihRamova.setText(brojUbacenihPraznihRamova + "");
+            }
+
             // treba nam sad u formatu 20.05.1997
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatumPregleda.setText(dobarDatum);
-        */
+
+
         } else {
-            setTitle("Dodaj napomenu");
+            setTitle("Dodaj pregled");
         }
     }
 
