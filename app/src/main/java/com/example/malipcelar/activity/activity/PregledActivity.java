@@ -55,7 +55,7 @@ public class PregledActivity extends AppCompatActivity {
         srediListenere();
         srediViewModel();
         srediBrisanje();
-        srediIzmeniNapomeneNaKlik();
+        srediIzmeniPregledNaKlik();
     }
 
     private void srediAtribute() {
@@ -162,6 +162,34 @@ public class PregledActivity extends AppCompatActivity {
         });
     }
 
+    private void srediIzmeniPregledNaKlik() {
+        adapter.setOnItemClickListener(new PregledAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Pregled pregled) {
+                Intent intent = new Intent(PregledActivity.this, Dodaj_IzmeniPregledActivity.class);
+
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_ID, pregled.getPregledID());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_DATUM_PREGLEDA, pregled.getDatumPregleda());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICA, pregled.isMatica());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MLADO_LEGLO, pregled.isMladoLeglo());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICNJAK, pregled.isMaticnjak());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_KONSTANTOVANO_ROJENJE, pregled.isKonstantovanoRojenje());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, pregled.getBrojUlicaPopunjenihPcelom());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, pregled.getBrojRamovaSaLeglom());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, pregled.getBrojRamovaSaVencomHraneUPlodistu());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, pregled.getBrojRamovaSaPolenom());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, pregled.getBrojRamovaSaLeglomPodignutihUMediste());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, pregled.getBrojOduzetihRamovaSaLeglom());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, pregled.getBrojRamovaSaMedomZaVadjenje());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, pregled.getBrojIzvadjenihRamovaSaMedom());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, pregled.getBrojUbacenihOsnova());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, pregled.getBrojUbacenihPraznihRamova());
+                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA, pregled.getNapomena());
+                startActivityForResult(intent, IZMENI_PREGLED);
+            }
+        });
+    }
+
     private void srediBrisanje() {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -197,32 +225,5 @@ public class PregledActivity extends AppCompatActivity {
         }
     }
 
-    private void srediIzmeniNapomeneNaKlik() {
-        adapter.setOnItemClickListener(new PregledAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Pregled pregled) {
-                Intent intent = new Intent(PregledActivity.this, Dodaj_IzmeniPregledActivity.class);
-
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_ID, pregled.getPregledID());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_DATUM_PREGLEDA, pregled.getDatumPregleda());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICA, pregled.isMatica());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MLADO_LEGLO, pregled.isMladoLeglo());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICNJAK, pregled.isMaticnjak());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_KONSTANTOVANO_ROJENJE, pregled.isKonstantovanoRojenje());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, pregled.getBrojUlicaPopunjenihPcelom());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, pregled.getBrojRamovaSaLeglom());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, pregled.getBrojRamovaSaVencomHraneUPlodistu());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, pregled.getBrojRamovaSaPolenom());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, pregled.getBrojRamovaSaLeglomPodignutihUMediste());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, pregled.getBrojOduzetihRamovaSaLeglom());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, pregled.getBrojRamovaSaMedomZaVadjenje());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, pregled.getBrojIzvadjenihRamovaSaMedom());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, pregled.getBrojUbacenihOsnova());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, pregled.getBrojUbacenihPraznihRamova());
-                intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA, pregled.getNapomena());
-                startActivityForResult(intent, IZMENI_PREGLED);
-            }
-        });
-    }
 
 }

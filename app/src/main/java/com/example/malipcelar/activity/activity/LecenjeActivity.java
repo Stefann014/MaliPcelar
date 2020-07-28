@@ -2,6 +2,9 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,6 +55,7 @@ public class LecenjeActivity extends AppCompatActivity {
         srediListenere();
         srediViewModel();
         srediBrisanje();
+        srediIzmeniLecenjeNaKlik();
     }
 
     private void srediAtribute() {
@@ -106,6 +110,75 @@ public class LecenjeActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == DODAJ_NOVO_LECENJE && resultCode == RESULT_OK) {
+            String datumLecenja = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA);
+            boolean primeniNaSveKOsnice = data.getBooleanExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK, false);
+            String bolest = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST);
+
+            Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
+            lecenjeViewModel.insert(lecenje);
+
+            Toast.makeText(this, "Lecenje je sacuvano", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == IZMENI_LECENJE && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, -1);
+
+            if (id == -1) {
+                Toast.makeText(this, "Lecenje ne moze biti izmenjeno", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String datumLecenja = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA);
+            boolean primeniNaSveKOsnice = data.getBooleanExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK, false);
+            String bolest = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST);
+
+            Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
+            lecenje.setLecenjeID(id);
+            lecenjeViewModel.update(lecenje);
+
+            Toast.makeText(this, "Pregled je izmenjen", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Pregled nije izmenjen", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.glavni_meni, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.izbrisiSve:
+                Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void srediIzmeniLecenjeNaKlik() {
+        adapter.setOnItemClickListener(new LecenjeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Lecenje lecenje) {
+                Intent intent = new Intent(LecenjeActivity.this, Dodaj_IzmeniLecenjeActivity.class);
+
+                intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, lecenje.getLecenjeID());
+                intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA, lecenje.getDatumLecenja());
+                intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST, lecenje.getBolest());
+
+                startActivityForResult(intent, IZMENI_LECENJE);
+            }
+        });
     }
 
 }

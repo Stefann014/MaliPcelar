@@ -14,6 +14,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = {"kosnica_id", "pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Lecenje implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "lecenje_id")
     int lecenjeID;
     @ColumnInfo(name = "kosnica_id")
     int kosnicaID;

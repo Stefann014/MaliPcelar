@@ -1,6 +1,7 @@
 package com.example.malipcelar.activity.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,15 @@ import java.util.Date;
 
 public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    public static final String EXTRA_ID =
+            "com.example.malipcelar.activity.activity.EXTRA_ID";
+    public static final String EXTRA_DATUM_LECENJA =
+            "com.example.malipcelar.activity.activity.EXTRA_DATUM_LECENJA";
+    public static final String EXTRA_BOLEST =
+            "com.example.malipcelar.activity.activity.EXTRA_BOLEST";
+    public static final String EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK =
+            "com.example.malipcelar.activity.activity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK";
+
     Button btnDatumLecenja;
     Spinner spBolesti;
     CheckBox chPrimeniLecenjeNaPcelinjak;
@@ -37,6 +47,8 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         setContentView(R.layout.dodaj_izmeni_lecenje_activity);
 
         srediAtribute();
+        srediListenere();
+        srediIntent();
     }
 
     private void srediAtribute() {
@@ -45,7 +57,26 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         chPrimeniLecenjeNaPcelinjak = findViewById(R.id.chPrimeniLecenjeNaPcelinjak);
         srediSpinner();
         srediDatum();
-        srediListenere();
+
+    }
+
+    private void srediIntent() {
+        Intent data = getIntent();
+        if (data.hasExtra(EXTRA_ID)) {
+            setTitle("Izmeni lecenje");
+            String datum = data.getStringExtra(EXTRA_DATUM_LECENJA);
+
+            // treba nam sad u formatu 20.05.1997
+            String[] datumi = datum.split("-");
+            String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
+            btnDatumLecenja.setText(dobarDatum);
+            String bolest = data.getStringExtra(EXTRA_BOLEST);
+            spBolesti.setSelection(((ArrayAdapter<String>) spBolesti.getAdapter()).getPosition(bolest));
+            chPrimeniLecenjeNaPcelinjak.setVisibility(View.INVISIBLE);
+
+        } else {
+            setTitle("Dodaj pregled");
+        }
     }
 
     private void srediSpinner() {
@@ -117,6 +148,24 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
     }
 
     private void sacuvajLecenje() {
+        String datum = prevediDatumUFormatZaBazu(btnDatumLecenja.getText().toString().trim());
+        String bolest = (String) spBolesti.getSelectedItem();
+
+        boolean primeni = false;
+        if (chPrimeniLecenjeNaPcelinjak.isChecked()) {
+            primeni = true;
+        }
+        Intent podaci = new Intent();
+        podaci.putExtra(EXTRA_DATUM_LECENJA, datum);
+        podaci.putExtra(EXTRA_BOLEST, bolest);
+        podaci.putExtra(EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK, primeni);
+
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if (id != -1) {
+            podaci.putExtra(EXTRA_ID, id);
+        }
+        setResult(RESULT_OK, podaci);
+        finish();
     }
 
     @NonNull
