@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class LecenjeActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class LecenjeActivity extends AppCompatActivity {
     Kosnica kosnica;
     Pcelinjak pcelinjak;
 
-    Button btnDodajLecenje;
+    FloatingActionButton btnDodajLecenje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
