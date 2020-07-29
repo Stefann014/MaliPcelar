@@ -53,6 +53,7 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         srediListenere();
         srediViewModel();
         srediBrisanje();
+        prikaziPrihranuNaKlik();
     }
 
     private void srediListenere() {
@@ -145,4 +146,14 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
         prihranaViewModel.insert(prihrana);
     }
+
+    private void prikaziPrihranuNaKlik() {
+        adapter.setOnItemClickListener(new PrihranaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Prihrana prihrana) {
+
+            }
+        });
+    }
+
 }
