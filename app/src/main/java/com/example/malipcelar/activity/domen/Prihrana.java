@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "prihrana_table", foreignKeys = { // resevaj slozen spoljni
+@Entity(tableName = "prihrana_table", foreignKeys = {
         @ForeignKey(entity = Kosnica.class, parentColumns = {"rb_kosnice", "pcelinjak"},
                 childColumns = {"kosnica_id", "pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Prihrana implements Serializable {
@@ -88,6 +88,6 @@ public class Prihrana implements Serializable {
 
     @Override
     public String toString() {
-        return datumPrihrane + "";
+        return kosnicaID + " " + pcelinjakID + " " + datumPrihrane + " " + vrstaPrihrane + " " + kolicinaPrihrane;
     }
 }
