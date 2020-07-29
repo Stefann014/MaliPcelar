@@ -13,17 +13,19 @@ import com.example.malipcelar.activity.dao.LecenjeDAO;
 import com.example.malipcelar.activity.dao.OpsteNapomeneDAO;
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
 import com.example.malipcelar.activity.dao.PregledDAO;
+import com.example.malipcelar.activity.dao.PrihranaDAO;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Lecenje;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Pregled;
+import com.example.malipcelar.activity.domen.Prihrana;
 
 // moze se dodati vises entiteta u bazu!
 // verzija se odnosi na bazu kada se menja , ona se uvek inkrementira
 
 
-@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class, Pregled.class, Lecenje.class}, version = 1)
+@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class, Pregled.class, Lecenje.class, Prihrana.class}, version = 1)
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
@@ -38,11 +40,13 @@ public abstract class Database extends RoomDatabase {
 
     public abstract LecenjeDAO lecenjeDAO();
 
+    public abstract PrihranaDAO prihranaDAO();
+
     //singleton pattern
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database3") // menjaj naziv kad izmenis nesto
+                    Database.class, "database4") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();
@@ -64,6 +68,7 @@ public abstract class Database extends RoomDatabase {
         private KosnicaDAO kosnicaDAO;
         private PregledDAO pregledDAO;
         private LecenjeDAO lecenjeDAO;
+        private PrihranaDAO prihranaDAO;
 
         private PopulateDbAsyncTask(Database db) {
             napomenaDAO = db.opsteNapomeneDAO();
@@ -71,6 +76,7 @@ public abstract class Database extends RoomDatabase {
             kosnicaDAO = db.kosnicaDAO();
             pregledDAO = db.pregledDAO();
             lecenjeDAO = db.lecenjeDAO();
+            prihranaDAO = db.prihranaDAO();
         }
 
         @Override
@@ -80,6 +86,7 @@ public abstract class Database extends RoomDatabase {
             dodajKosnice(kosnicaDAO);
             dodajPreglede(pregledDAO);
             dodajLecenje(lecenjeDAO);
+            dodajPrihrane(prihranaDAO);
             return null;
         }
 
@@ -115,5 +122,8 @@ public abstract class Database extends RoomDatabase {
     }
 
     private static void dodajLecenje(LecenjeDAO lecenjeDAO) {
+    }
+
+    private static void dodajPrihrane(PrihranaDAO prihranaDAO) {
     }
 }
