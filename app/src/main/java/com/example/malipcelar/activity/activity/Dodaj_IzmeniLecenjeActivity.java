@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
     Button btnDatumLecenja;
     Spinner spBolesti;
     CheckBox chPrimeniLecenjeNaPcelinjak;
+    TextView tvLecenje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         btnDatumLecenja = findViewById(R.id.btnDatumLecenja);
         spBolesti = findViewById(R.id.spBolesti);
         chPrimeniLecenjeNaPcelinjak = findViewById(R.id.chPrimeniLecenjeNaPcelinjak);
+        tvLecenje = findViewById(R.id.tvLecenje);
         srediSpinner();
         srediDatum();
 
@@ -73,7 +76,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
             String bolest = data.getStringExtra(EXTRA_BOLEST);
             spBolesti.setSelection(((ArrayAdapter<String>) spBolesti.getAdapter()).getPosition(bolest));
             chPrimeniLecenjeNaPcelinjak.setVisibility(View.INVISIBLE);
-
+            tvLecenje.setVisibility(View.INVISIBLE);
         } else {
             setTitle("Dodaj pregled");
         }
@@ -100,7 +103,6 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
             }
         });
     }
-
 
     private void srediDatum() {
         Date c = Calendar.getInstance().getTime();

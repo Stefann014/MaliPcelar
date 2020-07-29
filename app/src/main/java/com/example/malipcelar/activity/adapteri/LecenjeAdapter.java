@@ -29,7 +29,9 @@ public class LecenjeAdapter extends ListAdapter<Lecenje, LecenjeAdapter.LecenjeH
 
         @Override
         public boolean areContentsTheSame(Lecenje oldItem, Lecenje newItem) {
-            return oldItem.getLecenjeID() == newItem.getLecenjeID();
+            return oldItem.getDatumLecenja().equals(newItem.getDatumLecenja()) &&
+                    oldItem.getBolest().equals(newItem.getBolest()) && oldItem.getPcelinjakID() ==
+                    newItem.getPcelinjakID() && oldItem.getKosnicaID() == newItem.getKosnicaID();
         }
     };
 

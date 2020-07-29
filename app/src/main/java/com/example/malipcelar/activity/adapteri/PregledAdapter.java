@@ -29,7 +29,9 @@ public class PregledAdapter extends ListAdapter<Pregled, PregledAdapter.PregledH
 
         @Override
         public boolean areContentsTheSame(Pregled oldItem, Pregled newItem) {
-            return oldItem.getPregledID() == newItem.getPregledID();
+            return oldItem.getPcelinjakID() == newItem.getPcelinjakID() && oldItem.getKosnicaID() == newItem.getKosnicaID()
+                    && oldItem.getNapomena().equals(newItem.getNapomena()) && oldItem.getDatumPregleda().equals(newItem.getDatumPregleda())
+                    && oldItem.getBrojIzvadjenihRamovaSaMedom() == newItem.getBrojIzvadjenihRamovaSaMedom();
         }
     };
 
