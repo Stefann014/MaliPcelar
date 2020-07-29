@@ -20,13 +20,14 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DialogNovoLecenje extends AppCompatDialogFragment {
+public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
 
     Button btnDatumPrihrane;
-    private TextView txtKilogrami;
+    private TextView txtLitri;
     private CheckBox chPrimeniNaSveKosnice;
+    private TextView txtKolicina;
 
-    private DialogNovoLecenjeListener listener;
+    private DialogNovoLecenjeSirupListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,15 +35,16 @@ public class DialogNovoLecenje extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_novo_lecenje_layout, null);
         btnDatumPrihrane = view.findViewById(R.id.btnDatumPrihrane);
-        txtKilogrami = view.findViewById(R.id.txtKilogrami);
+        txtLitri = view.findViewById(R.id.txtKilogramiLitri);
         chPrimeniNaSveKosnice = view.findViewById(R.id.chPrimeniPrihranuNaSveKosnice);
-
+        txtKolicina = view.findViewById(R.id.tvKolicina);
+        txtKolicina.setText("Unesite litre: ");
         Date c = Calendar.getInstance().getTime();
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         btnDatumPrihrane.setText(currentDateString);
 
         builder.setView(view)
-                .setTitle("Unesi kolicinu (kg)")
+                .setTitle("Unesi kolicinu (litri)")
                 .setNegativeButton("Izadji", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -52,22 +54,26 @@ public class DialogNovoLecenje extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String datum = btnDatumPrihrane.getText().toString();
-                        String kg = txtKilogrami.getText().toString();
+                        String litar = txtLitri.getText().toString();
                         boolean primeniNaSve = chPrimeniNaSveKosnice.isChecked();
-                        String pogaca = "Pogaca";
+                        String sirup = "Sirup";
 
-                        if (kg.isEmpty()) {
+                        if (litar.isEmpty()) {
                             return;
                         }
 
-                        double kilo = -1;
+                        double litri = -1;
                         try {
-                            kilo = Double.parseDouble(kg);
+                            litri = Double.parseDouble(litar);
                         } catch (Exception e) {
                             return;
                         }
 
-                        listener.sacuvaj(datum, kilo, primeniNaSve,pogaca);
+                        if (litri < 0) {
+                            return;
+                        }
+
+                        listener.sacuvajSirup(datum, litri, primeniNaSve, sirup);
                     }
                 });
 
@@ -78,16 +84,15 @@ public class DialogNovoLecenje extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (DialogNovoLecenjeListener) context;
+            listener = (DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement ExampleDialogListener");
         }
     }
 
-    public interface DialogNovoLecenjeListener {
-        void sacuvaj(String datum, double kg, boolean primeniNasve, String vrstaPrihrane);
+    public interface DialogNovoLecenjeSirupListener {
+        void sacuvajSirup(String datum, double litar, boolean primeniNasve, String vrstaPrihrane);
     }
-
 
 }

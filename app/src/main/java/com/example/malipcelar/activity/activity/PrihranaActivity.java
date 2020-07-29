@@ -20,13 +20,14 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Prihrana;
 import com.example.malipcelar.activity.fragmenti.BottomSheetDialog;
-import com.example.malipcelar.activity.fragmenti.DialogNovoLecenje;
+import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
+import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
 import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class PrihranaActivity extends AppCompatActivity implements BottomSheetDialog.BottomSheetListener, DialogNovoLecenje.DialogNovoLecenjeListener {
+public class PrihranaActivity extends AppCompatActivity implements BottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener {
 
     public static final String EXTRA_KOSNICA =
             "com.example.malipcelar.activity.activity.KOSNICA";
@@ -66,12 +67,14 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
 
     @Override
     public void onBtnPogacaClicked() {
-        DialogNovoLecenje dialogNovoLecenje = new DialogNovoLecenje();
-        dialogNovoLecenje.show(getSupportFragmentManager(), "example dialog");
+        DialogNovoLecenjePogaca dialogNovoLecenjePogaca = new DialogNovoLecenjePogaca();
+        dialogNovoLecenjePogaca.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
     public void onBtnSirupClicked() {
+        DialogNovoLecenjeSirup dialogNovoLecenjeSirup = new DialogNovoLecenjeSirup();
+        dialogNovoLecenjeSirup.show(getSupportFragmentManager(), "example dialog");
     }
 
     private void srediAtribute() {
@@ -134,5 +137,12 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
             }
         }).attachToRecyclerView(recyclerView);
 
+    }
+
+    @Override
+    public void sacuvajSirup(String datum, double litar, boolean primeniNaSve, String vrstaPrihrane) {
+        this.primeniNaSve = primeniNaSve;
+        Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
+        prihranaViewModel.insert(prihrana);
     }
 }

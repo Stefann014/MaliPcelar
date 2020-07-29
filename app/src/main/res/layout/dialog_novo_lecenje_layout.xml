@@ -27,19 +27,18 @@
         android:layout_below="@id/btnDatumPrihrane"
         android:layout_marginTop="10dp"
         android:text="Unesite kilograme: "
-        app:layout_constraintEnd_toStartOf="@+id/txtKilogrami"
+        app:layout_constraintEnd_toStartOf="@+id/txtKilogramiLitri"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDatumPrihrane" />
 
     <EditText
-        android:id="@+id/txtKilogrami"
+        android:id="@+id/txtKilogramiLitri"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnDatumPrihrane"
         android:layout_marginStart="10dp"
         android:layout_toStartOf="@+id/tvKolicina"
         android:layout_toRightOf="@+id/tvKolicina"
-        android:hint="Kg:"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvKolicina"
@@ -52,7 +51,7 @@
         android:layout_marginTop="5dp"
         android:text="Primeni na sve kosnice u pcelinjaku:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtKilogrami" />
+        app:layout_constraintTop_toBottomOf="@+id/txtKilogramiLitri" />
 
     <CheckBox
         android:id="@+id/chPrimeniPrihranuNaSveKosnice"
@@ -60,6 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/txtKilogrami" />
+        app:layout_constraintTop_toBottomOf="@+id/txtKilogramiLitri" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
