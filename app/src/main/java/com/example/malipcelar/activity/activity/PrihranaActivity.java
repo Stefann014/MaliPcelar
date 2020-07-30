@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -121,6 +122,7 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
                 adapter.submitList(prihrane);
             }
         });
+
     }
 
     private void srediBrisanje() {
@@ -152,8 +154,25 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
             @Override
             public void onItemClick(Prihrana prihrana) {
 
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("Pcelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + "\n");
+                buffer.append("Kosnica: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + "\n");
+                buffer.append("Datum: " + prihrana.getDatumPrihrane() + "\n");
+                buffer.append("Vrsta prihrane:" + prihrana.getVrstaPrihrane() + "\n");
+                buffer.append("Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n");
+
+
+                showMessage("Lecenje: ", buffer.toString());
+
             }
         });
     }
 
+    public void showMessage(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
 }
