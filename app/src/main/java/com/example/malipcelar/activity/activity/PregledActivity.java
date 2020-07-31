@@ -2,7 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -111,31 +110,6 @@ public class PregledActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
 
 
-            if (maxDatum == null || maxDatum.equals("")) {
-                kosnica.setDatumPoslednjegPregleda(maxDatum);
-                kosnicaViewModel.update(kosnica);
-
-            } else {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date noviDatum = null;
-                Date maxDatum = null;
-
-                try {
-                    noviDatum = sdf.parse(datumPregleda);
-                    maxDatum = sdf.parse(this.maxDatum);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return;
-                }
-
-                if (noviDatum.getTime() > maxDatum.getTime()) {
-                    kosnica.setDatumPoslednjegPregleda(datumPregleda);
-                    kosnicaViewModel.update(kosnica);
-                }
-
-            }
-
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
                     brojRamovaSaLeglomPodignutihUMediste, brojOduzetihRamovaSaLeglom, brojRamovaSaMedomZaVadjenje, brojIzvadjenihRamovaSaMedom,
@@ -168,29 +142,7 @@ public class PregledActivity extends AppCompatActivity {
             int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
 
-            if (maxDatum == null || maxDatum.equals("")) {
-                kosnica.setDatumPoslednjegPregleda(maxDatum);
-                kosnicaViewModel.update(kosnica);
-            } else {
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date noviDatum = null;
-                Date maxDatum = null;
-
-                try {
-                    noviDatum = sdf.parse(datumPregleda);
-                    maxDatum = sdf.parse(this.maxDatum);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return;
-                }
-
-                if (noviDatum.getTime() > maxDatum.getTime()) {
-                    kosnica.setDatumPoslednjegPregleda(datumPregleda);
-                    kosnicaViewModel.update(kosnica);
-                }
-
-            }
 
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
@@ -226,8 +178,10 @@ public class PregledActivity extends AppCompatActivity {
         });
         pregledViewModel.getMaxDatumPregledaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String pregledi) {
-                maxDatum = pregledi;
+            public void onChanged(@Nullable String datum) {
+                maxDatum = datum;
+                kosnica.setDatumPoslednjegPregleda(datum);
+                kosnicaViewModel.update(kosnica);
             }
         });
     }

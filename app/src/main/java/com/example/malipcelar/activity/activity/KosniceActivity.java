@@ -49,7 +49,7 @@ public class KosniceActivity extends AppCompatActivity {
     ConstraintLayout expandableView;
     Button btnStrelica;
     CardView cvKosnica;
-
+    int pauza = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,22 @@ public class KosniceActivity extends AppCompatActivity {
         srediIzmeniKosnicuNaKlik();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pauza == 0) {
+            pauza = 1;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pauza == 1) {
+            recreate();
+        }
+        pauza = 0;
+    }
 
     private void srediAtribute() {
         Intent intent = getIntent();
@@ -90,6 +106,7 @@ public class KosniceActivity extends AppCompatActivity {
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_ZAUZETI_RB, zauzeti);
 
                 startActivityForResult(intent, DODAJ_NOVU_KOSNICU);
+
             }
         });
     }
