@@ -61,6 +61,16 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         } else {
             holder.btnPregled.setText("Jos uvek nema unesenih pregleda");
         }
+        if (trenutnaKosnica.getDatumPoslednjegLecenja() != null && !trenutnaKosnica.getDatumPoslednjegLecenja().equals("")) {
+            holder.btnLecenje.setText("Datum poslednjeg lecenja: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegLecenja()));
+        } else {
+            holder.btnLecenje.setText("Jos uvek nema lecenja");
+        }
+        if (trenutnaKosnica.getDatumPoslednjePrihrane() != null && !trenutnaKosnica.getDatumPoslednjePrihrane().equals("")) {
+            holder.btnPrihrana.setText("Datum poslednje prihrane: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjePrihrane()));
+        } else {
+            holder.btnPrihrana.setText("Jos uvek nema unesenih prihrana");
+        }
     }
 
     public Kosnica getKosnicaAt(int position) {

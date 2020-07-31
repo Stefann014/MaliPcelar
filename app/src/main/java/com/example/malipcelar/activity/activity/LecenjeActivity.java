@@ -21,6 +21,7 @@ import com.example.malipcelar.activity.adapteri.LecenjeAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Lecenje;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.LecenjeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,6 +44,7 @@ public class LecenjeActivity extends AppCompatActivity {
     FloatingActionButton btnDodajLecenje;
     RecyclerView recyclerView;
     LecenjeViewModel lecenjeViewModel;
+    KosnicaViewModel kosnicaViewModel;
 
     final LecenjeAdapter adapter = new LecenjeAdapter();
 
@@ -89,10 +91,24 @@ public class LecenjeActivity extends AppCompatActivity {
 
     private void srediViewModel() {
         lecenjeViewModel = ViewModelProviders.of(this).get(LecenjeViewModel.class);
+        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        srediObservere();
+
+    }
+
+    private void srediObservere() {
         lecenjeViewModel.getAllLecenjaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Lecenje>>() {
             @Override
             public void onChanged(@Nullable List<Lecenje> lecenja) {
                 adapter.submitList(lecenja);
+            }
+        });
+        lecenjeViewModel.getMaxDatumLecenjaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String datum) {
+                maxDatum = datum;
+                kosnica.setDatumPoslednjegLecenja(datum);
+                kosnicaViewModel.update(kosnica);
             }
         });
     }

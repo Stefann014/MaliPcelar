@@ -23,6 +23,7 @@ import com.example.malipcelar.activity.domen.Prihrana;
 import com.example.malipcelar.activity.fragmenti.BottomSheetDialog;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
+import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,7 +44,8 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
     final PrihranaAdapter adapter = new PrihranaAdapter();
     PrihranaViewModel prihranaViewModel;
     boolean primeniNaSve;
-
+    KosnicaViewModel kosnicaViewModel;
+    String maxDatum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         Intent intent = getIntent();
         kosnica = (Kosnica) intent.getSerializableExtra(EXTRA_KOSNICA);
         pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
+        maxDatum = null;
         btnDodajNovuPrihranu = findViewById(R.id.btnDodajNovuPrihranu);
         recyclerView = findViewById(R.id.rvPrihrane);
         prihrane = null;
@@ -116,13 +119,27 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
 
     private void srediViewModel() {
         prihranaViewModel = ViewModelProviders.of(this).get(PrihranaViewModel.class);
+        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        srediObservere();
+
+
+    }
+
+    private void srediObservere() {
         prihranaViewModel.getAllPrihranaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Prihrana>>() {
             @Override
             public void onChanged(@Nullable List<Prihrana> prihrane) {
                 adapter.submitList(prihrane);
             }
         });
-
+        prihranaViewModel.getMaxDatumPrihranaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String datum) {
+                maxDatum = datum;
+                kosnica.setDatumPoslednjePrihrane(datum);
+                kosnicaViewModel.update(kosnica);
+            }
+        });
     }
 
     private void srediBrisanje() {
