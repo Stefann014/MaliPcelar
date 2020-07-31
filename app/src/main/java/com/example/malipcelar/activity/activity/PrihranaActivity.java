@@ -157,7 +157,7 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("Pcelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + "\n");
                 buffer.append("Kosnica: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + "\n");
-                buffer.append("Datum: " + prihrana.getDatumPrihrane() + "\n");
+                buffer.append("Datum: " + datumZaPrikaz(prihrana.getDatumPrihrane() + "\n"));
                 buffer.append("Vrsta prihrane:" + prihrana.getVrstaPrihrane() + "\n");
                 buffer.append("Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n");
 
@@ -174,5 +174,11 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
+        return dobarDatum;
     }
 }
