@@ -24,6 +24,10 @@ public class PregledRepository {
         return pregledDAO.getAllPreglediZaKosnicu(kosnicaID, pcelinjakID);
     }
 
+    public LiveData<String> getMaxDatumPregledaZaKosnicu(int kosnicaID, int pcelinjakID) {
+        return pregledDAO.getMaxDatumPregledaZaKosnicu(kosnicaID, pcelinjakID);
+    }
+
     //
     public void insert(Pregled pregled) {
         new InsertPregledAsyncTask(pregledDAO).execute(pregled);

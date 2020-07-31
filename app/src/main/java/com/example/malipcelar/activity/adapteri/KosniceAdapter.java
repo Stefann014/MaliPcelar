@@ -56,6 +56,11 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         Kosnica trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
         holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + " pcelinjak");
+        if (trenutnaKosnica.getDatumPoslednjegPregleda() != null && !trenutnaKosnica.getDatumPoslednjegPregleda().equals("")) {
+            holder.btnPregled.setText("Datum poslednjeg pregleda: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegPregleda()));
+        } else {
+            holder.btnPregled.setText("Jos uvek nema unesenih pregleda");
+        }
     }
 
     public Kosnica getKosnicaAt(int position) {
@@ -176,5 +181,11 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
     public void onPrihranaClickListener(OnPrihranaClickListener listener3) {
         this.listener3 = listener3;
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
+        return dobarDatum;
     }
 }

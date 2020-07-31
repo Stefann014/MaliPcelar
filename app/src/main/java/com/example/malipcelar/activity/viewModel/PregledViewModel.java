@@ -35,5 +35,7 @@ public class PregledViewModel extends AndroidViewModel {
     public LiveData<List<Pregled>> getAllPreglediZaKosnicu(int kosnicaID, int pcelinjakID) {
         return pregledRepository.getAllPreglediZaKosnicu(kosnicaID, pcelinjakID);
     }
-
+    public LiveData<String> getMaxDatumPregledaZaKosnicu(int kosnicaID, int pcelinjakID) {
+        return pregledRepository.getMaxDatumPregledaZaKosnicu(kosnicaID, pcelinjakID);
+    }
 }

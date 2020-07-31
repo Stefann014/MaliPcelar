@@ -32,6 +32,12 @@ public class Kosnica implements Serializable {
     String bolesti;
     @ColumnInfo(name = "napomena")
     String napomena;
+    @ColumnInfo(name = "datum_poslednjeg_pregleda")
+    String datumPoslednjegPregleda;
+    @ColumnInfo(name = "datum_poslednjeg_lecenja")
+    String datumPoslednjegLecenja;
+    @ColumnInfo(name = "datum_poslednje_prihrane")
+    String datumPoslednjePrihrane;
 
 
     public Kosnica() {
@@ -46,6 +52,33 @@ public class Kosnica implements Serializable {
         this.prirodna = prirodna;
         this.bolesti = bolesti;
         this.napomena = napomena;
+        datumPoslednjegPregleda = null;
+        datumPoslednjePrihrane = null;
+        datumPoslednjegLecenja = null;
+    }
+
+    public String getDatumPoslednjegPregleda() {
+        return datumPoslednjegPregleda;
+    }
+
+    public void setDatumPoslednjegPregleda(String datumPoslednjegPregleda) {
+        this.datumPoslednjegPregleda = datumPoslednjegPregleda;
+    }
+
+    public String getDatumPoslednjegLecenja() {
+        return datumPoslednjegLecenja;
+    }
+
+    public void setDatumPoslednjegLecenja(String datumPoslednjegLecenja) {
+        this.datumPoslednjegLecenja = datumPoslednjegLecenja;
+    }
+
+    public String getDatumPoslednjePrihrane() {
+        return datumPoslednjePrihrane;
+    }
+
+    public void setDatumPoslednjePrihrane(String datumPoslednjePrihrane) {
+        this.datumPoslednjePrihrane = datumPoslednjePrihrane;
     }
 
     public int getRedniBrojKosnice() {

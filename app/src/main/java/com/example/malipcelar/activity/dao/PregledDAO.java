@@ -29,4 +29,7 @@ public interface PregledDAO {
 
     @Query("SELECT * FROM pregled_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID ORDER BY date(datum_pregleda) DESC")
     LiveData<List<Pregled>> getAllPreglediZaKosnicu(int kosnicaID, int pcelinjakID);
+
+    @Query("SELECT max(date(datum_pregleda)) FROM pregled_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID")
+    LiveData<String> getMaxDatumPregledaZaKosnicu(int kosnicaID, int pcelinjakID);
 }

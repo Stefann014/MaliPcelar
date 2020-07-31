@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +22,13 @@ import com.example.malipcelar.activity.adapteri.PregledAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Pregled;
+import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PregledViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class PregledActivity extends AppCompatActivity {
@@ -39,10 +44,13 @@ public class PregledActivity extends AppCompatActivity {
     FloatingActionButton btnDodajPregled;
     RecyclerView recyclerView;
     PregledViewModel pregledViewModel;
+    KosnicaViewModel kosnicaViewModel;
 
     Kosnica kosnica;
     Pcelinjak pcelinjak;
     List<Pregled> pregledi;
+
+    String maxDatum;
 
     final PregledAdapter adapter = new PregledAdapter();
 
@@ -62,6 +70,8 @@ public class PregledActivity extends AppCompatActivity {
         Intent intent = getIntent();
         kosnica = (Kosnica) intent.getSerializableExtra(EXTRA_KOSNICA);
         pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
+        maxDatum = null;
+
         recyclerView = findViewById(R.id.rvPregledi);
         btnDodajPregled = findViewById(R.id.btnDodajNoviPregled);
         pregledi = null;
@@ -101,6 +111,31 @@ public class PregledActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
 
 
+            if (maxDatum == null || maxDatum.equals("")) {
+                kosnica.setDatumPoslednjegPregleda(maxDatum);
+                kosnicaViewModel.update(kosnica);
+
+            } else {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date noviDatum = null;
+                Date maxDatum = null;
+
+                try {
+                    noviDatum = sdf.parse(datumPregleda);
+                    maxDatum = sdf.parse(this.maxDatum);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                if (noviDatum.getTime() > maxDatum.getTime()) {
+                    kosnica.setDatumPoslednjegPregleda(datumPregleda);
+                    kosnicaViewModel.update(kosnica);
+                }
+
+            }
+
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
                     brojRamovaSaLeglomPodignutihUMediste, brojOduzetihRamovaSaLeglom, brojRamovaSaMedomZaVadjenje, brojIzvadjenihRamovaSaMedom,
@@ -133,6 +168,30 @@ public class PregledActivity extends AppCompatActivity {
             int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
 
+            if (maxDatum == null || maxDatum.equals("")) {
+                kosnica.setDatumPoslednjegPregleda(maxDatum);
+                kosnicaViewModel.update(kosnica);
+            } else {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date noviDatum = null;
+                Date maxDatum = null;
+
+                try {
+                    noviDatum = sdf.parse(datumPregleda);
+                    maxDatum = sdf.parse(this.maxDatum);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                if (noviDatum.getTime() > maxDatum.getTime()) {
+                    kosnica.setDatumPoslednjegPregleda(datumPregleda);
+                    kosnicaViewModel.update(kosnica);
+                }
+
+            }
+
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
                     brojRamovaSaLeglomPodignutihUMediste, brojOduzetihRamovaSaLeglom, brojRamovaSaMedomZaVadjenje, brojIzvadjenihRamovaSaMedom,
@@ -154,13 +213,25 @@ public class PregledActivity extends AppCompatActivity {
 
     private void srediViewModel() {
         pregledViewModel = ViewModelProviders.of(this).get(PregledViewModel.class);
+        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        srediObservere();
+    }
+
+    private void srediObservere() {
         pregledViewModel.getAllPreglediZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Pregled>>() {
             @Override
             public void onChanged(@Nullable List<Pregled> pregledi) {
                 adapter.submitList(pregledi);
             }
         });
+        pregledViewModel.getMaxDatumPregledaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String pregledi) {
+                maxDatum = pregledi;
+            }
+        });
     }
+
 
     private void srediIzmeniPregledNaKlik() {
         adapter.setOnItemClickListener(new PregledAdapter.OnItemClickListener() {
