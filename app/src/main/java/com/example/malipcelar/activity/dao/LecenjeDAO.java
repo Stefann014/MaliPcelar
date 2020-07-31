@@ -29,4 +29,7 @@ public interface LecenjeDAO {
     @Query("SELECT * FROM lecenje_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID ORDER BY date(datum_lecenja) DESC")
     LiveData<List<Lecenje>> getAllLecenjaZaKosnicu(int kosnicaID, int pcelinjakID);
 
+    @Query("SELECT max(date(datum_lecenja)) FROM lecenje_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID")
+    LiveData<String> getMaxDatumLecenjaZaKosnicu(int kosnicaID, int pcelinjakID);
+
 }

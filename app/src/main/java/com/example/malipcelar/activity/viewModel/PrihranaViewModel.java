@@ -35,4 +35,8 @@ public class PrihranaViewModel extends AndroidViewModel {
     public LiveData<List<Prihrana>> getAllPrihranaZaKosnicu(int kosnicaID, int pcelinjakID) {
         return prihranaRepository.getAllPrihranaZaKosnicu(kosnicaID, pcelinjakID);
     }
+
+    public LiveData<String> getMaxDatumPrihranaZaKosnicu(int kosnicaID, int pcelinjakID) {
+        return prihranaRepository.getMaxDatumPrihranaZaKosnicu(kosnicaID, pcelinjakID);
+    }
 }

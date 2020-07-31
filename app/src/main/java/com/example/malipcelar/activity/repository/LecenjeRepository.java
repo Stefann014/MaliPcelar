@@ -24,6 +24,10 @@ public class LecenjeRepository {
         return lecenjeDAO.getAllLecenjaZaKosnicu(kosnicaID, pcelinjakID);
     }
 
+    public LiveData<String> getMaxDatumLecenjaZaKosnicu(int kosnicaID, int pcelinjakID) {
+        return lecenjeDAO.getMaxDatumLecenjaZaKosnicu(kosnicaID, pcelinjakID);
+    }
+
     //
     public void insert(Lecenje lecenje) {
         new LecenjeRepository.InsertLecenjeAsyncTask(lecenjeDAO).execute(lecenje);

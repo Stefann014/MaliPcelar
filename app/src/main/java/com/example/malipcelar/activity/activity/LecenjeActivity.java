@@ -46,6 +46,8 @@ public class LecenjeActivity extends AppCompatActivity {
 
     final LecenjeAdapter adapter = new LecenjeAdapter();
 
+    String maxDatum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,7 @@ public class LecenjeActivity extends AppCompatActivity {
         kosnica = (Kosnica) intent.getSerializableExtra(EXTRA_KOSNICA);
         pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
         recyclerView = findViewById(R.id.rvLecenja);
-
+        maxDatum = null;
         btnDodajLecenje = findViewById(R.id.btnDodajLecenje);
         lecenja = null;
         srediRecycleView();

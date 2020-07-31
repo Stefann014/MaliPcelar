@@ -24,6 +24,10 @@ public class PrihranaRepository {
         return prihranaDAO.getAllPrihranaZaKosnicu(kosnicaID, pcelinjakID);
     }
 
+    public LiveData<String> getMaxDatumPrihranaZaKosnicu(int kosnicaID, int pcelinjakID) {
+        return prihranaDAO.getMaxDatumPrihranaZaKosnicu(kosnicaID, pcelinjakID);
+    }
+
     //
     public void insert(Prihrana prihrana) {
         new PrihranaRepository.InsertPrihranaAsyncTask(prihranaDAO).execute(prihrana);

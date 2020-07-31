@@ -27,4 +27,8 @@ public interface PrihranaDAO {
 
     @Query("SELECT * FROM prihrana_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID ORDER BY date(datum_prihrane) DESC")
     LiveData<List<Prihrana>> getAllPrihranaZaKosnicu(int kosnicaID, int pcelinjakID);
+
+    @Query("SELECT max(date(datum_prihrane)) FROM prihrana_table WHERE kosnica_id = :kosnicaID AND pcelinjak_id = :pcelinjakID")
+    LiveData<String> getMaxDatumPrihranaZaKosnicu(int kosnicaID, int pcelinjakID);
+
 }
