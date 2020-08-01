@@ -97,7 +97,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_pregled"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,10 +121,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_lecenje"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconPregled" />
+                app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
 
             <Button
                 android:id="@+id/btnLecenje"
@@ -145,10 +145,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_prihrana"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iconLecenje" />
+                app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
 
             <Button
                 android:id="@+id/btnPrihrana"

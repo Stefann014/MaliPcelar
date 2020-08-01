@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -574,6 +577,11 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
                             Location trenutnaLokacija = (Location) task.getResult();
+                            if (trenutnaLokacija == null) {
+                                statusCheck();
+                                Log.d("TAGG", "Ukljucite lokaciju");
+                                return;
+                            }
                             pomeriKameru(new LatLng(trenutnaLokacija.getLatitude(), trenutnaLokacija.getLongitude()),
                                     DEFAULT_ZOOM, "Moja lokacija");
                         } else {
@@ -730,6 +738,33 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             e.getMessage();
             return null;
         }
+    }
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Ukljucite lokaciju, da biste pristupili trenutnoj lokaciji")
+                .setCancelable(false)
+                .setPositiveButton("Ukljuci", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Izadji", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }
