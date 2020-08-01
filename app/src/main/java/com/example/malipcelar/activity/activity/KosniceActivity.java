@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +78,7 @@ public class KosniceActivity extends AppCompatActivity {
         super.onResume();
         if (pauza == 1) {
             recreate();
+            adapter.notifyDataSetChanged();
         }
         pauza = 0;
     }
@@ -114,6 +117,7 @@ public class KosniceActivity extends AppCompatActivity {
     private void srediRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }
 

@@ -43,9 +43,9 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
     List<Prihrana> prihrane;
     final PrihranaAdapter adapter = new PrihranaAdapter();
     PrihranaViewModel prihranaViewModel;
-    boolean primeniNaSve;
     KosnicaViewModel kosnicaViewModel;
     String maxDatum;
+    List<Kosnica> kosnice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +89,35 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         btnDodajNovuPrihranu = findViewById(R.id.btnDodajNovuPrihranu);
         recyclerView = findViewById(R.id.rvPrihrane);
         prihrane = null;
-        primeniNaSve = false;
+        kosnice = null;
         srediRecycleView();
 
     }
 
     @Override
     public void sacuvaj(String datum, double kg, boolean primeniNaSve, String vrstaPrihrane) {
-        this.primeniNaSve = primeniNaSve;
-        Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, kg);
-        prihranaViewModel.insert(prihrana);
+        if (primeniNaSve) {
+            for (Kosnica k : kosnice) {
+                Prihrana p = new Prihrana(k.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, kg);
+                prihranaViewModel.insert(p);
+            }
+        } else {
+            Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, kg);
+            prihranaViewModel.insert(prihrana);
+        }
+    }
+
+    @Override
+    public void sacuvajSirup(String datum, double litar, boolean primeniNaSve, String vrstaPrihrane) {
+        if (primeniNaSve) {
+            for (Kosnica k : kosnice) {
+                Prihrana p = new Prihrana(k.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
+                prihranaViewModel.insert(p);
+            }
+        } else {
+            Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
+            prihranaViewModel.insert(prihrana);
+        }
     }
 
     @NonNull
@@ -121,8 +140,6 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         prihranaViewModel = ViewModelProviders.of(this).get(PrihranaViewModel.class);
         kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
         srediObservere();
-
-
     }
 
     private void srediObservere() {
@@ -138,6 +155,12 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
                 maxDatum = datum;
                 kosnica.setDatumPoslednjePrihrane(datum);
                 kosnicaViewModel.update(kosnica);
+            }
+        });
+        kosnicaViewModel.getAllKosniceByRbPcelinjaka(pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Kosnica>>() {
+            @Override
+            public void onChanged(List<Kosnica> kosnice) {
+                PrihranaActivity.this.kosnice = kosnice;
             }
         });
     }
@@ -159,12 +182,6 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
 
     }
 
-    @Override
-    public void sacuvajSirup(String datum, double litar, boolean primeniNaSve, String vrstaPrihrane) {
-        this.primeniNaSve = primeniNaSve;
-        Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
-        prihranaViewModel.insert(prihrana);
-    }
 
     private void prikaziPrihranuNaKlik() {
         adapter.setOnItemClickListener(new PrihranaAdapter.OnItemClickListener() {

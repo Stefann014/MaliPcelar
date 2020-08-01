@@ -33,6 +33,8 @@ public class LecenjeActivity extends AppCompatActivity {
             "com.example.malipcelar.activity.activity.KOSNICA";
     public static final String EXTRA_PCELINJAK =
             "com.example.malipcelar.activity.activity.PCELINJAK";
+    public static final String EXTRA_ADAPTER =
+            "com.example.malipcelar.activity.activity.EXTRA_ADAPTER";
 
     public static final int DODAJ_NOVO_LECENJE = 1;
     public static final int IZMENI_LECENJE = 2;
