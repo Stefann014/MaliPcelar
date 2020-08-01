@@ -134,6 +134,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.getUiSettings().setRotateGesturesEnabled(false);
             inicijalizacijaZaMapu();
         }
         if (isOnline()) {
