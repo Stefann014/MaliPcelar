@@ -40,6 +40,7 @@ public class LecenjeActivity extends AppCompatActivity {
     Kosnica kosnica;
     Pcelinjak pcelinjak;
     List<Lecenje> lecenja;
+    List<Kosnica> kosnice;
 
     FloatingActionButton btnDodajLecenje;
     RecyclerView recyclerView;
@@ -68,6 +69,7 @@ public class LecenjeActivity extends AppCompatActivity {
         pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
         recyclerView = findViewById(R.id.rvLecenja);
         maxDatum = null;
+        kosnice = null;
         btnDodajLecenje = findViewById(R.id.btnDodajLecenje);
         lecenja = null;
         srediRecycleView();
@@ -111,6 +113,12 @@ public class LecenjeActivity extends AppCompatActivity {
                 kosnicaViewModel.update(kosnica);
             }
         });
+        kosnicaViewModel.getAllKosniceByRbPcelinjaka(pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Kosnica>>() {
+            @Override
+            public void onChanged(List<Kosnica> kosnice) {
+                LecenjeActivity.this.kosnice = kosnice;
+            }
+        });
     }
 
     private void srediBrisanje() {
@@ -138,10 +146,15 @@ public class LecenjeActivity extends AppCompatActivity {
             String datumLecenja = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA);
             boolean primeniNaSveKOsnice = data.getBooleanExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK, false);
             String bolest = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST);
-
-            Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
-            lecenjeViewModel.insert(lecenje);
-
+            if (primeniNaSveKOsnice) {
+                for (Kosnica k : kosnice) {
+                    Lecenje lecenje = new Lecenje(k.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
+                    lecenjeViewModel.insert(lecenje);
+                }
+            } else {
+                Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
+                lecenjeViewModel.insert(lecenje);
+            }
             Toast.makeText(this, "Lecenje je sacuvano", Toast.LENGTH_SHORT).show();
         } else if (requestCode == IZMENI_LECENJE && resultCode == RESULT_OK) {
             int id = data.getIntExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, -1);
@@ -152,16 +165,16 @@ public class LecenjeActivity extends AppCompatActivity {
             }
 
             String datumLecenja = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA);
-            boolean primeniNaSveKOsnice = data.getBooleanExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK, false);
             String bolest = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST);
+
 
             Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
             lecenje.setLecenjeID(id);
             lecenjeViewModel.update(lecenje);
 
-            Toast.makeText(this, "Pregled je izmenjen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lecenje je izmenjeno", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Pregled nije izmenjen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lecenje nije izmenjeno", Toast.LENGTH_SHORT).show();
         }
     }
 
