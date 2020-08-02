@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 
@@ -18,8 +19,10 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
 
     RecyclerView rvIstorijaAktivnosti;
     List<Pcelinjak> sviPcelinjaci;
+    List<PcelinjakIDatumi> pcelinjaciIDatumi;
     PcelinjakViewModel pcelinjakViewModel;
     KosnicaViewModel kosnicaViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,13 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
 
         srediAtribute();
         srediKomunikacijuSaViewModel();
+
     }
 
     private void srediAtribute() {
         rvIstorijaAktivnosti = findViewById(R.id.rvIstorijaAktivnosti);
         sviPcelinjaci = null;
+        pcelinjaciIDatumi = null;
     }
 
     private void srediKomunikacijuSaViewModel() {
@@ -48,6 +53,11 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
                 sviPcelinjaci = pcelinjaci;
             }
         });
-
+        pcelinjakViewModel.getPcelinjakIDatumi().observe(this, new Observer<List<PcelinjakIDatumi>>() {
+            @Override
+            public void onChanged(List<PcelinjakIDatumi> pcelIDat) {
+                pcelinjaciIDatumi = pcelIDat;
+            }
+        });
     }
 }

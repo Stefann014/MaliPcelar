@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 import com.example.malipcelar.activity.repository.PcelinjakRepository;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class PcelinjakViewModel extends AndroidViewModel {
         pcelinjakRepository.deleteAllPcelinjaci();
     }
 
-    public LiveData<List<Pcelinjak >> getAllPcelinjaci() {
+    public LiveData<List<Pcelinjak>> getAllPcelinjaci() {
         return allPcelinjaci;
     }
 
@@ -48,11 +49,15 @@ public class PcelinjakViewModel extends AndroidViewModel {
         return pcelinjakRepository.getPcelinjakByID(id);
     }
 
+    public LiveData<List<PcelinjakIDatumi>> getPcelinjakIDatumi() {
+        return pcelinjakRepository.getPcelinjakIDatumi();
+    }
+
     public LiveData<List<Integer>> getAllPcelinjakRB() {
         return zauzetiRBovi;
     }
 
     public void updateRb(int stariRb, int noviRb) {
-        pcelinjakRepository.updateRb(stariRb,noviRb);
+        pcelinjakRepository.updateRb(stariRb, noviRb);
     }
 }

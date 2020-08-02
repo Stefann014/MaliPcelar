@@ -12,5 +12,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/stavka_istorija_aktivnosti" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

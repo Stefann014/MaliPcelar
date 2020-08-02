@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 
 import java.util.List;
 
@@ -36,5 +37,8 @@ public interface PcelinjakDAO {
     LiveData<List<Integer>> getAllPcelinjakRB();
 
     @Query("UPDATE pcelinjak_table SET rb_pcelinjaka=:noviRb WHERE rb_pcelinjaka = :stariRb")
-    void updateRb(int stariRb,int noviRb);
+    void updateRb(int stariRb, int noviRb);
+
+    @Query("SELECT (p.rb_pcelinjaka || '. ' || p.naziv_pcelinjaka) AS pcelinjak, max(date(datum_poslednjeg_pregleda)) AS maxDatumPregled, max(date(datum_poslednje_prihrane)) AS maxDatumPrihrane, max(date(datum_poslednjeg_lecenja)) AS maxDatumLecenja FROM pcelinjak_table p JOIN kosnica_table k ON (p.rb_pcelinjaka = k.pcelinjak) GROUP BY p.rb_pcelinjaka")
+    LiveData<List<PcelinjakIDatumi>> getPcelinjakIDatumi();
 }
