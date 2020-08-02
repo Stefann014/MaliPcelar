@@ -52,6 +52,7 @@ public class KosniceActivity extends AppCompatActivity {
         setContentView(R.layout.kosnica_activity);
 
         srediAtribute();
+        srediRecycleView();
         srediListenere();
         srediKomunikacijuSaViewModel();
         srediBrisanje();
@@ -84,9 +85,6 @@ public class KosniceActivity extends AppCompatActivity {
         kosnice = null;
         zauzetiRBovi = null;
         stariRb = -1;
-
-
-        srediRecycleView();
 
     }
 

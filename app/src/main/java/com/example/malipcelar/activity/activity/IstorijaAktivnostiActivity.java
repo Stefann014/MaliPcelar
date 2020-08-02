@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.adapteri.IstorijaAktivnostiAdapter;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
@@ -22,7 +24,7 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     List<PcelinjakIDatumi> pcelinjaciIDatumi;
     PcelinjakViewModel pcelinjakViewModel;
     KosnicaViewModel kosnicaViewModel;
-
+    final IstorijaAktivnostiAdapter adapter = new IstorijaAktivnostiAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,17 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
 
     }
 
+    private void srediRecycleView() {
+        rvIstorijaAktivnosti.setLayoutManager(new LinearLayoutManager(this));
+        rvIstorijaAktivnosti.setHasFixedSize(true);
+        rvIstorijaAktivnosti.setAdapter(adapter);
+    }
+
     private void srediAtribute() {
         rvIstorijaAktivnosti = findViewById(R.id.rvIstorijaAktivnosti);
         sviPcelinjaci = null;
         pcelinjaciIDatumi = null;
+        srediRecycleView();
     }
 
     private void srediKomunikacijuSaViewModel() {
@@ -47,16 +56,12 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     }
 
     private void srediObservere() {
-        pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
-            @Override
-            public void onChanged(List<Pcelinjak> pcelinjaci) {
-                sviPcelinjaci = pcelinjaci;
-            }
-        });
+
         pcelinjakViewModel.getPcelinjakIDatumi().observe(this, new Observer<List<PcelinjakIDatumi>>() {
             @Override
             public void onChanged(List<PcelinjakIDatumi> pcelIDat) {
                 pcelinjaciIDatumi = pcelIDat;
+                adapter.submitList(pcelinjaciIDatumi);
             }
         });
     }

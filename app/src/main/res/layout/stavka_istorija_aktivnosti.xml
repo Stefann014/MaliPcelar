@@ -50,7 +50,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/txtRedniBrojPcelinjaka"
+                android:id="@+id/txtRedniBrojINazivPcelinjaka"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:text="Istorija aktivnosti pcelinjaka"
                 android:textColor="#8A000000"
                 app:layout_constraintStart_toEndOf="@+id/cvID"
-                app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojPcelinjaka" />
+                app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojINazivPcelinjaka" />
 
             <Button
                 android:id="@+id/btnDropdownStrelica"
