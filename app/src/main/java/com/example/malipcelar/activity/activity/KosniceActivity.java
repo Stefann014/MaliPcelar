@@ -6,13 +6,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -46,9 +43,7 @@ public class KosniceActivity extends AppCompatActivity {
     List<Kosnica> kosnice;
     List<Integer> zauzetiRBovi;
     int stariRb;
-    ConstraintLayout expandableView;
-    Button btnStrelica;
-    CardView cvKosnica;
+
     int pauza = 0;
 
     @Override
@@ -89,9 +84,7 @@ public class KosniceActivity extends AppCompatActivity {
         kosnice = null;
         zauzetiRBovi = null;
         stariRb = -1;
-        expandableView = findViewById(R.id.prosirivView);
-        btnStrelica = findViewById(R.id.btnStrelica);
-        cvKosnica = findViewById(R.id.cardViewKosnica);
+
 
         srediRecycleView();
 
