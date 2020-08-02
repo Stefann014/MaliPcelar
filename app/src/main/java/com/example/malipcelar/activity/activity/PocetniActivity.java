@@ -1,11 +1,11 @@
 package com.example.malipcelar.activity.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.malipcelar.R;
 
@@ -13,7 +13,7 @@ public class PocetniActivity extends AppCompatActivity {
 
     Button btnNapomene;
     Button btnPcelinjaci;
-
+    Button btnIstorijaAktivnosti;
 
     @Override
 
@@ -28,6 +28,7 @@ public class PocetniActivity extends AppCompatActivity {
     private void srediAtribute() {
         btnNapomene = findViewById(R.id.btnNapomene);
         btnPcelinjaci = findViewById(R.id.btnPcelinjaci);
+        btnIstorijaAktivnosti = findViewById(R.id.btnIstorijaAktivnosti);
     }
 
     private void srediListener() {
@@ -43,7 +44,17 @@ public class PocetniActivity extends AppCompatActivity {
                 otvoriActivityPcelinjaci();
             }
         });
+        btnIstorijaAktivnosti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otvoriActivityIstorijaAktivnosti();
+            }
+        });
+    }
 
+    private void otvoriActivityIstorijaAktivnosti() {
+        Intent intent = new Intent(this, IstorijaAktivnostiActivity.class);
+        startActivity(intent);
     }
 
     private void otvoriActivityPcelinjaci() {
