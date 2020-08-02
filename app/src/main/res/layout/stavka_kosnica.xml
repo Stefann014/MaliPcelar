@@ -9,166 +9,166 @@
     android:background="#E4E3E3">
 
 
-<androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
 
-    android:id="@+id/cardViewKosnica"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/CardView.Light"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:background="#E4E3E3">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewKosnica"
+        style="@style/CardView.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#E4E3E3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/viewId"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:elevation="12dp"
-            app:cardCornerRadius="25dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/slikaKosnica"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/tip_napomene_spinner_kosnica" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/txtRedniBrojKosnice"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Naziv i redni broj kosnice"
-            app:layout_constraintBottom_toTopOf="@+id/txtPcelinjak"
-            app:layout_constraintStart_toEndOf="@+id/viewId"
-            app:layout_constraintTop_toTopOf="@+id/viewId" />
-
-        <TextView
-            android:id="@+id/txtPcelinjak"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Pcelinjak"
-            android:textColor="#8A000000"
-            app:layout_constraintStart_toEndOf="@+id/viewId"
-            app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
-
-        <Button
-            android:id="@+id/btnStrelica"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/ic_dropdown_strelica_dole"
-            app:layout_constraintBottom_toBottomOf="@+id/viewId"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewId" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/prosirivView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:visibility="gone"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtPcelinjak"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:paddingBottom="12dp">
 
-            <ImageView
-                android:id="@+id/iconPregled"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/viewId"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_pregled"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="25dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/btnPregled"
-                style="@style/TextAppearance.AppCompat.Medium"
+                <ImageView
+                    android:id="@+id/slikaKosnica"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tip_napomene_spinner_kosnica" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtRedniBrojKosnice"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:text="Datum pregleda"
-                android:textColor="#000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconPregled"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iconLecenje"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_lecenje"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
+                android:text="Naziv i redni broj kosnice"
+                app:layout_constraintBottom_toTopOf="@+id/txtPcelinjak"
+                app:layout_constraintStart_toEndOf="@+id/viewId"
+                app:layout_constraintTop_toTopOf="@+id/viewId" />
 
-            <Button
-                android:id="@+id/btnLecenje"
-                style="@style/TextAppearance.AppCompat.Medium"
+            <TextView
+                android:id="@+id/txtPcelinjak"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:text="Datum lecenja"
-                android:textColor="#000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iconLecenje"
-                app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
-
-            <ImageView
-                android:id="@+id/iconPrihrana"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_prihrana"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
+                android:text="Pcelinjak"
+                android:textColor="#8A000000"
+                app:layout_constraintStart_toEndOf="@+id/viewId"
+                app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
 
             <Button
-                android:id="@+id/btnPrihrana"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:text="Datum prihrane"
-                android:textColor="#000"
+                android:id="@+id/btnStrelica"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/ic_dropdown_strelica_dole"
+                app:layout_constraintBottom_toBottomOf="@+id/viewId"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iconPrihrana"
-                app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
+                app:layout_constraintTop_toTopOf="@+id/viewId" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/prosirivView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPcelinjak">
+
+                <ImageView
+                    android:id="@+id/iconPregled"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_pregled"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnPregled"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Datum pregleda"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iconPregled"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iconLecenje"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_lecenje"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
+
+                <Button
+                    android:id="@+id/btnLecenje"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Datum lecenja"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iconLecenje"
+                    app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
+
+                <ImageView
+                    android:id="@+id/iconPrihrana"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_prihrana"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
+
+                <Button
+                    android:id="@+id/btnPrihrana"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Datum prihrane"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iconPrihrana"
+                    app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
