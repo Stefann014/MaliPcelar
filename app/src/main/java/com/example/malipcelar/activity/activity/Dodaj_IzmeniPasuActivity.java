@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity;
+package com.example.malipcelar.activity.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -90,10 +90,12 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatumOd.setText(dobarDatum);
-            String datum2 = data.getStringExtra(EXTRA_DATUM_OD_PASE);
+
+
+            String datum2 = data.getStringExtra(EXTRA_DATUM_DO_PASE);
             // treba nam sad u formatu 20.05.1997
-            String[] datumi2 = datum.split("-");
-            String dobarDatum2 = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
+            String[] datumi2 = datum2.split("-");
+            String dobarDatum2 = datumi2[2] + "." + datumi2[1] + "." + datumi2[0] + ".";
             btnDatumDo.setText(dobarDatum2);
 
             String prikupljenoMeda = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
@@ -106,14 +108,27 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             txtPrikupljenoMeda.setText(prikupljenoMaticnogMleca);
             String prikupljenoPerge = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
             txtPrikupljenoMeda.setText(prikupljenoPerge);
-            Pcelinjak pcelinjak = (Pcelinjak) data.getSerializableExtra(EXTRA_PCELINJAK_ID);
-            spPcelinjaci.setSelection(((ArrayAdapter<Pcelinjak>) spPcelinjaci.getAdapter()).getPosition(pcelinjak));
+            int pcelinjakID = data.getIntExtra(EXTRA_PCELINJAK_ID, -1);
+            Pcelinjak pcelinjak = pronadjiPcelinjak(pcelinjakID);
+            pcelinjak.setRedniBrojPcelinjaka(pcelinjakID);
+            //spPcelinjaci.setSelection(((ArrayAdapter<Pcelinjak>) spPcelinjaci.getAdapter()).getPosition(pcelinjak));
             String napomena = data.getStringExtra(EXTRA_NAPOMENA_PASA);
             txtNapomena.setText(napomena);
 
         } else {
             setTitle("Dodaj pasu");
         }
+    }
+
+    private Pcelinjak pronadjiPcelinjak(int pcelinjakID) {
+        final Pcelinjak[] p = {new Pcelinjak()};
+        pcelinjakViewModel.getPcelinjakByID(pcelinjakID).observe(this, new Observer<Pcelinjak>() {
+            @Override
+            public void onChanged(Pcelinjak pcelinjak) {
+                p[0] = pcelinjak;
+            }
+        });
+        return p[0];
     }
 
     private void srediViewModel() {

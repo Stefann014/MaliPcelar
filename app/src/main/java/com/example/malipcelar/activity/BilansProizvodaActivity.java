@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.activity.Dodaj_IzmeniPasuActivity;
+import com.example.malipcelar.activity.activity.IstorijaPasaActivity;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
@@ -62,6 +64,8 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             String datumOd = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_OD_PASE);
             String datumDo = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_DO_PASE);
 
+
+
             Double prikupljenoMeda = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MEDA, 0);
             Double prikupljenoPolena = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_POLENA, 0);
             Double prikupljenoPropolisa = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PROPOLISA, 0);
@@ -76,29 +80,9 @@ public class BilansProizvodaActivity extends AppCompatActivity {
 
             pasaViewModel.insert(pasa);
 
-            Toast.makeText(this, "Lecenje je sacuvano", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pasa je sacuvana", Toast.LENGTH_SHORT).show();
         }
 
-        /*else if (requestCode == IZMENI_LECENJE && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, -1);
-
-            if (id == -1) {
-                Toast.makeText(this, "Lecenje ne moze biti izmenjeno", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            String datumLecenja = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA);
-            String bolest = data.getStringExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST);
-
-
-            Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
-            lecenje.setLecenjeID(id);
-            lecenjeViewModel.update(lecenje);
-
-            Toast.makeText(this, "Lecenje je izmenjeno", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Lecenje nije izmenjeno", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     private void srediAtribute() {
