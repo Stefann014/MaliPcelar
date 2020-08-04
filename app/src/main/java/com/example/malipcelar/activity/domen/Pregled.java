@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "pregled_table", foreignKeys = { // resevaj slozen spoljni
+@Entity(tableName = "pregled_table", foreignKeys = {
         @ForeignKey(entity = Kosnica.class, parentColumns = {"rb_kosnice", "pcelinjak"},
                 childColumns = {"kosnica_id", "pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Pregled implements Serializable {

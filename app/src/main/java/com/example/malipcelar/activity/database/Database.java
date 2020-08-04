@@ -11,12 +11,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.malipcelar.activity.dao.KosnicaDAO;
 import com.example.malipcelar.activity.dao.LecenjeDAO;
 import com.example.malipcelar.activity.dao.OpsteNapomeneDAO;
+import com.example.malipcelar.activity.dao.PasaDAO;
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
 import com.example.malipcelar.activity.dao.PregledDAO;
 import com.example.malipcelar.activity.dao.PrihranaDAO;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Lecenje;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
+import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Pregled;
 import com.example.malipcelar.activity.domen.Prihrana;
@@ -25,7 +27,7 @@ import com.example.malipcelar.activity.domen.Prihrana;
 // verzija se odnosi na bazu kada se menja , ona se uvek inkrementira
 
 
-@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class, Pregled.class, Lecenje.class, Prihrana.class}, version = 1)
+@androidx.room.Database(entities = {OpstaNapomena.class, Pcelinjak.class, Kosnica.class, Pregled.class, Lecenje.class, Prihrana.class, Pasa.class}, version = 1)
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
@@ -42,11 +44,13 @@ public abstract class Database extends RoomDatabase {
 
     public abstract PrihranaDAO prihranaDAO();
 
+    public abstract PasaDAO pasaDAO();
+
     //singleton pattern
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database1") // menjaj naziv kad izmenis nesto
+                    Database.class, "database3") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();
@@ -69,6 +73,7 @@ public abstract class Database extends RoomDatabase {
         private PregledDAO pregledDAO;
         private LecenjeDAO lecenjeDAO;
         private PrihranaDAO prihranaDAO;
+        private PasaDAO pasaDAO;
 
         private PopulateDbAsyncTask(Database db) {
             napomenaDAO = db.opsteNapomeneDAO();
@@ -77,6 +82,7 @@ public abstract class Database extends RoomDatabase {
             pregledDAO = db.pregledDAO();
             lecenjeDAO = db.lecenjeDAO();
             prihranaDAO = db.prihranaDAO();
+            pasaDAO = db.pasaDAO();
         }
 
         @Override
@@ -87,6 +93,7 @@ public abstract class Database extends RoomDatabase {
             dodajPreglede(pregledDAO);
             dodajLecenje(lecenjeDAO);
             dodajPrihrane(prihranaDAO);
+            dodajPase(pasaDAO);
             return null;
         }
 
@@ -125,5 +132,8 @@ public abstract class Database extends RoomDatabase {
     }
 
     private static void dodajPrihrane(PrihranaDAO prihranaDAO) {
+    }
+
+    private static void dodajPase(PasaDAO pasaDAO) {
     }
 }

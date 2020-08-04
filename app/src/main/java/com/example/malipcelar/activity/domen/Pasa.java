@@ -1,86 +1,127 @@
 package com.example.malipcelar.activity.domen;
 
-import java.io.Serializable;
-import java.util.Date;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "pasa_table", foreignKeys = {
+        @ForeignKey(entity = Pcelinjak.class, parentColumns = {"rb_pcelinjaka"},
+                childColumns = {"pcelinjak_id"}, onUpdate = CASCADE, onDelete = CASCADE)})
 public class Pasa implements Serializable {
-    Date datumOd;
-    Date datumDo;
-    double ukupnoMeda;
-    double ukupnoPolena;
-    double ukupnoPropolisa;
-    double ukupnoMaticnogMleca;
-    double ukupnoPrikupljenePerge;
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "pasa_id")
+    int pasaID;
+    @ColumnInfo(name = "pcelinjak_id")
+    int pcelinjakID;
+    @ColumnInfo(name = "datum_od")
+    String datumOd;
+    @ColumnInfo(name = "datum_do")
+    String datumDo;
+    @ColumnInfo(name = "prikupljeno_meda")
+    double prikupljenoMeda;
+    @ColumnInfo(name = "prikupljeno_polena")
+    double prikupljenoPolena;
+    @ColumnInfo(name = "prikupljeno_propolisa")
+    double prikupljenoPropolisa;
+    @ColumnInfo(name = "prikupljeno_maticnog_mleca")
+    double prikupljenoMaticnogMleca;
+    @ColumnInfo(name = "prikupljena_perga")
+    double prikupljenaPerga;
+    @ColumnInfo(name = "napomena_pasa")
     String napomena;
 
     public Pasa() {
     }
 
-    public Pasa(Date datumOd, Date datumDo, double ukupnoMeda, double ukupnoPolena, double ukupnoPropolisa, double ukupnoMaticnogMleca, double ukupnoPrikupljenePerge, String napomena) {
+    public Pasa(int pasaID, int pcelinjakID, String datumOd, String datumDo, double prikupljenoMeda, double prikupljenoPolena, double prikupljenoPropolisa, double prikupljenoMaticnogMleca, double prikupljenaPerga, String napomena) {
+        this.pasaID = pasaID;
+        this.pcelinjakID = pcelinjakID;
         this.datumOd = datumOd;
         this.datumDo = datumDo;
-        this.ukupnoMeda = ukupnoMeda;
-        this.ukupnoPolena = ukupnoPolena;
-        this.ukupnoPropolisa = ukupnoPropolisa;
-        this.ukupnoMaticnogMleca = ukupnoMaticnogMleca;
-        this.ukupnoPrikupljenePerge = ukupnoPrikupljenePerge;
+        this.prikupljenoMeda = prikupljenoMeda;
+        this.prikupljenoPolena = prikupljenoPolena;
+        this.prikupljenoPropolisa = prikupljenoPropolisa;
+        this.prikupljenoMaticnogMleca = prikupljenoMaticnogMleca;
+        this.prikupljenaPerga = prikupljenaPerga;
         this.napomena = napomena;
     }
 
-    public Date getDatumOd() {
+    public int getPasaID() {
+        return pasaID;
+    }
+
+    public void setPasaID(int pasaID) {
+        this.pasaID = pasaID;
+    }
+
+    public int getPcelinjakID() {
+        return pcelinjakID;
+    }
+
+    public void setPcelinjakID(int pcelinjakID) {
+        this.pcelinjakID = pcelinjakID;
+    }
+
+    public String getDatumOd() {
         return datumOd;
     }
 
-    public void setDatumOd(Date datumOd) {
+    public void setDatumOd(String datumOd) {
         this.datumOd = datumOd;
     }
 
-    public Date getDatumDo() {
+    public String getDatumDo() {
         return datumDo;
     }
 
-    public void setDatumDo(Date datumDo) {
+    public void setDatumDo(String datumDo) {
         this.datumDo = datumDo;
     }
 
-    public double getUkupnoMeda() {
-        return ukupnoMeda;
+    public double getPrikupljenoMeda() {
+        return prikupljenoMeda;
     }
 
-    public void setUkupnoMeda(double ukupnoMeda) {
-        this.ukupnoMeda = ukupnoMeda;
+    public void setPrikupljenoMeda(double prikupljenoMeda) {
+        this.prikupljenoMeda = prikupljenoMeda;
     }
 
-    public double getUkupnoPolena() {
-        return ukupnoPolena;
+    public double getPrikupljenoPolena() {
+        return prikupljenoPolena;
     }
 
-    public void setUkupnoPolena(double ukupnoPolena) {
-        this.ukupnoPolena = ukupnoPolena;
+    public void setPrikupljenoPolena(double prikupljenoPolena) {
+        this.prikupljenoPolena = prikupljenoPolena;
     }
 
-    public double getUkupnoPropolisa() {
-        return ukupnoPropolisa;
+    public double getPrikupljenoPropolisa() {
+        return prikupljenoPropolisa;
     }
 
-    public void setUkupnoPropolisa(double ukupnoPropolisa) {
-        this.ukupnoPropolisa = ukupnoPropolisa;
+    public void setPrikupljenoPropolisa(double prikupljenoPropolisa) {
+        this.prikupljenoPropolisa = prikupljenoPropolisa;
     }
 
-    public double getUkupnoMaticnogMleca() {
-        return ukupnoMaticnogMleca;
+    public double getPrikupljenoMaticnogMleca() {
+        return prikupljenoMaticnogMleca;
     }
 
-    public void setUkupnoMaticnogMleca(double ukupnoMaticnogMleca) {
-        this.ukupnoMaticnogMleca = ukupnoMaticnogMleca;
+    public void setPrikupljenoMaticnogMleca(double prikupljenoMaticnogMleca) {
+        this.prikupljenoMaticnogMleca = prikupljenoMaticnogMleca;
     }
 
-    public double getUkupnoPrikupljenePerge() {
-        return ukupnoPrikupljenePerge;
+    public double getPrikupljenaPerga() {
+        return prikupljenaPerga;
     }
 
-    public void setUkupnoPrikupljenePerge(double ukupnoPrikupljenePerge) {
-        this.ukupnoPrikupljenePerge = ukupnoPrikupljenePerge;
+    public void setPrikupljenaPerga(double prikupljenaPerga) {
+        this.prikupljenaPerga = prikupljenaPerga;
     }
 
     public String getNapomena() {
@@ -93,6 +134,6 @@ public class Pasa implements Serializable {
 
     @Override
     public String toString() {
-        return  datumOd+" "+datumDo;
+        return datumOd + " " + datumDo;
     }
 }
