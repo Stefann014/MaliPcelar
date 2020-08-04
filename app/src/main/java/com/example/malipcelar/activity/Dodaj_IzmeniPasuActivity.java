@@ -2,10 +2,13 @@ package com.example.malipcelar.activity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -14,11 +17,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.fragmenti.DatumPickerFragment;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -31,6 +39,9 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     TextView txtPrikupljenoMaticnogMleca;
     TextView txtPrikupljenoPrikupljenePerge;
 
+    PcelinjakViewModel pcelinjakViewModel;
+    List<Pcelinjak> pcelinjaci;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +49,23 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
         srediAtribute();
         srediListenere();
+        srediViewModel();
+
+    }
+
+    private void srediViewModel() {
+        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        srediObservere();
+    }
+
+    private void srediObservere() {
+        pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
+            @Override
+            public void onChanged(List<Pcelinjak> pcelinjaci) {
+                Dodaj_IzmeniPasuActivity.this.pcelinjaci = pcelinjaci;
+                srediSpinner(pcelinjaci);
+            }
+        });
     }
 
     private void srediListenere() {
@@ -66,6 +94,24 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         txtPrikupljenoPropolisa = findViewById(R.id.txtPrikupljenoPropolisa);
         txtPrikupljenoMaticnogMleca = findViewById(R.id.txtPrikupljenoMaticnogMleca);
         txtPrikupljenoPrikupljenePerge = findViewById(R.id.txtPrikupljenoPerge);
+        pcelinjaci = null;
+    }
+
+    private void srediSpinner(List<Pcelinjak> pcelinjaci) {
+
+        ArrayAdapter<Pcelinjak> adapter = new ArrayAdapter<Pcelinjak>(this,
+                android.R.layout.simple_spinner_item, pcelinjaci); // ako je greska tu je
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spPcelinjaci.setAdapter(adapter);
+        spPcelinjaci.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     @Override
