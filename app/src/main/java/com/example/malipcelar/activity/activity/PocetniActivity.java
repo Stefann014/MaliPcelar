@@ -8,12 +8,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.BilansProizvodaActivity;
 
 public class PocetniActivity extends AppCompatActivity {
 
     Button btnNapomene;
     Button btnPcelinjaci;
     Button btnIstorijaAktivnosti;
+    Button btnBilansProivoda;
 
     @Override
 
@@ -29,6 +31,7 @@ public class PocetniActivity extends AppCompatActivity {
         btnNapomene = findViewById(R.id.btnNapomene);
         btnPcelinjaci = findViewById(R.id.btnPcelinjaci);
         btnIstorijaAktivnosti = findViewById(R.id.btnIstorijaAktivnosti);
+        btnBilansProivoda = findViewById(R.id.btnBilansProizvoda);
     }
 
     private void srediListener() {
@@ -50,6 +53,12 @@ public class PocetniActivity extends AppCompatActivity {
                 otvoriActivityIstorijaAktivnosti();
             }
         });
+        btnBilansProivoda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otvoriActivityBilansProizvoda();
+            }
+        });
     }
 
     private void otvoriActivityIstorijaAktivnosti() {
@@ -66,4 +75,10 @@ public class PocetniActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OpsteNapomeneActivity.class);
         startActivity(intent);
     }
+
+    private void otvoriActivityBilansProizvoda() {
+        Intent intent = new Intent(this, BilansProizvodaActivity.class);
+        startActivity(intent);
+    }
+
 }
