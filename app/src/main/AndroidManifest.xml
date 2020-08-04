@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.IstorijaPasaActivity"></activity>
-        <activity android:name=".activity.NovaPasaActivity" />
+        <activity android:name=".activity.Dodaj_IzmeniPasuActivity" />
         <activity android:name=".activity.BilansProizvodaActivity" />
         <activity android:name=".activity.activity.IstorijaAktivnostiActivity" />
         <activity

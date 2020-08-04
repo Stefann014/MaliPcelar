@@ -29,7 +29,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         btnDodajNovuPasu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BilansProizvodaActivity.this, NovaPasaActivity.class);
+                Intent intent = new Intent(BilansProizvodaActivity.this, Dodaj_IzmeniPasuActivity.class);
                 startActivityForResult(intent, DODAJ_NOVU_PASU);
             }
         });
