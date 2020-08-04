@@ -39,8 +39,7 @@ public class Pasa implements Serializable {
     public Pasa() {
     }
 
-    public Pasa(int pasaID, int pcelinjakID, String datumOd, String datumDo, double prikupljenoMeda, double prikupljenoPolena, double prikupljenoPropolisa, double prikupljenoMaticnogMleca, double prikupljenaPerga, String napomena) {
-        this.pasaID = pasaID;
+    public Pasa(int pcelinjakID, String datumOd, String datumDo, double prikupljenoMeda, double prikupljenoPolena, double prikupljenoPropolisa, double prikupljenoMaticnogMleca, double prikupljenaPerga, String napomena) {
         this.pcelinjakID = pcelinjakID;
         this.datumOd = datumOd;
         this.datumDo = datumDo;
