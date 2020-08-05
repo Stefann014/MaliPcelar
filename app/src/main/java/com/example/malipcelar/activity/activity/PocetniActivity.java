@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.OsnovniPodaciActivity;
 
 public class PocetniActivity extends AppCompatActivity {
 
@@ -15,6 +16,7 @@ public class PocetniActivity extends AppCompatActivity {
     Button btnPcelinjaci;
     Button btnIstorijaAktivnosti;
     Button btnBilansProivoda;
+    Button btnOsnovniPodaci;
 
     @Override
 
@@ -31,6 +33,7 @@ public class PocetniActivity extends AppCompatActivity {
         btnPcelinjaci = findViewById(R.id.btnPcelinjaci);
         btnIstorijaAktivnosti = findViewById(R.id.btnIstorijaAktivnosti);
         btnBilansProivoda = findViewById(R.id.btnBilansProizvoda);
+        btnOsnovniPodaci = findViewById(R.id.btnOsnovniPodaci);
     }
 
     private void srediListener() {
@@ -58,6 +61,12 @@ public class PocetniActivity extends AppCompatActivity {
                 otvoriActivityBilansProizvoda();
             }
         });
+        btnOsnovniPodaci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otvoriOsnovnePodatke();
+            }
+        });
     }
 
     private void otvoriActivityIstorijaAktivnosti() {
@@ -77,6 +86,11 @@ public class PocetniActivity extends AppCompatActivity {
 
     private void otvoriActivityBilansProizvoda() {
         Intent intent = new Intent(this, BilansProizvodaActivity.class);
+        startActivity(intent);
+    }
+
+    private void otvoriOsnovnePodatke() {
+        Intent intent = new Intent(this, OsnovniPodaciActivity.class);
         startActivity(intent);
     }
 
