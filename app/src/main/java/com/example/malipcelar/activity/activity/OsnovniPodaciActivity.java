@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -88,6 +89,11 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
                 btnIzmeni.setEnabled(true);
                 txtImePcelara.setEnabled(false);
                 txtGazdinstvo.setEnabled(false);
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("Pozdrav, " + txtImePcelara.getText().toString().trim() + "!" + "\n\n");
+                buffer.append("Nadamo se da ce Vasem gazdinstvu '" + txtGazdinstvo.getText().toString().trim() + "' nasa aplikacija biti od pomoci.");
+
+                prikaziPoruku("Dobro dosli ", buffer.toString());
             }
         });
         btnIzmeni.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +105,14 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
                 txtImePcelara.setEnabled(true);
             }
         });
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     private void srediAtribute() {

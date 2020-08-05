@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,10 +23,26 @@ public class PocetniActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocetni_activity);
+
+        proveriDaLiJePrviPut();
+
         srediAtribute();
         srediListener();
+
     }
 
+    private void proveriDaLiJePrviPut() {
+        boolean prviPut = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("prviPut", true);
+
+
+        if (prviPut) {
+            startActivity(new Intent(PocetniActivity.this, OsnovniPodaciActivity.class));
+        }
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("prviPut", false).apply();
+    }
 
     private void srediAtribute() {
         btnNapomene = findViewById(R.id.btnNapomene);
