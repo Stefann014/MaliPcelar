@@ -7,20 +7,36 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
+import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
+
+import java.util.List;
 
 public class OsnovniPodaciActivity extends AppCompatActivity {
 
     private Button btnIzmeni;
     private Button btnSacuvaj;
 
+    List<Pcelinjak> pcelinjaci;
+
     private TextView txtImePcelara;
     private TextView txtGazdinstvo;
 
     private String gazdinstvo;
     private String imePcelara;
+
+    RecyclerView recyclerView;
+    private PcelinjakViewModel pcelinjakViewModel;
+    final PcelinjaciAdapter adapter = new PcelinjaciAdapter();
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IME_PCELARA = "ime pcelara";
@@ -29,15 +45,44 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.osnovni__podaci_activity);
+        setContentView(R.layout.osnovni_podaci_activity);
 
         srediAtribute();
+        srediRecycleView();
+        srediKomunikacijuSaViewModel();
+    }
+
+    private void srediKomunikacijuSaViewModel() {
+        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        srediObservere();
+    }
+
+    public void srediRecycleView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void srediObservere() {
+
+        pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
+            @Override
+            public void onChanged(@Nullable List<Pcelinjak> pcelinjaci) {
+                OsnovniPodaciActivity.this.pcelinjaci = pcelinjaci;
+                adapter.submitList(pcelinjaci);
+            }
+        });
+
     }
 
     private void srediListenere() {
         btnSacuvaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (txtImePcelara.getText().toString().isEmpty() || txtGazdinstvo.getText().toString().isEmpty()) {
+                    Toast.makeText(OsnovniPodaciActivity.this, "Morate uneti podatke!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 sacuvajPodatke();
                 btnSacuvaj.setEnabled(false);
                 btnIzmeni.setEnabled(true);
@@ -61,6 +106,7 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
         btnSacuvaj = findViewById(R.id.btnSacuvajPcelara);
         txtImePcelara = findViewById(R.id.txtImePcelara);
         txtGazdinstvo = findViewById(R.id.txtGazdinstvo);
+        recyclerView = findViewById(R.id.rvParcele);
 
         imePcelara = txtImePcelara.getText().toString().trim();
         gazdinstvo = txtGazdinstvo.getText().toString().trim();

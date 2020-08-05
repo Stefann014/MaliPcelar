@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/stavka_lecenje" />
+        tools:listitem="@layout/stavka_pcelinjak" />
 
     <TextView
         android:id="@+id/textView27"
