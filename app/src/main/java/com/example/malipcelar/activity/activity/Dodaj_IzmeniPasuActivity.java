@@ -98,16 +98,16 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             String dobarDatum2 = datumi2[2] + "." + datumi2[1] + "." + datumi2[0] + ".";
             btnDatumDo.setText(dobarDatum2);
 
-            String prikupljenoMeda = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
-            txtPrikupljenoMeda.setText(prikupljenoMeda);
-            String prikupljenoPolena = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
-            txtPrikupljenoMeda.setText(prikupljenoPolena);
-            String prikupljenoPropolisa = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
-            txtPrikupljenoMeda.setText(prikupljenoPropolisa);
-            String prikupljenoMaticnogMleca = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
-            txtPrikupljenoMeda.setText(prikupljenoMaticnogMleca);
-            String prikupljenoPerge = data.getStringExtra(EXTRA_PRIKUPLJENO_MEDA);
-            txtPrikupljenoMeda.setText(prikupljenoPerge);
+            double prikupljenoMeda = data.getDoubleExtra(EXTRA_PRIKUPLJENO_MEDA, 0);
+            txtPrikupljenoMeda.setText(prikupljenoMeda + "");
+            double prikupljenoPolena = data.getDoubleExtra(EXTRA_PRIKUPLJENO_POLENA, 0);
+            txtPrikupljenoPolena.setText(prikupljenoPolena + "");
+            double prikupljenoPropolisa = data.getDoubleExtra(EXTRA_PRIKUPLJENO_PROPOLISA, 0);
+            txtPrikupljenoPropolisa.setText(prikupljenoPropolisa + "");
+            double prikupljenoMaticnogMleca = data.getDoubleExtra(EXTRA_PRIKUPLJENO_MATICNOG_MLECA, 0);
+            txtPrikupljenoMaticnogMleca.setText(prikupljenoMaticnogMleca + "");
+            double prikupljenoPerge = data.getDoubleExtra(EXTRA_PRIKUPLJENO_PERGE, 0);
+            txtPrikupljenoPrikupljenePerge.setText(prikupljenoPerge + "");
             int pcelinjakID = data.getIntExtra(EXTRA_PCELINJAK_ID, -1);
             Pcelinjak pcelinjak = pronadjiPcelinjak(pcelinjakID);
             pcelinjak.setRedniBrojPcelinjaka(pcelinjakID);

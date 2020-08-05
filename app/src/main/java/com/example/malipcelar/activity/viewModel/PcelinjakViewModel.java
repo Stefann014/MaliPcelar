@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 import com.example.malipcelar.activity.repository.PcelinjakRepository;
 
@@ -51,6 +52,10 @@ public class PcelinjakViewModel extends AndroidViewModel {
 
     public LiveData<List<PcelinjakIDatumi>> getPcelinjakIDatumi() {
         return pcelinjakRepository.getPcelinjakIDatumi();
+    }
+
+    public LiveData<List<KlasaBilans>> getAllBilans() {
+        return pcelinjakRepository.getAllBilans();
     }
 
     public LiveData<List<Integer>> getAllPcelinjakRB() {

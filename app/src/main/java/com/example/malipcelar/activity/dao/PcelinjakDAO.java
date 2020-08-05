@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 
 import java.util.List;
@@ -41,4 +42,7 @@ public interface PcelinjakDAO {
 
     @Query("SELECT (p.rb_pcelinjaka || '. ' || p.naziv_pcelinjaka) AS pcelinjak, max(date(datum_poslednjeg_pregleda)) AS maxDatumPregled, max(date(datum_poslednje_prihrane)) AS maxDatumPrihrane, max(date(datum_poslednjeg_lecenja)) AS maxDatumLecenja FROM pcelinjak_table p JOIN kosnica_table k ON (p.rb_pcelinjaka = k.pcelinjak) GROUP BY p.rb_pcelinjaka")
     LiveData<List<PcelinjakIDatumi>> getPcelinjakIDatumi();
+
+    @Query("SELECT (p.rb_pcelinjaka || '. ' || p.naziv_pcelinjaka) AS rbINazivPcelinjaka, p.lokacija AS lokacija, p.slika AS slikaPcelinjaka, SUM(prikupljeno_meda) AS ukupnoMeda, SUM(prikupljeno_polena) AS ukupnoPolena, SUM(prikupljeno_propolisa) AS ukupnoPropolisa, SUM(prikupljeno_maticnog_mleca) AS ukupnoMaticnogMleca, SUM(prikupljena_perga) AS ukupnoPrikupljenePerge FROM pasa_table pa JOIN pcelinjak_table p ON (p.rb_pcelinjaka  = pa.pcelinjak_id) GROUP BY pcelinjak_id")
+    LiveData<List<KlasaBilans>> getAllBilans();
 }

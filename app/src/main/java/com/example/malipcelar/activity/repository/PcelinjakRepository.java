@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
 import com.example.malipcelar.activity.database.Database;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 
 import java.util.List;
@@ -59,6 +60,10 @@ public class PcelinjakRepository {
 
     public LiveData<List<PcelinjakIDatumi>> getPcelinjakIDatumi() {
         return pcelinjakDAO.getPcelinjakIDatumi();
+    }
+
+    public LiveData<List<KlasaBilans>> getAllBilans() {
+        return pcelinjakDAO.getAllBilans();
     }
 
     public LiveData<List<Integer>> getAllPcelinjakRB() {

@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,26 +20,26 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 
-public class BilansProizvodaAdapter extends ListAdapter<Pcelinjak, BilansProizvodaAdapter.BilansProizvodaHolder> {
+public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProizvodaAdapter.BilansProizvodaHolder> {
 
 
     public BilansProizvodaAdapter() {
         super(DIFF_CALLBACK);
     }
 
-    private static final DiffUtil.ItemCallback<Pcelinjak> DIFF_CALLBACK = new DiffUtil.ItemCallback<Pcelinjak>() {
+    private static final DiffUtil.ItemCallback<KlasaBilans> DIFF_CALLBACK = new DiffUtil.ItemCallback<KlasaBilans>() {
         @Override
-        public boolean areItemsTheSame(Pcelinjak oldItem, Pcelinjak newItem) {
-            return oldItem.getRedniBrojPcelinjaka() == newItem.getRedniBrojPcelinjaka();
+        public boolean areItemsTheSame(KlasaBilans oldItem, KlasaBilans newItem) {
+            return oldItem.getRbINazivPcelinjaka().equals(newItem.getRbINazivPcelinjaka());
         }
 
         @Override
-        public boolean areContentsTheSame(Pcelinjak oldItem, Pcelinjak newItem) {
-            return oldItem.getNazivPcelinjaka().equals(newItem.getNazivPcelinjaka()) &&
-                    oldItem.getLokacija().equals(newItem.getLokacija()) &&
-                    oldItem.getNadmorskaVisina().equals(newItem.getNadmorskaVisina());
+        public boolean areContentsTheSame(KlasaBilans oldItem, KlasaBilans newItem) {
+            return oldItem.getLokacija().equals(newItem.getLokacija()) &&
+                    oldItem.getSlikaPcelinjaka().equals(newItem.getSlikaPcelinjaka()) &&
+                    oldItem.getUkupnoMeda() == newItem.getUkupnoMeda();
         }
     };
 
@@ -54,14 +53,13 @@ public class BilansProizvodaAdapter extends ListAdapter<Pcelinjak, BilansProizvo
 
     @Override
     public void onBindViewHolder(@NonNull BilansProizvodaAdapter.BilansProizvodaHolder holder, int position) {
-        Pcelinjak trenuntiPcelinjak = getItem(position);
-        holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.toString());
+        KlasaBilans trenuntiPcelinjak = getItem(position);
+        holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.getRbINazivPcelinjaka());
         holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
-        if (trenuntiPcelinjak.getSlika() != null && !trenuntiPcelinjak.getSlika().equals("")) {
-            holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
+        if (trenuntiPcelinjak.getSlikaPcelinjaka() != null && !trenuntiPcelinjak.getSlikaPcelinjaka().equals("")) {
+            holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlikaPcelinjaka()));
         }
 
-        Log.d("PCELINJAK", trenuntiPcelinjak.getUkupnoMeda() + "");
 
         holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: " + trenuntiPcelinjak.getUkupnoMeda());
         holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: " + trenuntiPcelinjak.getUkupnoPolena());
@@ -71,7 +69,7 @@ public class BilansProizvodaAdapter extends ListAdapter<Pcelinjak, BilansProizvo
 
     }
 
-    public Pcelinjak getPcelinjakAt(int position) {
+    public KlasaBilans getPcelinjakAt(int position) {
         return getItem(position);
     }
 

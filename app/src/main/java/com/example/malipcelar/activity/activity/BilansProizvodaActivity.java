@@ -16,6 +16,7 @@ import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.BilansProizvodaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +34,9 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     PcelinjakViewModel pcelinjakViewModel;
     RecyclerView recyclerView;
 
+    List<KlasaBilans> bilansi;
     List<Pcelinjak> pcelinjaci;
+
     int pauza = 0;
 
     final BilansProizvodaAdapter adapter = new BilansProizvodaAdapter();
@@ -49,6 +52,20 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         srediViewModel();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauza = 1;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pauza == 1) {
+            recreate();
+        }
+        pauza = 0;
+    }
 
     private void srediRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,6 +78,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
         pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
 
+
         srediObservere();
     }
 
@@ -70,10 +88,15 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Pcelinjak> pcelinjaks) {
                 pcelinjaci = pcelinjaks;
-                adapter.submitList(pcelinjaks);
             }
         });
-
+        pcelinjakViewModel.getAllBilans().observe(this, new Observer<List<KlasaBilans>>() {
+            @Override
+            public void onChanged(List<KlasaBilans> klasaBilans) {
+                bilansi = klasaBilans;
+                adapter.submitList(bilansi);
+            }
+        });
     }
 
     private void srediListenere() {
@@ -103,36 +126,21 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             String datumOd = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_OD_PASE);
             String datumDo = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_DO_PASE);
 
-
             double prikupljenoMeda = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MEDA, 0);
             double prikupljenoPolena = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_POLENA, 0);
             double prikupljenoPropolisa = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PROPOLISA, 0);
             double prikupljenoMaticnogMleca = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MATICNOG_MLECA, 0);
             double prikupljenoPerge = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PERGE, 0);
 
-
             String napomena = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_NAPOMENA_PASA);
 
             Pcelinjak pcelinjak = (Pcelinjak) data.getSerializableExtra(Dodaj_IzmeniPasuActivity.EXTRA_PCELINJAK_ID);
-
-            for (Pcelinjak p : pcelinjaci) {
-                if (p.getRedniBrojPcelinjaka() == pcelinjak.getRedniBrojPcelinjaka()) {
-                    p.setUkupnoMeda(pcelinjak.getUkupnoMeda());
-                    p.setUkupnoPolena(pcelinjak.getUkupnoPolena());
-                    p.setUkupnoPropolisa(pcelinjak.getUkupnoPropolisa());
-                    p.setUkupnoMaticnogMleca(pcelinjak.getUkupnoMaticnogMleca());
-                    p.setUkupnoPrikupljenePerge(pcelinjak.getUkupnoPrikupljenePerge());
-                }
-            }
-            adapter.submitList(pcelinjaci);
-
             Pasa pasa = new Pasa(pcelinjak.getRedniBrojPcelinjaka(), datumOd, datumDo, prikupljenoMeda, prikupljenoPolena, prikupljenoPropolisa, prikupljenoMaticnogMleca, prikupljenoPerge, napomena);
 
             pasaViewModel.insert(pasa);
 
             Toast.makeText(this, "Pasa je sacuvana", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void srediAtribute() {
@@ -140,5 +148,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         btnPrikaziIstorijuPasa = findViewById(R.id.btnIstorijaPasa);
         recyclerView = findViewById(R.id.rvBilansProizvoda);
         pcelinjaci = null;
+        bilansi = null;
     }
 }
