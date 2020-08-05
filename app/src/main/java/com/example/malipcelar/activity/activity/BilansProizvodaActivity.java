@@ -2,7 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,23 +49,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         srediViewModel();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (pauza == 0) {
-            pauza = 1;
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (pauza == 1) {
-            recreate();
-            adapter.notifyDataSetChanged();
-        }
-        pauza = 0;
-    }
 
     private void srediRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -122,11 +104,11 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             String datumDo = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_DO_PASE);
 
 
-            Double prikupljenoMeda = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MEDA, 0);
-            Double prikupljenoPolena = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_POLENA, 0);
-            Double prikupljenoPropolisa = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PROPOLISA, 0);
-            Double prikupljenoMaticnogMleca = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MATICNOG_MLECA, 0);
-            Double prikupljenoPerge = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PERGE, 0);
+            double prikupljenoMeda = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MEDA, 0);
+            double prikupljenoPolena = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_POLENA, 0);
+            double prikupljenoPropolisa = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PROPOLISA, 0);
+            double prikupljenoMaticnogMleca = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MATICNOG_MLECA, 0);
+            double prikupljenoPerge = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PERGE, 0);
 
 
             String napomena = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_NAPOMENA_PASA);
@@ -136,7 +118,10 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             for (Pcelinjak p : pcelinjaci) {
                 if (p.getRedniBrojPcelinjaka() == pcelinjak.getRedniBrojPcelinjaka()) {
                     p.setUkupnoMeda(pcelinjak.getUkupnoMeda());
-                    Log.d("UKUPNO MEDA", p.getUkupnoMeda() + "");
+                    p.setUkupnoPolena(pcelinjak.getUkupnoPolena());
+                    p.setUkupnoPropolisa(pcelinjak.getUkupnoPropolisa());
+                    p.setUkupnoMaticnogMleca(pcelinjak.getUkupnoMaticnogMleca());
+                    p.setUkupnoPrikupljenePerge(pcelinjak.getUkupnoPrikupljenePerge());
                 }
             }
             adapter.submitList(pcelinjaci);
