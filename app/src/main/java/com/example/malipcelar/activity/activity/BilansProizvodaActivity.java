@@ -1,20 +1,26 @@
-package com.example.malipcelar.activity;
+package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.activity.Dodaj_IzmeniPasuActivity;
-import com.example.malipcelar.activity.activity.IstorijaPasaActivity;
+import com.example.malipcelar.activity.adapteri.BilansProizvodaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class BilansProizvodaActivity extends AppCompatActivity {
 
@@ -24,6 +30,12 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     FloatingActionButton btnDodajNovuPasu;
 
     PasaViewModel pasaViewModel;
+    PcelinjakViewModel pcelinjakViewModel;
+    RecyclerView recyclerView;
+
+    List<Pcelinjak> pcelinjaci;
+
+    final BilansProizvodaAdapter adapter = new BilansProizvodaAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +43,35 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         setContentView(R.layout.bilans_proizvoda_activity);
 
         srediAtribute();
+        srediRecycleView();
         srediListenere();
         srediViewModel();
     }
 
+    private void srediRecycleView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+    }
+
     private void srediViewModel() {
         pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
+        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+
+        srediObservere();
+    }
+
+    private void srediObservere() {
+
+        pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
+            @Override
+            public void onChanged(@Nullable List<Pcelinjak> pcelinjaks) {
+                pcelinjaci = pcelinjaks;
+                adapter.submitList(pcelinjaks);
+            }
+        });
+
     }
 
     private void srediListenere() {
@@ -65,7 +100,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             String datumDo = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_DO_PASE);
 
 
-
             Double prikupljenoMeda = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MEDA, 0);
             Double prikupljenoPolena = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_POLENA, 0);
             Double prikupljenoPropolisa = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PROPOLISA, 0);
@@ -88,5 +122,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     private void srediAtribute() {
         btnDodajNovuPasu = findViewById(R.id.btnDodajNovuPasu);
         btnPrikaziIstorijuPasa = findViewById(R.id.btnIstorijaPasa);
+        recyclerView = findViewById(R.id.rvBilansProizvoda);
+        pcelinjaci = null;
     }
 }

@@ -8,7 +8,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.BilansProizvodaActivity;
 
 public class PocetniActivity extends AppCompatActivity {
 
