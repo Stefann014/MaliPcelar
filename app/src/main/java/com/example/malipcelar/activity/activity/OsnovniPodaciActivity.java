@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity;
+package com.example.malipcelar.activity.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
