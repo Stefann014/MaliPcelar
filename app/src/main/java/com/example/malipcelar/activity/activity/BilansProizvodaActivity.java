@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     List<Pcelinjak> pcelinjaci;
+    int pauza = 0;
 
     final BilansProizvodaAdapter adapter = new BilansProizvodaAdapter();
 
@@ -46,6 +48,24 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         srediRecycleView();
         srediListenere();
         srediViewModel();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pauza == 0) {
+            pauza = 1;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pauza == 1) {
+            recreate();
+            adapter.notifyDataSetChanged();
+        }
+        pauza = 0;
     }
 
     private void srediRecycleView() {
@@ -96,6 +116,8 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == DODAJ_NOVU_PASU && resultCode == RESULT_OK) {
+
+            adapter.notifyDataSetChanged();
             String datumOd = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_OD_PASE);
             String datumDo = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_DATUM_DO_PASE);
 
@@ -106,9 +128,18 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             Double prikupljenoMaticnogMleca = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_MATICNOG_MLECA, 0);
             Double prikupljenoPerge = data.getDoubleExtra(Dodaj_IzmeniPasuActivity.EXTRA_PRIKUPLJENO_PERGE, 0);
 
+
             String napomena = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_NAPOMENA_PASA);
 
             Pcelinjak pcelinjak = (Pcelinjak) data.getSerializableExtra(Dodaj_IzmeniPasuActivity.EXTRA_PCELINJAK_ID);
+
+            for (Pcelinjak p : pcelinjaci) {
+                if (p.getRedniBrojPcelinjaka() == pcelinjak.getRedniBrojPcelinjaka()) {
+                    p.setUkupnoMeda(pcelinjak.getUkupnoMeda());
+                    Log.d("UKUPNO MEDA", p.getUkupnoMeda() + "");
+                }
+            }
+            adapter.submitList(pcelinjaci);
 
             Pasa pasa = new Pasa(pcelinjak.getRedniBrojPcelinjaka(), datumOd, datumDo, prikupljenoMeda, prikupljenoPolena, prikupljenoPropolisa, prikupljenoMaticnogMleca, prikupljenoPerge, napomena);
 

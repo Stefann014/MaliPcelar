@@ -291,6 +291,13 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             prikupljenoPergeD = Double.parseDouble(prikupljenoPerge);
         }
 
+        pcelinjak.setUkupnoMeda(pcelinjak.getUkupnoMeda() + prikupljenoMedaD);
+        pcelinjak.setUkupnoPolena(pcelinjak.getUkupnoPolena() + prikupljenoPolenaD);
+        pcelinjak.setUkupnoPropolisa(pcelinjak.getUkupnoPropolisa() + prikupljenoPropolisaD);
+        pcelinjak.setUkupnoMaticnogMleca(pcelinjak.getUkupnoMaticnogMleca() + prikupljenoMaticnogMlecaD);
+        pcelinjak.setUkupnoPrikupljenePerge(pcelinjak.getUkupnoPrikupljenePerge() + prikupljenoPergeD);
+
+
         String napomena = txtNapomena.getText().toString().trim();
 
         Intent podaci = new Intent();
@@ -307,9 +314,13 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         if (id != -1) {
             podaci.putExtra(EXTRA_ID, id);
         }
+
+        pcelinjakViewModel.update(pcelinjak);
+
         setResult(RESULT_OK, podaci);
         finish();
     }
+
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
