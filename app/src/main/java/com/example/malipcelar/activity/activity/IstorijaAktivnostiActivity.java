@@ -1,6 +1,8 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -14,6 +16,7 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.PcelinjakIDatumi;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     PcelinjakViewModel pcelinjakViewModel;
     KosnicaViewModel kosnicaViewModel;
     final IstorijaAktivnostiAdapter adapter = new IstorijaAktivnostiAdapter();
+    FloatingActionButton btnPomoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,27 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
         setContentView(R.layout.istorija_aktivnosti_activity);
 
         srediAtribute();
+        srediListenere();
         srediKomunikacijuSaViewModel();
 
+    }
+
+    private void srediListenere() {
+        btnPomoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String buffer = "\tIstorija aktivnosti služi za prikazivanje poslednjih pregleda, prihrana i lečenja.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+                prikaziPoruku("Istorija aktivnosti ", buffer);
+            }
+        });
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     private void srediRecycleView() {
@@ -43,6 +66,7 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     }
 
     private void srediAtribute() {
+        btnPomoc = findViewById(R.id.btnPomoc);
         rvIstorijaAktivnosti = findViewById(R.id.rvIstorijaAktivnosti);
         sviPcelinjaci = null;
         pcelinjaciIDatumi = null;
