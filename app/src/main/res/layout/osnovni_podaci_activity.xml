@@ -51,13 +51,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvParcele"
-        android:layout_width="454dp"
-        android:layout_height="308dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/stavka_pcelinjak" />
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        tools:listitem="@layout/stavka_pcelinjak_adresa" />
 
     <TextView
         android:id="@+id/textView27"

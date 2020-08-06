@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
+import com.example.malipcelar.activity.adapteri.PcelinjakAdresaAdapter;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 
@@ -37,7 +38,7 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private PcelinjakViewModel pcelinjakViewModel;
-    final PcelinjaciAdapter adapter = new PcelinjaciAdapter();
+    final PcelinjakAdresaAdapter adapter = new PcelinjakAdresaAdapter();
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IME_PCELARA = "ime pcelara";
