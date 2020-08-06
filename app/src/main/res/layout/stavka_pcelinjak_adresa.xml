@@ -3,29 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="85dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp">
+    android:layout_marginEnd="8dp"
+    android:minHeight="85dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/crno_i_zuto"
+        android:minHeight="85dp"
         android:padding="8dp">
 
         <TextView
             android:id="@+id/txtLokacija_adresa"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtRBiNaziv_adresa"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="15dp"
             android:layout_toEndOf="@+id/pcelinjak_slika_adresa"
-            android:maxLines="1"
+            android:maxLines="3"
             android:text="Adresa"
             android:textColor="#000000"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika_adresa"
             app:layout_constraintTop_toBottomOf="@+id/txtRBiNaziv_adresa"
             tools:ignore="HardcodedText" />
@@ -34,10 +40,12 @@
 
             android:id="@+id/pcelinjak_slika_adresa"
             android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
             android:elevation="12dp"
             app:cardCornerRadius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -53,15 +61,17 @@
 
         <TextView
             android:id="@+id/txtRBiNaziv_adresa"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/pcelinjak_slika_adresa"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="RB I NAZIV"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toStartOf="@+id/txtNadmorskaVisina_adresa"
             app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika_adresa"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />

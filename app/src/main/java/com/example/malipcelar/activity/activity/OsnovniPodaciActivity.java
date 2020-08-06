@@ -2,6 +2,8 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
 import com.example.malipcelar.activity.adapteri.PcelinjakAdresaAdapter;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -71,10 +73,57 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Pcelinjak> pcelinjaci) {
                 OsnovniPodaciActivity.this.pcelinjaci = pcelinjaci;
+
+                assert pcelinjaci != null;
+                for (Pcelinjak p : pcelinjaci) {
+                    LatLng latLng = srediLatLng(p.getLokacija());
+                    if (latLng != null) {
+                        Address address = getAddressFromLatLng(latLng);
+
+                        assert address != null;
+                        if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
+                            if (address.getSubAdminArea() != null) {
+                                p.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
+                            }
+                        } else {
+                            p.setLokacija(address.getAddressLine(0));
+                        }
+                    }
+                }
+
                 adapter.submitList(pcelinjaci);
             }
         });
 
+    }
+
+    private LatLng srediLatLng(String lokacija) {
+        String[] lokacije = lokacija.split(",");
+        String lok1 = lokacije[0] + "";
+        String lok2 = lokacije[1] + "";
+
+        if (lok1.equals("null") || lok2.equals("null")) {
+            return null;
+        }
+        double latitude = Double.parseDouble(lokacije[0]);
+        double longitude = Double.parseDouble(lokacije[1]);
+        return new LatLng(latitude, longitude);
+    }
+
+    private Address getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(OsnovniPodaciActivity.this);
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
+            if (addresses != null) {
+                return addresses.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void srediListenere() {

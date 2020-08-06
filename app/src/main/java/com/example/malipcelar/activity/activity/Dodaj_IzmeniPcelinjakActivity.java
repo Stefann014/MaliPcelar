@@ -411,8 +411,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             addressList = geocoder.getFromLocationName(address, 1);
             if (addressList != null) {
                 Address singleaddress = addressList.get(0);
-                LatLng latLng = new LatLng(singleaddress.getLatitude(), singleaddress.getLongitude());
-                return latLng;
+                return new LatLng(singleaddress.getLatitude(), singleaddress.getLongitude());
             } else {
                 return null;
             }

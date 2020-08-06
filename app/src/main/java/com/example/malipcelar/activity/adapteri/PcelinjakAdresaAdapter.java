@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -43,9 +44,10 @@ public class PcelinjakAdresaAdapter extends ListAdapter<Pcelinjak, PcelinjakAdre
     public PcelinjakAdresaAdapter.PcelinjakHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stavka_pcelinjak_adresa, parent, false);
-        return new PcelinjakAdresaAdapter.PcelinjakHolder(itemView);
+        return new PcelinjakHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PcelinjakAdresaAdapter.PcelinjakHolder holder, int position) {
         Pcelinjak trenuntiPcelinjak = getItem(position);
@@ -57,11 +59,7 @@ public class PcelinjakAdresaAdapter extends ListAdapter<Pcelinjak, PcelinjakAdre
         }
     }
 
-    public Pcelinjak getPcelinjakAt(int position) {
-        return getItem(position);
-    }
-
-    class PcelinjakHolder extends RecyclerView.ViewHolder {
+    static class PcelinjakHolder extends RecyclerView.ViewHolder {
         private TextView txtRBiNazivPcelinjaka;
         private TextView txtLokacija;
         private TextView txtNadmorskaVisina;
