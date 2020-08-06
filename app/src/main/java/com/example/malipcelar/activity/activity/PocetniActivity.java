@@ -1,10 +1,10 @@
 package com.example.malipcelar.activity.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,9 @@ public class PocetniActivity extends AppCompatActivity {
     Button btnIstorijaAktivnosti;
     Button btnBilansProivoda;
     Button btnOsnovniPodaci;
+
+    private long prosloVreme;
+    private Toast tost;
 
     @Override
 
@@ -108,6 +111,19 @@ public class PocetniActivity extends AppCompatActivity {
     private void otvoriOsnovnePodatke() {
         Intent intent = new Intent(this, OsnovniPodaciActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (prosloVreme + 2000 > System.currentTimeMillis()) {
+            tost.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            tost = Toast.makeText(getBaseContext(), "Pritisnite jos jednom nazad za izlaz", Toast.LENGTH_SHORT);
+            tost.show();
+        }
+        prosloVreme = System.currentTimeMillis();
     }
 
 }
