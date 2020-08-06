@@ -97,4 +97,9 @@
     <string name="napomene">Napomene</string>
     <string name="istorija_aktivnosti">Istorija aktivnosti</string>
     <string name="osnovni_podaci">Osnovni podaci</string>
+    <string name="ime_p_elara">Ime pčelara:</string>
+    <string name="gazdinstvo">Gazdinstvo:</string>
+    <string name="trenutna_lokacija_p_elinjaka">Trenutna lokacija pčelinjaka:</string>
+    <string name="izmeni">Izmeni</string>
+    <string name="sa_uvaj">Sačuvaj</string>
 </resources>

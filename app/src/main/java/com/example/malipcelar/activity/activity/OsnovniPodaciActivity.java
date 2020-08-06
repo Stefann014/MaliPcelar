@@ -85,22 +85,21 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
                     return;
                 }
                 sacuvajPodatke();
-                btnSacuvaj.setEnabled(false);
-                btnIzmeni.setEnabled(true);
+                btnSacuvaj.setVisibility(View.GONE);
+                btnIzmeni.setVisibility(View.VISIBLE);
                 txtImePcelara.setEnabled(false);
                 txtGazdinstvo.setEnabled(false);
-                StringBuffer buffer = new StringBuffer();
-                buffer.append("Pozdrav, " + txtImePcelara.getText().toString().trim() + "!" + "\n\n");
-                buffer.append("Nadamo se da ce Vasem gazdinstvu '" + txtGazdinstvo.getText().toString().trim() + "' nasa aplikacija biti od pomoci.");
 
-                prikaziPoruku("Dobro dosli ", buffer.toString());
+                String buffer = "Pozdrav, " + txtImePcelara.getText().toString().trim() + "!" + "\n\n" +
+                        "Nadamo se da će Vašem gazdinstvu '" + txtGazdinstvo.getText().toString().trim() + "' naša aplikacija biti od pomoći.";
+                prikaziPoruku("Dobrodošli ", buffer);
             }
         });
         btnIzmeni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnIzmeni.setEnabled(false);
-                btnSacuvaj.setEnabled(true);
+                btnIzmeni.setVisibility(View.GONE);
+                btnSacuvaj.setVisibility(View.VISIBLE);
                 txtGazdinstvo.setEnabled(true);
                 txtImePcelara.setEnabled(true);
             }
@@ -132,15 +131,15 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
         if (imePcelara.isEmpty() && gazdinstvo.isEmpty()) {
             txtImePcelara.setEnabled(true);
             txtGazdinstvo.setEnabled(true);
-            btnIzmeni.setEnabled(false);
-            btnSacuvaj.setEnabled(true);
+            btnIzmeni.setVisibility(View.GONE);
+            btnSacuvaj.setVisibility(View.VISIBLE);
         }
 
         if (!imePcelara.isEmpty() && !gazdinstvo.isEmpty()) {
             txtImePcelara.setEnabled(false);
             txtGazdinstvo.setEnabled(false);
-            btnIzmeni.setEnabled(true);
-            btnSacuvaj.setEnabled(false);
+            btnIzmeni.setVisibility(View.VISIBLE);
+            btnSacuvaj.setVisibility(View.GONE);
         }
     }
 
@@ -156,7 +155,6 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
         editor.putString(IME_PCELARA, txtImePcelara.getText().toString());
         editor.putString(GAZDINSTVO, txtGazdinstvo.getText().toString());
         editor.apply();
-        Toast.makeText(this, "Podaci sacuvani", Toast.LENGTH_SHORT).show();
     }
 
     public void updatePodatke() {

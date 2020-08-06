@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.activity.OsnovniPodaciActivity" />
+        <activity
+            android:name=".activity.activity.OsnovniPodaciActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.activity.IstorijaPasaActivity"
             android:launchMode="singleTop"
