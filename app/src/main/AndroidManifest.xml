@@ -37,7 +37,8 @@
         <activity
             android:name=".activity.activity.IstorijaAktivnostiActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.activity.PocetniActivity" />
+            android:parentActivityName=".activity.activity.PocetniActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.activity.Dodaj_IzmeniLecenjeActivity"
             android:launchMode="singleTop"

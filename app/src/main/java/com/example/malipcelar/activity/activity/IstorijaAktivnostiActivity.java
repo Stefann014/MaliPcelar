@@ -45,11 +45,17 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
         btnPomoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String buffer = "\tIstorija aktivnosti služi za prikazivanje poslednjih pregleda, prihrana i lečenja.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
-                prikaziPoruku("Istorija aktivnosti ", buffer);
+                poruka();
             }
         });
     }
+
+    private void poruka() {
+        String buffer = "\tIstorija aktivnosti služi za prikazivanje poslednjih pregleda, prihrana i lečenja.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+        prikaziPoruku("Istorija aktivnosti ", buffer);
+
+    }
+
 
     public void prikaziPoruku(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -85,6 +91,10 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<PcelinjakIDatumi> pcelIDat) {
                 pcelinjaciIDatumi = pcelIDat;
+                if (pcelinjaciIDatumi.size() == 0) {
+                    poruka();
+
+                }
                 adapter.submitList(pcelinjaciIDatumi);
             }
         });

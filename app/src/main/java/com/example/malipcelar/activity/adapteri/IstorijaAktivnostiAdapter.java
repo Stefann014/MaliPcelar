@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -24,31 +25,36 @@ public class IstorijaAktivnostiAdapter extends ListAdapter<PcelinjakIDatumi, Ist
         super(DIFF_CALLBACK);
     }
 
-    private static final DiffUtil.ItemCallback<PcelinjakIDatumi> DIFF_CALLBACK = new DiffUtil.ItemCallback<PcelinjakIDatumi>() {
-        @Override
-        public boolean areItemsTheSame(PcelinjakIDatumi oldItem, PcelinjakIDatumi newItem) {
-            return oldItem.getPcelinjak().equals(newItem.getPcelinjak());
-        }
+    private static final DiffUtil.ItemCallback<PcelinjakIDatumi> DIFF_CALLBACK;
 
-        @Override
-        public boolean areContentsTheSame(PcelinjakIDatumi oldItem, PcelinjakIDatumi newItem) {
-            return oldItem.getMaxDatumPregled().equals(newItem.getMaxDatumPregled()) && oldItem.getMaxDatumPrihrane().equals(newItem.getMaxDatumPrihrane()) && oldItem.getMaxDatumLecenja().equals(newItem.getMaxDatumLecenja());
-        }
-    };
+    static {
+        DIFF_CALLBACK = new DiffUtil.ItemCallback<PcelinjakIDatumi>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull PcelinjakIDatumi oldItem, @NonNull PcelinjakIDatumi newItem) {
+                return oldItem.getPcelinjak().equals(newItem.getPcelinjak());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull PcelinjakIDatumi oldItem, @NonNull PcelinjakIDatumi newItem) {
+                return oldItem.getMaxDatumPregled().equals(newItem.getMaxDatumPregled()) && oldItem.getMaxDatumPrihrane().equals(newItem.getMaxDatumPrihrane()) && oldItem.getMaxDatumLecenja().equals(newItem.getMaxDatumLecenja());
+            }
+        };
+    }
 
     @NonNull
     @Override
-    public IstorijaAktivnostiAdapter.IstorijaAktivnostiHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IstorijaAktivnostiHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stavka_istorija_aktivnosti, parent, false);
-        return new IstorijaAktivnostiAdapter.IstorijaAktivnostiHolder(itemView);
+        return new IstorijaAktivnostiHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull IstorijaAktivnostiAdapter.IstorijaAktivnostiHolder holder, int position) {
         PcelinjakIDatumi trenutnaStavka = getItem(position);
         holder.txtRedniBrojINazivPcelinjaka.setText(trenutnaStavka.getPcelinjak() + "");
-        holder.txtIstorijaAktivnosti.setText("Istorija aktivnosti");
+        holder.txtIstorijaAktivnosti.setText("Pogledajte poslednje aktivnosti ->");
         if (trenutnaStavka.getMaxDatumPregled() != null && !trenutnaStavka.getMaxDatumPregled().equals("")) {
             holder.btnPoslednjiPregled.setText("Datum poslednjeg pregleda: " + datumZaPrikaz(trenutnaStavka.getMaxDatumPregled()));
         } else {
@@ -66,11 +72,7 @@ public class IstorijaAktivnostiAdapter extends ListAdapter<PcelinjakIDatumi, Ist
         }
     }
 
-    public PcelinjakIDatumi getPregledIDatumAt(int position) {
-        return getItem(position);
-    }
-
-    class IstorijaAktivnostiHolder extends RecyclerView.ViewHolder {
+    static class IstorijaAktivnostiHolder extends RecyclerView.ViewHolder {
         private TextView txtRedniBrojINazivPcelinjaka;
         private TextView txtIstorijaAktivnosti;
 
@@ -115,7 +117,6 @@ public class IstorijaAktivnostiAdapter extends ListAdapter<PcelinjakIDatumi, Ist
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 }
