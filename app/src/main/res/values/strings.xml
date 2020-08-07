@@ -110,4 +110,9 @@
     <string name="datum_pregleda">Datum pregleda</string>
     <string name="pogledajte_poslednje_aktivnosti"><![CDATA[Pogledajte poslednje aktivnosti]]></string>
     <string name="naziv_i_redni_broj_p_elinjaka">Naziv i redni broj pčelinjaka</string>
+    <string name="tipnapomene">Tip napomene:</string>
+    <string name="datum">Datum</string>
+    <string name="sacuvaj">Sacuvaj</string>
+    <string name="napomenaq">Napomena:</string>
+    <string name="unesite_napomenu">Unesite napomenu</string>
 </resources>

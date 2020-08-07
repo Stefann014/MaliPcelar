@@ -68,6 +68,7 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
             txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
             String datum = intent.getStringExtra(EXTRA_DATUM);
             assert datum != null;
+
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatum.setText(dobarDatum);

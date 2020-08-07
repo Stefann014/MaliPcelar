@@ -1,8 +1,15 @@
 package com.example.malipcelar.activity.activity;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,11 +26,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.ReminderBroadcast;
 import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OpsteNapomeneActivity extends AppCompatActivity {
@@ -42,6 +53,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opste_napomene_activity);
         setTitle("Napomene");
+        createNotificationChannel();
         srediAtribute();
         srediListenere();
         srediViewModel();
@@ -132,8 +144,37 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA);
             String datum = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM);
 
+
+            assert datum != null;
+            String[] datumi = datum.split("-");
+            String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = null;
+            try {
+                date = sdf.parse(dobarDatum);
+                assert date != null;
+                Log.d("DATUM", date.toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             OpstaNapomena opstaNapomena = new OpstaNapomena(tipNapomene, napomena, datum);
             opstaNapomenaViewModel.insert(opstaNapomena);
+
+
+            Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
+            intent.putExtra("NAPOMENA",opstaNapomena.getOpstaNapomena());
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            long dvanaestSati = 1000 * 60 * 60 * 12;
+            Log.d("TEN", dvanaestSati + "");
+
+            assert alarmManager != null;
+            assert date != null;
+            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime() + dvanaestSati, pendingIntent);
 
             Toast.makeText(this, "Napomena je sacuvana", Toast.LENGTH_SHORT).show();
         } else if (requestCode == IZMENI_NAPOMENU && resultCode == RESULT_OK) {
@@ -148,9 +189,35 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA);
             String datum = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM);
 
+            assert datum != null;
+            String[] datumi = datum.split("-");
+            String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = null;
+            try {
+                date = sdf.parse(dobarDatum);
+                assert date != null;
+                Log.d("DATUM", date.toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             OpstaNapomena opstaNapomena = new OpstaNapomena(tipNapomene, napomena, datum);
             opstaNapomena.setOpstaNapomenaID(id);
             opstaNapomenaViewModel.update(opstaNapomena);
+
+            Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
+            intent.putExtra("NAPOMENA",opstaNapomena.getOpstaNapomena());
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            long dvanaestSati = 1000 * 60 * 60 * 12;
+            Log.d("TEN", dvanaestSati + "");
+
+            assert alarmManager != null;
+            assert date != null;
+            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime() + dvanaestSati, pendingIntent);
+
 
             Toast.makeText(this, "Opsta napomena je izmenjena", Toast.LENGTH_SHORT).show();
         } else {
@@ -187,6 +254,22 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "LemubitReminderChannel";
+            String description = "Channel for Leumvit reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyLemubit", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+
     }
 
 }

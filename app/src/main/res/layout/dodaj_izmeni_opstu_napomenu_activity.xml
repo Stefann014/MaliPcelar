@@ -16,7 +16,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:maxLines="1"
-        android:text="Tip napomene:"
+        android:text="@string/tipnapomene"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDatum" />
@@ -30,7 +30,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:height="55dp"
-        android:text="Datum"
+        android:text="@string/datum"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:layout_marginTop="77dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/round"
-        android:text="Datum"
+        android:text="@string/datum"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +67,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/round"
-        android:text="Sacuvaj"
+        android:text="@string/sacuvaj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNapomena" />
 
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="Napomena:"
+        android:text="@string/napomenaq"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDatum2" />
@@ -90,13 +90,14 @@
         android:layout_marginTop="19dp"
         android:layout_marginEnd="25dp"
         android:layout_weight="1"
-        android:hint="Unesite napomenu"
+        android:hint="@string/unesite_napomenu"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lblNapomena"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerNapomene" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerNapomene"
+        tools:ignore="Autofill" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
