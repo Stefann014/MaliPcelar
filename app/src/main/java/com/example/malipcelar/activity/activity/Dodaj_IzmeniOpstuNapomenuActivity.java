@@ -84,8 +84,7 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "-" + datumi[1] + "-" + datumi[0];
     }
 
     private void sacuvajNapomenu() {

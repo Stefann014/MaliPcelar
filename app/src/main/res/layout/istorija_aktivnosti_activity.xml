@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pcele"
+    android:background="@drawable/pcelar_pozadina"
     tools:context=".activity.activity.PcelinjaciActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#ebf700"
+        android:backgroundTint="#FBAD3F"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

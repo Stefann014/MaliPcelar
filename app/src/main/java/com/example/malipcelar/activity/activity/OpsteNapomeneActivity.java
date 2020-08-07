@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -37,6 +38,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opste_napomene_activity);
+        setTitle("Napomene");
         srediAtribute();
         srediListenere();
         srediViewModel();
@@ -73,12 +75,12 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 opstaNapomenaViewModel.delete(adapter.getOpstaNapomenaAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(OpsteNapomeneActivity.this, "Napomena je izbrisana", Toast.LENGTH_SHORT).show();
             }

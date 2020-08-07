@@ -4,10 +4,10 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E4E3E3">
-
+    android:background="@color/quantum_yellow100">
 
     <androidx.cardview.widget.CardView
 
@@ -29,7 +29,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sace3"
+            android:background="@drawable/sace_dropdown"
             android:paddingBottom="12dp">
 
             <androidx.cardview.widget.CardView
@@ -48,7 +48,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/tip_napomene_spinner_pcelinjak" />
+                    android:src="@drawable/tip_napomene_spinner_pcelinjak"
+                    tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
 
@@ -59,8 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="10dp"
-                android:background="#FFFFFF"
-                android:text="Naziv i redni broj pcelinjaka"
+                android:background="@color/quantum_yellow100"
+                android:text="@string/naziv_i_redni_broj_p_elinjaka"
                 android:textColor="#000000"
                 android:textColorHighlight="#FFFFFF"
                 android:textSize="21sp"
@@ -76,9 +77,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="10dp"
-                android:background="#FFFFFF"
+                android:background="@color/quantum_yellow100"
                 android:maxLines="1"
-                android:text="Pogledajte poslednje aktivnosti ->"
+                android:text="@string/pogledajte_poslednje_aktivnosti"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toStartOf="@+id/btnDropdownStrelica"
                 app:layout_constraintStart_toEndOf="@+id/cvID"
@@ -112,9 +113,11 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/white_border"
                     android:src="@drawable/ic_pregled"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnPoslednjiPregled"
@@ -125,7 +128,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/round"
-                    android:text="Datum pregleda"
+                    android:text="@string/datum_pregleda"
                     android:textAllCaps="false"
                     android:textColor="#000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -138,9 +141,11 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/white_border"
                     android:src="@drawable/ic_lecenje"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnPoslednjiPregled" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnPoslednjiPregled"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnPoslednjeLecenje"
@@ -151,7 +156,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/round"
-                    android:text="Datum lecenja"
+                    android:text="@string/datum_lecenja"
                     android:textAllCaps="false"
                     android:textColor="#000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -164,9 +169,11 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/white_border"
                     android:src="@drawable/ic_prihrana"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnPoslednjeLecenje" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnPoslednjeLecenje"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnPoslednjaPrihrana"
@@ -177,7 +184,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/round"
-                    android:text="Datum prihrane"
+                    android:text="@string/datum_prihrane"
                     android:textAllCaps="false"
                     android:textColor="#000"
                     app:layout_constraintEnd_toEndOf="parent"

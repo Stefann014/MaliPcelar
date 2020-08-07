@@ -102,4 +102,12 @@
     <string name="trenutna_lokacija_p_elinjaka">Trenutna lokacija pčelinjaka:</string>
     <string name="izmeni">Izmeni</string>
     <string name="sa_uvaj">Sačuvaj</string>
+    <string name="napomena">Napomena...</string>
+    <string name="_20_05_2020">20.05.2020</string>
+    <string name="tip_napomene">Tip Napomene</string>
+    <string name="datum_prihrane">Datum prihrane</string>
+    <string name="datum_lecenja">Datum lecenja</string>
+    <string name="datum_pregleda">Datum pregleda</string>
+    <string name="pogledajte_poslednje_aktivnosti"><![CDATA[Pogledajte poslednje aktivnosti]]></string>
+    <string name="naziv_i_redni_broj_p_elinjaka">Naziv i redni broj pčelinjaka</string>
 </resources>
