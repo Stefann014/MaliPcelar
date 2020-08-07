@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +35,8 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     final OpsteNapomeneAdapter adapter = new OpsteNapomeneAdapter();
 
+    List<OpstaNapomena> opsteNapomene;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,12 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         opstaNapomenaViewModel.getAllOpsteNapomene().observe(this, new Observer<List<OpstaNapomena>>() {
             @Override
             public void onChanged(@Nullable List<OpstaNapomena> opsteNapomene) {
-                adapter.submitList(opsteNapomene);
+                OpsteNapomeneActivity.this.opsteNapomene = opsteNapomene;
+                assert OpsteNapomeneActivity.this.opsteNapomene != null;
+                if (OpsteNapomeneActivity.this.opsteNapomene.size() == 0) {
+                    poruka();
+                }
+                adapter.submitList(OpsteNapomeneActivity.this.opsteNapomene);
             }
         });
     }
@@ -105,6 +113,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     private void srediAtribute() {
         btnDodajOpstuNapomenu = findViewById(R.id.btnDodajOpstuNapomenu);
         recyclerView = findViewById(R.id.rvOpstaNapomena);
+        opsteNapomene = null;
         srediRecycleView();
     }
 
@@ -164,6 +173,20 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void poruka() {
+        String buffer = "\tOpšte napomene služe za unošenje napomena, koje treba da podsete pčelara na njegove obaveze.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+        prikaziPoruku("Opšte napomene", buffer);
+
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
 }
