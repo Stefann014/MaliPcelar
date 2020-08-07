@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity;
+package com.example.malipcelar.activity.pomocneKlase;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

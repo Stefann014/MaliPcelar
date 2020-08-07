@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.ReminderBroadcast;
+import com.example.malipcelar.activity.pomocneKlase.ReminderBroadcast;
 import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
