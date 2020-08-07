@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
 import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
+import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -48,6 +48,11 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
 
     private void srediViewModel() {
         opstaNapomenaViewModel = ViewModelProviders.of(this).get(OpstaNapomenaViewModel.class);
+        srediObserver();
+
+    }
+
+    private void srediObserver() {
         opstaNapomenaViewModel.getAllOpsteNapomene().observe(this, new Observer<List<OpstaNapomena>>() {
             @Override
             public void onChanged(@Nullable List<OpstaNapomena> opsteNapomene) {
@@ -66,7 +71,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA, opstaNapomena.getOpstaNapomena());
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM, opstaNapomena.getDatumNapomene());
                 startActivityForResult(intent, IZMENI_NAPOMENU);
-
             }
         });
     }
@@ -75,7 +79,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
@@ -154,14 +158,12 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.izbrisiSve:
-                opstaNapomenaViewModel.deleteAllOpsteNapomene();
-                Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.izbrisiSve) {
+            opstaNapomenaViewModel.deleteAllOpsteNapomene();
+            Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 }

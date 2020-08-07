@@ -3,9 +3,6 @@ package com.example.malipcelar.activity.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
     public static final String EXTRA_ID =
             "com.example.malipcelar.activity.activity.EXTRA_ID";
     public static final String EXTRA_TIP_NAPOMENE =
@@ -60,7 +58,7 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
         Intent intent = getIntent();
 
         if (intent.hasExtra(EXTRA_ID)) {
-            setTitle("Izmeni Napomenu");
+            setTitle("Izmeni napomenu");
             for (int i = 0; i < spinnerVrstaNapomene.getCount(); i++) {
                 if (spinnerVrstaNapomene.getItemAtPosition(i).toString().equals(intent.getStringExtra(EXTRA_TIP_NAPOMENE))) {
                     spinnerVrstaNapomene.setSelection(i);
@@ -69,7 +67,7 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
             }
             txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
             String datum = intent.getStringExtra(EXTRA_DATUM);
-            // treba nam sad u formatu 20.05.1997
+            assert datum != null;
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatum.setText(dobarDatum);
@@ -80,7 +78,6 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
-        //treba nam format yyyy-MM-dd
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
@@ -152,7 +149,7 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
     }
 
     private void srediDatum() {
-        btnDatum = (Button) findViewById(R.id.btnPcelinjaci);
+        btnDatum = findViewById(R.id.btnPcelinjaci);
         Date c = Calendar.getInstance().getTime();
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         btnDatum.setText(currentDateString);
@@ -174,24 +171,6 @@ public class Dodaj_IzmeniOpstuNapomenuActivity extends AppCompatActivity impleme
         tipNapomeneZaSpinner.add(new TipNapomeneZaSpinner("Pčelinjak", R.drawable.tip_napomene_spinner_pcelinjak));
         tipNapomeneZaSpinner.add(new TipNapomeneZaSpinner("Košnica", R.drawable.tip_napomene_spinner_kosnica));
         tipNapomeneZaSpinner.add(new TipNapomeneZaSpinner("Hitno", R.drawable.tip_napomene_spinner_veomavazno));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
-                sacuvajNapomenu();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 }
