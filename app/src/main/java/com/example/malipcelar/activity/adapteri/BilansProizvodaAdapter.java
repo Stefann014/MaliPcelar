@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.transition.AutoTransition;
@@ -48,9 +49,10 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
     public BilansProizvodaAdapter.BilansProizvodaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stavka_bilans_proizvoda, parent, false);
-        return new BilansProizvodaAdapter.BilansProizvodaHolder(itemView);
+        return new BilansProizvodaHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BilansProizvodaAdapter.BilansProizvodaHolder holder, int position) {
         KlasaBilans trenuntiPcelinjak = getItem(position);
@@ -61,19 +63,15 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
         }
 
 
-        holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: " + trenuntiPcelinjak.getUkupnoMeda());
-        holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: " + trenuntiPcelinjak.getUkupnoPolena());
-        holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: " + trenuntiPcelinjak.getUkupnoPropolisa());
-        holder.btnUkupnoMaticnogMleca.setText("Ukupno prikupljeno maticnog mleca: " + trenuntiPcelinjak.getUkupnoMaticnogMleca());
-        holder.btnUkupnoPerge.setText("Ukupno prikupljeno perge: " + trenuntiPcelinjak.getUkupnoPrikupljenePerge());
+        holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: \n" + trenuntiPcelinjak.getUkupnoMeda());
+        holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: \n" + trenuntiPcelinjak.getUkupnoPolena());
+        holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: \n" + trenuntiPcelinjak.getUkupnoPropolisa());
+        holder.btnUkupnoMaticnogMleca.setText("Ukupno prikupljeno maticnog mleca: \n" + trenuntiPcelinjak.getUkupnoMaticnogMleca());
+        holder.btnUkupnoPerge.setText("Ukupno prikupljeno perge: \n" + trenuntiPcelinjak.getUkupnoPrikupljenePerge());
 
     }
 
-    public KlasaBilans getPcelinjakAt(int position) {
-        return getItem(position);
-    }
-
-    class BilansProizvodaHolder extends RecyclerView.ViewHolder {
+    static class BilansProizvodaHolder extends RecyclerView.ViewHolder {
         private TextView txtRBiNazivPcelinjaka;
         private TextView txtLokacija;
         private ImageView pcelinjak_slika;

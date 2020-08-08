@@ -87,7 +87,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     private void srediIntent() {
         Intent data = getIntent();
         if (data.hasExtra(EXTRA_ID)) {
-            setTitle("Izmeni pasu");
+            setTitle("Izmeni pašu");
 
             String datum = data.getStringExtra(EXTRA_DATUM_OD_PASE);
             if (datum != null) {
@@ -117,7 +117,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             txtNapomena.setText(napomena);
 
         } else {
-            setTitle("Dodaj pasu");
+            setTitle("Dodaj pašu");
         }
     }
 

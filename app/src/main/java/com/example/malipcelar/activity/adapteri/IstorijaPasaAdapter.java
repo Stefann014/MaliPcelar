@@ -1,5 +1,7 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Pasa;
 
-public class PasaAdapter extends ListAdapter<Pasa, PasaAdapter.PasaHolder> {
+public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.PasaHolder> {
 
-    private PasaAdapter.OnItemClickListener listener;
+    private IstorijaPasaAdapter.OnItemClickListener listener;
 
-    public PasaAdapter() {
+    public IstorijaPasaAdapter() {
         super(DIFF_CALLBACK);
     }
 
@@ -37,26 +39,28 @@ public class PasaAdapter extends ListAdapter<Pasa, PasaAdapter.PasaHolder> {
 
     @NonNull
     @Override
-    public PasaAdapter.PasaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IstorijaPasaAdapter.PasaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stavka_pasa, parent, false);
-        return new PasaAdapter.PasaHolder(itemView);
+        return new IstorijaPasaAdapter.PasaHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull PasaAdapter.PasaHolder holder, int position) {
+    public void onBindViewHolder(@NonNull IstorijaPasaAdapter.PasaHolder holder, int position) {
         Pasa trenutnaPasa = getItem(position);
 
-        holder.txtDatumOd.setText("Datum od: " + datumZaPrikaz(trenutnaPasa.getDatumOd()));
-        holder.txtSmisliti.setText("Nez jos");
-        holder.txtDatumDo.setText("Datum do: " + datumZaPrikaz(trenutnaPasa.getDatumDo()));
+        Log.d("DATUMOD", trenutnaPasa.getDatumOd());
+        Log.d("DATUMDO", trenutnaPasa.getDatumDo());
+
+        holder.txtDatumOd.setText(datumZaPrikaz(trenutnaPasa.getDatumOd()));
+        holder.txtDatumDo.setText(datumZaPrikaz(trenutnaPasa.getDatumDo()));
 
     }
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     public Pasa getPasaAt(int position) {
@@ -65,13 +69,12 @@ public class PasaAdapter extends ListAdapter<Pasa, PasaAdapter.PasaHolder> {
 
     class PasaHolder extends RecyclerView.ViewHolder {
         private TextView txtDatumOd;
-        private TextView txtSmisliti;
         private TextView txtDatumDo;
 
         public PasaHolder(View itemView) {
             super(itemView);
+
             txtDatumOd = itemView.findViewById(R.id.txtDatumOd);
-            txtSmisliti = itemView.findViewById(R.id.txtCeVidimo);
             txtDatumDo = itemView.findViewById(R.id.txtDatumDo);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +93,8 @@ public class PasaAdapter extends ListAdapter<Pasa, PasaAdapter.PasaHolder> {
         void onItemClick(Pasa pasa);
     }
 
-    public void setOnItemClickListener(PasaAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(IstorijaPasaAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
-
 
 }

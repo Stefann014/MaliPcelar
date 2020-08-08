@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.adapteri.PasaAdapter;
+import com.example.malipcelar.activity.adapteri.IstorijaPasaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
@@ -27,15 +28,13 @@ public class IstorijaPasaActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     PasaViewModel pasaViewModel;
 
-    List<Pasa> pase;
-
-    final PasaAdapter adapter = new PasaAdapter();
+    final IstorijaPasaAdapter adapter = new IstorijaPasaAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.istorija_pasa_activity);
-
+        setTitle("Istorija paša");
         srediAtribute();
         srediViewModel();
         srediBrisanje();
@@ -72,12 +71,12 @@ public class IstorijaPasaActivity extends AppCompatActivity {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 pasaViewModel.delete(adapter.getPasaAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(IstorijaPasaActivity.this, "Lecenje je izbrisano", Toast.LENGTH_SHORT).show();
             }
@@ -86,7 +85,7 @@ public class IstorijaPasaActivity extends AppCompatActivity {
     }
 
     private void srediIzmeniPasuNaKlik() {
-        adapter.setOnItemClickListener(new PasaAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new IstorijaPasaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pasa pasa) {
                 Intent intent = new Intent(IstorijaPasaActivity.this, Dodaj_IzmeniPasuActivity.class);
@@ -133,6 +132,7 @@ public class IstorijaPasaActivity extends AppCompatActivity {
 
             Pcelinjak pcelinjak = (Pcelinjak) data.getSerializableExtra(Dodaj_IzmeniPasuActivity.EXTRA_PCELINJAK_ID);
 
+            assert pcelinjak != null;
             Pasa pasa = new Pasa(pcelinjak.getRedniBrojPcelinjaka(), datumOd, datumDo, prikupljenoMeda, prikupljenoPolena, prikupljenoPropolisa, prikupljenoMaticnogMleca, prikupljenoPerge, napomena);
 
             pasa.setPasaID(id);

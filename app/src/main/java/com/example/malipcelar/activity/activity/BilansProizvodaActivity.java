@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +46,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bilans_proizvoda_activity);
-
+        setTitle("Bilans proizvoda");
         srediAtribute();
         srediRecycleView();
         srediListenere();
@@ -94,6 +95,9 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<KlasaBilans> klasaBilans) {
                 bilansi = klasaBilans;
+                if (bilansi.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(bilansi);
             }
         });
@@ -151,4 +155,19 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         pcelinjaci = null;
         bilansi = null;
     }
+
+    private void poruka() {
+        String buffer = "\tBilans proizvoda služi za prikazivanje koliko je do sada prikupljeno meda, polena, propolisa, matičnog mleča i perge u svakom pčelinjaku.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+        prikaziPoruku("Bilans proizvoda ", buffer);
+
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
 }
