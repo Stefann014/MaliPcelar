@@ -124,4 +124,5 @@
     <string name="prikupljeno_propolisa_kg">Prikupljeno propolisa (kg)</string>
     <string name="prikupljeno_maticnog_mleca_kg">Prikupljeno maticnog mleca (kg)</string>
     <string name="prikupljeno_perge_kg">Prikupljeno perge (kg)</string>
+    <string name="save">Save</string>
 </resources>

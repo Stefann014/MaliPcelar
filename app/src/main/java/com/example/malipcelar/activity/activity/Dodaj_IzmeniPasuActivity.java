@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
     Button btnDatumOd;
     Button btnDatumDo;
+    Button btnSacuvaj;
     Spinner spPcelinjaci;
     TextView txtPrikupljenoMeda;
     TextView txtPrikupljenoPolena;
@@ -81,22 +83,21 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         srediIntent();
     }
 
+    @SuppressLint("SetTextI18n")
     private void srediIntent() {
         Intent data = getIntent();
         if (data.hasExtra(EXTRA_ID)) {
             setTitle("Izmeni pasu");
-            String datum = data.getStringExtra(EXTRA_DATUM_OD_PASE);
-            // treba nam sad u formatu 20.05.1997
-            String[] datumi = datum.split("-");
-            String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
-            btnDatumOd.setText(dobarDatum);
 
+            String datum = data.getStringExtra(EXTRA_DATUM_OD_PASE);
+            if (datum != null) {
+                btnDatumOd.setText(pretvoriUDatumZaPrikazivanje(datum));
+            }
 
             String datum2 = data.getStringExtra(EXTRA_DATUM_DO_PASE);
-            // treba nam sad u formatu 20.05.1997
-            String[] datumi2 = datum2.split("-");
-            String dobarDatum2 = datumi2[2] + "." + datumi2[1] + "." + datumi2[0] + ".";
-            btnDatumDo.setText(dobarDatum2);
+            if (datum2 != null) {
+                btnDatumDo.setText(pretvoriUDatumZaPrikazivanje(datum2));
+            }
 
             double prikupljenoMeda = data.getDoubleExtra(EXTRA_PRIKUPLJENO_MEDA, 0);
             txtPrikupljenoMeda.setText(prikupljenoMeda + "");
@@ -118,6 +119,11 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         } else {
             setTitle("Dodaj pasu");
         }
+    }
+
+    private String pretvoriUDatumZaPrikazivanje(String datum) {
+        String[] datumi = datum.split("-");
+        return datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
     }
 
     private Pcelinjak pronadjiPcelinjak(int pcelinjakID) {
@@ -163,11 +169,18 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
+        btnSacuvaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sacuvajPasu();
+            }
+        });
     }
 
     private void srediAtribute() {
         btnDatumOd = findViewById(R.id.btnDatumOdPasa);
         btnDatumDo = findViewById(R.id.btnDatumDoPasa);
+        btnSacuvaj = findViewById(R.id.btnSacuvajPasu);
         spPcelinjaci = findViewById(R.id.spPcelinjaci);
         txtPrikupljenoMeda = findViewById(R.id.txtPrikupljenoMeda);
         txtPrikupljenoPolena = findViewById(R.id.txtPrikupljenoPolena);
@@ -180,8 +193,8 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
     private void srediSpinner(List<Pcelinjak> pcelinjaci) {
 
-        ArrayAdapter<Pcelinjak> adapter = new ArrayAdapter<Pcelinjak>(this,
-                android.R.layout.simple_spinner_item, pcelinjaci); // ako je greska tu je
+        ArrayAdapter<Pcelinjak> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, pcelinjaci);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spPcelinjaci.setAdapter(adapter);
         spPcelinjaci.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -210,24 +223,6 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
-                sacuvajPasu();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private void sacuvajPasu() {
 
         if (btnDatumOd.getText().toString().trim().equals("Datum od:") || btnDatumDo.getText().toString().trim().equals("Datum do:")) {
@@ -238,18 +233,19 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         String datumOd = prevediDatumUFormatZaBazu(btnDatumOd.getText().toString().trim());
         String datumDo = prevediDatumUFormatZaBazu(btnDatumDo.getText().toString().trim());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
         try {
             Date datum1 = sdf.parse(btnDatumOd.getText().toString().trim());
             Date datum2 = sdf.parse(btnDatumDo.getText().toString().trim());
 
-            if (datum1.getTime() > datum2.getTime()) {
+            if (datum2 != null && datum1 != null && datum1.getTime() > datum2.getTime()) {
                 Toast.makeText(this, "Datum OD ne moze biti veci od datuma DO", Toast.LENGTH_LONG).show();
+                return;
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         Pcelinjak pcelinjak = (Pcelinjak) spPcelinjaci.getSelectedItem();
 
         double prikupljenoMedaD;
@@ -257,7 +253,6 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         double prikupljenoPropolisaD;
         double prikupljenoMaticnogMlecaD;
         double prikupljenoPergeD;
-
 
         String prikupljenoMeda = txtPrikupljenoMeda.getText().toString().trim();
         String prikupljenoPolena = txtPrikupljenoPolena.getText().toString().trim();
@@ -324,12 +319,25 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
-        //treba nam format yyyy-MM-dd
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "-" + datumi[1] + "-" + datumi[0];
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sacuvaj_napomenu) {
+            sacuvajPasu();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

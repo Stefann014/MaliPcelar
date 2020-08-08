@@ -138,9 +138,9 @@ public class IstorijaPasaActivity extends AppCompatActivity {
             pasa.setPasaID(id);
             pasaViewModel.update(pasa);
 
-            Toast.makeText(this, "Lecenje je izmenjeno", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pasa je izmenjena", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Lecenje nije izmenjeno", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pasa nije izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
 
