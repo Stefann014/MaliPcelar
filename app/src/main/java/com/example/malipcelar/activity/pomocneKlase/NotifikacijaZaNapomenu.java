@@ -9,7 +9,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.malipcelar.R;
 
-public class ReminderBroadcast extends BroadcastReceiver {
+public class NotifikacijaZaNapomenu extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

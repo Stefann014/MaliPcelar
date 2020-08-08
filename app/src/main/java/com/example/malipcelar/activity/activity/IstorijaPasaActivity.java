@@ -1,19 +1,19 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.pomocneKlase.DaLiZelisDaIzbrisesDialog;
 import com.example.malipcelar.activity.adapteri.IstorijaPasaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
@@ -21,7 +21,7 @@ import com.example.malipcelar.activity.viewModel.PasaViewModel;
 
 import java.util.List;
 
-public class IstorijaPasaActivity extends AppCompatActivity {
+public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelisDaIzbrisesDialog.ExampleDialogListener {
 
     public static final int IZMENI_PASU = 2;
 
@@ -37,7 +37,6 @@ public class IstorijaPasaActivity extends AppCompatActivity {
         setTitle("Istorija paša");
         srediAtribute();
         srediViewModel();
-        srediBrisanje();
         srediIzmeniPasuNaKlik();
     }
 
@@ -67,27 +66,21 @@ public class IstorijaPasaActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private void srediBrisanje() {
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                pasaViewModel.delete(adapter.getPasaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(IstorijaPasaActivity.this, "Lecenje je izbrisano", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerView);
-
-    }
-
     private void srediIzmeniPasuNaKlik() {
         adapter.setOnItemClickListener(new IstorijaPasaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pasa pasa) {
+
+                String poruka = datumZaPrikaz(pasa.getDatumOd()) + " - " + datumZaPrikaz(pasa.getDatumDo()) +
+                        "\n\n" + "Prikupljeno meda: " + pasa.getPrikupljenoMeda() + " kg \n" + "Prikupljeno polena: " + pasa.getPrikupljenoPolena() + " kg \n"
+                        + "Prikupljeno propolisa: " + pasa.getPrikupljenoPropolisa() + " kg \n" + "Prikupljeno matičnog mleča: " + pasa.getPrikupljenoMaticnogMleca() + " kg \n"
+                        + "Prikupljeno perge: " + pasa.getPrikupljenaPerga() + " kg \n\n" + "Napomena: " + pasa.getNapomena() + "\n";
+                prikaziPoruku("Paša", poruka);
+            }
+
+            @Override
+            public void onLongItemClick(Pasa pasa) {
+
                 Intent intent = new Intent(IstorijaPasaActivity.this, Dodaj_IzmeniPasuActivity.class);
 
                 intent.putExtra(Dodaj_IzmeniPasuActivity.EXTRA_ID, pasa.getPasaID());
@@ -104,7 +97,27 @@ public class IstorijaPasaActivity extends AppCompatActivity {
                 intent.putExtra(Dodaj_IzmeniPasuActivity.EXTRA_NAPOMENA_PASA, pasa.getNapomena());
                 startActivityForResult(intent, IZMENI_PASU);
             }
+
+            @Override
+            public void izbrisiPasu(Pasa pasa) {
+                daLiZelisDaIzbrises(pasa);
+            }
         });
+    }
+
+    private void daLiZelisDaIzbrises(Pasa pasa) {
+        DaLiZelisDaIzbrisesDialog dialog = new DaLiZelisDaIzbrisesDialog(pasa);
+        dialog.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    @Override
+    public void kliknutoDa(Pasa pasa) {
+        pasaViewModel.delete(pasa);
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     @Override
@@ -143,5 +156,14 @@ public class IstorijaPasaActivity extends AppCompatActivity {
             Toast.makeText(this, "Pasa nije izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
 
 }

@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
-import com.example.malipcelar.activity.pomocneKlase.ReminderBroadcast;
+import com.example.malipcelar.activity.pomocneKlase.NotifikacijaZaNapomenu;
 import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -178,7 +178,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             opstaNapomenaViewModel.insert(opstaNapomena);
 
 
-            Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
+            Intent intent = new Intent(OpsteNapomeneActivity.this, NotifikacijaZaNapomenu.class);
             intent.putExtra("NAPOMENA", opstaNapomena.getOpstaNapomena());
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
@@ -221,7 +221,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             opstaNapomena.setOpstaNapomenaID(id);
             opstaNapomenaViewModel.update(opstaNapomena);
 
-            Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
+            Intent intent = new Intent(OpsteNapomeneActivity.this, NotifikacijaZaNapomenu.class);
             intent.putExtra("NAPOMENA", opstaNapomena.getOpstaNapomena());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
 

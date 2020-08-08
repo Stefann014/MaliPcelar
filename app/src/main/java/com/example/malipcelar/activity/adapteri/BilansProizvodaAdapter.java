@@ -63,11 +63,11 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
         }
 
 
-        holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: \n" + trenuntiPcelinjak.getUkupnoMeda());
-        holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: \n" + trenuntiPcelinjak.getUkupnoPolena());
-        holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: \n" + trenuntiPcelinjak.getUkupnoPropolisa());
-        holder.btnUkupnoMaticnogMleca.setText("Ukupno prikupljeno maticnog mleca: \n" + trenuntiPcelinjak.getUkupnoMaticnogMleca());
-        holder.btnUkupnoPerge.setText("Ukupno prikupljeno perge: \n" + trenuntiPcelinjak.getUkupnoPrikupljenePerge());
+        holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: \n" + trenuntiPcelinjak.getUkupnoMeda() + " kg");
+        holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: \n" + trenuntiPcelinjak.getUkupnoPolena() + " kg");
+        holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: \n" + trenuntiPcelinjak.getUkupnoPropolisa() + " kg");
+        holder.btnUkupnoMaticnogMleca.setText("Ukupno prikupljeno maticnog mleca: \n" + trenuntiPcelinjak.getUkupnoMaticnogMleca() + " kg");
+        holder.btnUkupnoPerge.setText("Ukupno prikupljeno perge: \n" + trenuntiPcelinjak.getUkupnoPrikupljenePerge() + " kg");
 
     }
 

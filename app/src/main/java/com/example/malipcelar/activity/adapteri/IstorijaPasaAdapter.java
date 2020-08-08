@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,12 +71,14 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
     class PasaHolder extends RecyclerView.ViewHolder {
         private TextView txtDatumOd;
         private TextView txtDatumDo;
+        private ImageView slikaIzbrisi;
 
         public PasaHolder(View itemView) {
             super(itemView);
 
             txtDatumOd = itemView.findViewById(R.id.txtDatumOd);
             txtDatumDo = itemView.findViewById(R.id.txtDatumDo);
+            slikaIzbrisi = itemView.findViewById(R.id.slikaKanta);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,11 +89,38 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick((getItem(position)));
+                    }
+                    return false;
+                }
+            });
+            
+            slikaIzbrisi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.izbrisiPasu((getItem(position)));
+                    }
+
+                }
+            });
+            
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(Pasa pasa);
+
+        void onLongItemClick(Pasa pasa);
+
+        void izbrisiPasu(Pasa item);
     }
 
     public void setOnItemClickListener(IstorijaPasaAdapter.OnItemClickListener listener) {
