@@ -94,6 +94,7 @@
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="4"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lblNapomena"
         app:layout_constraintTop_toBottomOf="@+id/spinnerNapomene"

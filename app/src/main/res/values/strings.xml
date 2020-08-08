@@ -102,7 +102,7 @@
     <string name="trenutna_lokacija_p_elinjaka">Trenutna lokacija pčelinjaka:</string>
     <string name="izmeni">Izmeni</string>
     <string name="sa_uvaj">Sačuvaj</string>
-    <string name="napomena">Napomena...</string>
+    <string name="napomena">Napomena</string>
     <string name="_20_05_2020">20.05.2020</string>
     <string name="tip_napomene">Tip Napomene</string>
     <string name="datum_prihrane">Datum prihrane</string>
@@ -115,4 +115,13 @@
     <string name="sacuvaj">Sacuvaj</string>
     <string name="napomenaq">Napomena:</string>
     <string name="unesite_napomenu">Unesite napomenu</string>
+    <string name="datum_do">Datum do:</string>
+    <string name="datum_od">Datum od:</string>
+    <string name="asd">-</string>
+    <string name="izaberite_pcelinjak">Izaberite pcelinjak:</string>
+    <string name="prikupljeno_meda_kg">Prikupljeno meda (kg)</string>
+    <string name="prikupljeno_polena_kg">Prikupljeno polena (kg)</string>
+    <string name="prikupljeno_propolisa_kg">Prikupljeno propolisa (kg)</string>
+    <string name="prikupljeno_maticnog_mleca_kg">Prikupljeno maticnog mleca (kg)</string>
+    <string name="prikupljeno_perge_kg">Prikupljeno perge (kg)</string>
 </resources>
