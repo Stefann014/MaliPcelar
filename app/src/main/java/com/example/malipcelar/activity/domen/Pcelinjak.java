@@ -22,16 +22,6 @@ public class Pcelinjak implements Serializable {
     private String nadmorskaVisina;
     @ColumnInfo(name = "slika")
     private String slika;
-    @ColumnInfo(name = "ukuono_meda")
-    private double ukupnoMeda;
-    @ColumnInfo(name = "ukupno_polena")
-    private double ukupnoPolena;
-    @ColumnInfo(name = "ukupno_propolisa")
-    private double ukupnoPropolisa;
-    @ColumnInfo(name = "ukupno_maticnog_mleca")
-    private double ukupnoMaticnogMleca;
-    @ColumnInfo(name = "ukupno_prikupljene_perge")
-    private double ukupnoPrikupljenePerge;
 
 
     public Pcelinjak() {
@@ -43,52 +33,9 @@ public class Pcelinjak implements Serializable {
         this.lokacija = lokacija;
         this.nadmorskaVisina = nadmorskaVisina;
         this.slika = slika;
-        ukupnoMeda = 0;
-        ukupnoPolena = 0;
-        ukupnoPropolisa = 0;
-        ukupnoMaticnogMleca = 0;
-        ukupnoPrikupljenePerge = 0;
+
     }
 
-    public double getUkupnoMeda() {
-        return ukupnoMeda;
-    }
-
-    public void setUkupnoMeda(double ukupnoMeda) {
-        this.ukupnoMeda = ukupnoMeda;
-    }
-
-    public double getUkupnoPolena() {
-        return ukupnoPolena;
-    }
-
-    public void setUkupnoPolena(double ukupnoPolena) {
-        this.ukupnoPolena = ukupnoPolena;
-    }
-
-    public double getUkupnoPropolisa() {
-        return ukupnoPropolisa;
-    }
-
-    public void setUkupnoPropolisa(double ukupnoPropolisa) {
-        this.ukupnoPropolisa = ukupnoPropolisa;
-    }
-
-    public double getUkupnoMaticnogMleca() {
-        return ukupnoMaticnogMleca;
-    }
-
-    public void setUkupnoMaticnogMleca(double ukupnoMaticnogMleca) {
-        this.ukupnoMaticnogMleca = ukupnoMaticnogMleca;
-    }
-
-    public double getUkupnoPrikupljenePerge() {
-        return ukupnoPrikupljenePerge;
-    }
-
-    public void setUkupnoPrikupljenePerge(double ukupnoPrikupljenePerge) {
-        this.ukupnoPrikupljenePerge = ukupnoPrikupljenePerge;
-    }
 
     public int getRedniBrojPcelinjaka() {
         return redniBrojPcelinjaka;

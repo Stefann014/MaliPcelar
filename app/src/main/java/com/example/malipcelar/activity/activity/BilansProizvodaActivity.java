@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -37,6 +36,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
 
     List<KlasaBilans> bilansi;
     List<Pcelinjak> pcelinjaci;
+    List<Pasa> pase;
 
     int pauza = 0;
 
@@ -49,7 +49,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         setTitle("Bilans proizvoda");
         srediAtribute();
         srediRecycleView();
-        srediListenere();
         srediViewModel();
     }
 
@@ -76,19 +75,22 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
         pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
-
+        pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
 
         srediObservere();
     }
 
     private void srediObservere() {
-
         pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
             @Override
-            public void onChanged(@Nullable List<Pcelinjak> pcelinjaks) {
+            public void onChanged(List<Pcelinjak> pcelinjaks) {
                 pcelinjaci = pcelinjaks;
+                if (pcelinjaci.size() == 0) {
+                    iskljuciBtnNovaPasa();
+                } else {
+                    ukljuciBtnNovaPasa();
+                }
             }
         });
         pcelinjakViewModel.getAllBilans().observe(this, new Observer<List<KlasaBilans>>() {
@@ -101,16 +103,22 @@ public class BilansProizvodaActivity extends AppCompatActivity {
                 adapter.submitList(bilansi);
             }
         });
-    }
-
-    private void srediListenere() {
-        btnDodajNovuPasu.setOnClickListener(new View.OnClickListener() {
+        pasaViewModel.getAllPase().observe(this, new Observer<List<Pasa>>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BilansProizvodaActivity.this, Dodaj_IzmeniPasuActivity.class);
-                startActivityForResult(intent, DODAJ_NOVU_PASU);
+            public void onChanged(List<Pasa> pasas) {
+                pase = pasas;
+                if (pase.size() == 0) {
+                    iskljuiBtnIstorijaPasa();
+                } else {
+                    ukljuciBtnIstorijuPasa();
+                }
             }
         });
+
+
+    }
+
+    private void ukljuciBtnIstorijuPasa() {
         btnPrikaziIstorijuPasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +127,35 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void iskljuiBtnIstorijaPasa() {
+        btnPrikaziIstorijuPasa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BilansProizvodaActivity.this, "Morate imati unete paše da biste pristupili istoriji paša", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void ukljuciBtnNovaPasa() {
+        btnDodajNovuPasu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BilansProizvodaActivity.this, Dodaj_IzmeniPasuActivity.class);
+                startActivityForResult(intent, DODAJ_NOVU_PASU);
+            }
+        });
+    }
+
+    private void iskljuciBtnNovaPasa() {
+        btnDodajNovuPasu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BilansProizvodaActivity.this, "Morate prvo imati unet pčelinjak da bi mogli da unesete pašu", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,8 +189,9 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         btnDodajNovuPasu = findViewById(R.id.btnDodajNovuPasu);
         btnPrikaziIstorijuPasa = findViewById(R.id.btnIstorijaPasa);
         recyclerView = findViewById(R.id.rvBilansProizvoda);
-        pcelinjaci = null;
         bilansi = null;
+        pcelinjaci = null;
+        pase = null;
     }
 
     private void poruka() {

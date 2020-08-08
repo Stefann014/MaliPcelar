@@ -147,6 +147,11 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             @Override
             public void onChanged(List<Pcelinjak> pcelinjaci) {
                 Dodaj_IzmeniPasuActivity.this.pcelinjaci = pcelinjaci;
+                if (pcelinjaci.size() == 0) {
+                    btnSacuvaj.setEnabled(false);
+                } else {
+                    btnSacuvaj.setEnabled(true);
+                }
                 srediSpinner(pcelinjaci);
             }
         });
@@ -225,6 +230,11 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
     private void sacuvajPasu() {
 
+        if (spPcelinjaci.getSelectedItem().toString().equals("") || spPcelinjaci.getSelectedItem() == null) {
+            Toast.makeText(this, "Molimo Vas dodajte prvo pčelinjak", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (btnDatumOd.getText().toString().trim().equals("Datum od:") || btnDatumDo.getText().toString().trim().equals("Datum do:")) {
             Toast.makeText(this, "Unesite datume", Toast.LENGTH_LONG).show();
             return;
@@ -233,7 +243,8 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         String datumOd = prevediDatumUFormatZaBazu(btnDatumOd.getText().toString().trim());
         String datumDo = prevediDatumUFormatZaBazu(btnDatumDo.getText().toString().trim());
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         try {
             Date datum1 = sdf.parse(btnDatumOd.getText().toString().trim());
@@ -286,13 +297,6 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             prikupljenoPergeD = Double.parseDouble(prikupljenoPerge);
         }
 
-        pcelinjak.setUkupnoMeda(pcelinjak.getUkupnoMeda() + prikupljenoMedaD);
-        pcelinjak.setUkupnoPolena(pcelinjak.getUkupnoPolena() + prikupljenoPolenaD);
-        pcelinjak.setUkupnoPropolisa(pcelinjak.getUkupnoPropolisa() + prikupljenoPropolisaD);
-        pcelinjak.setUkupnoMaticnogMleca(pcelinjak.getUkupnoMaticnogMleca() + prikupljenoMaticnogMlecaD);
-        pcelinjak.setUkupnoPrikupljenePerge(pcelinjak.getUkupnoPrikupljenePerge() + prikupljenoPergeD);
-
-
         String napomena = txtNapomena.getText().toString().trim();
 
         Intent podaci = new Intent();
@@ -309,9 +313,6 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         if (id != -1) {
             podaci.putExtra(EXTRA_ID, id);
         }
-
-        pcelinjakViewModel.update(pcelinjak);
-
         setResult(RESULT_OK, podaci);
         finish();
     }
@@ -335,7 +336,12 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sacuvaj_napomenu) {
-            sacuvajPasu();
+            if (btnSacuvaj.isEnabled()) {
+                sacuvajPasu();
+            } else {
+                Toast.makeText(this, "Molimo Vas dodajte prvo pčelinjak", Toast.LENGTH_LONG).show();
+                return true;
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);

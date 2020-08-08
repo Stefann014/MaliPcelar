@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +8,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
+
+import java.util.List;
 
 public class PocetniActivity extends AppCompatActivity {
 
@@ -21,6 +28,10 @@ public class PocetniActivity extends AppCompatActivity {
     private long prosloVreme;
     private Toast tost;
 
+    List<Pcelinjak> pcelinjaci;
+
+    PcelinjakViewModel pcelinjakViewModel;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +41,83 @@ public class PocetniActivity extends AppCompatActivity {
         proveriDaLiJePrviPut();
 
         srediAtribute();
-        srediListener();
+        srediListenere();
+        srediViewModel();
 
+    }
+
+    private void srediViewModel() {
+        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        srediObservere();
+    }
+
+    private void srediObservere() {
+
+        pcelinjakViewModel.getAllPcelinjaci().observe(this, new Observer<List<Pcelinjak>>() {
+            @Override
+            public void onChanged(List<Pcelinjak> pcelinjaks) {
+                pcelinjaci = pcelinjaks;
+                if (pcelinjaci.size() == 0) {
+                    iskljuciBtnIstorijaAktivnosti();
+                    iskljuciBilansProizvoda();
+                } else {
+                    ukljuciBtnIstorijaAktivnosti();
+                    ukljuciBilansProizvoda();
+                }
+            }
+        });
+
+    }
+
+    private void ukljuciBtnIstorijaAktivnosti() {
+        btnIstorijaAktivnosti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otvoriActivityIstorijaAktivnosti();
+            }
+        });
+
+    }
+
+    private void ukljuciBilansProizvoda() {
+        btnBilansProivoda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otvoriActivityBilansProizvoda();
+            }
+        });
+    }
+
+    private void iskljuciBilansProizvoda() {
+        btnBilansProivoda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               poruka();
+            }
+        });
+    }
+
+    private void iskljuciBtnIstorijaAktivnosti() {
+        btnIstorijaAktivnosti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poruka();
+            }
+        });
+    }
+
+    private void poruka() {
+        String buffer = "Morate imati makar jedan unet pčelinjak da bi mogli da koristite ovu opciju.";
+        prikaziPoruku("Obavezno!", buffer);
+
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     private void proveriDaLiJePrviPut() {
@@ -55,7 +141,7 @@ public class PocetniActivity extends AppCompatActivity {
         btnOsnovniPodaci = findViewById(R.id.btnOsnovniPodaci);
     }
 
-    private void srediListener() {
+    private void srediListenere() {
         btnNapomene.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,18 +154,7 @@ public class PocetniActivity extends AppCompatActivity {
                 otvoriActivityPcelinjaci();
             }
         });
-        btnIstorijaAktivnosti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                otvoriActivityIstorijaAktivnosti();
-            }
-        });
-        btnBilansProivoda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                otvoriActivityBilansProizvoda();
-            }
-        });
+
         btnOsnovniPodaci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

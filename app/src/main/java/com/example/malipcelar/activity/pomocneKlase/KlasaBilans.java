@@ -1,5 +1,7 @@
 package com.example.malipcelar.activity.pomocneKlase;
 
+import androidx.annotation.NonNull;
+
 public class KlasaBilans {
 
     private String rbINazivPcelinjaka;
@@ -75,6 +77,7 @@ public class KlasaBilans {
         this.ukupnoPrikupljenePerge = ukupnoPrikupljenePerge;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "KlasaBilans{" +
