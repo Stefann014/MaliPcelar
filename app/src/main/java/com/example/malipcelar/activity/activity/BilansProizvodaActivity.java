@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,7 +20,6 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -27,8 +27,8 @@ public class BilansProizvodaActivity extends AppCompatActivity {
 
     public static final int DODAJ_NOVU_PASU = 1;
 
-    FloatingActionButton btnPrikaziIstorijuPasa;
-    FloatingActionButton btnDodajNovuPasu;
+    Button btnPrikaziIstorijuPasa;
+    Button btnDodajNovuPasu;
 
     PasaViewModel pasaViewModel;
     PcelinjakViewModel pcelinjakViewModel;
@@ -135,6 +135,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniPasuActivity.EXTRA_NAPOMENA_PASA);
 
             Pcelinjak pcelinjak = (Pcelinjak) data.getSerializableExtra(Dodaj_IzmeniPasuActivity.EXTRA_PCELINJAK_ID);
+            assert pcelinjak != null;
             Pasa pasa = new Pasa(pcelinjak.getRedniBrojPcelinjaka(), datumOd, datumDo, prikupljenoMeda, prikupljenoPolena, prikupljenoPropolisa, prikupljenoMaticnogMleca, prikupljenoPerge, napomena);
 
             pasaViewModel.insert(pasa);

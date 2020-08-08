@@ -125,4 +125,13 @@
     <string name="prikupljeno_maticnog_mleca_kg">Prikupljeno maticnog mleca (kg)</string>
     <string name="prikupljeno_perge_kg">Prikupljeno perge (kg)</string>
     <string name="save">Save</string>
+    <string name="ukupno_meda">Ukupno meda:</string>
+    <string name="ukupn_polena">Ukupn polena:</string>
+    <string name="ukupno_propolisa">Ukupno propolisa:</string>
+    <string name="ukupno_mati_nog_mle_a">Ukupno matičnog mleča:</string>
+    <string name="ukupno_prikupljene_perge">Ukupno prikupljene perge:</string>
+    <string name="adresa">Adresa</string>
+    <string name="naziv_i_redni_broj_kosnice">Naziv i redni broj kosnice</string>
+    <string name="istorija_pa_a">Istorija paša</string>
+    <string name="nova_pa_a">Nova paša</string>
 </resources>

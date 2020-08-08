@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/iconUkupnoMeda"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_med"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnUkupnoMeda"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ukupno_meda"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iconUkupnoMeda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconUkupnoPolena"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_polen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoMeda"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnUkupnoPolena"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ukupn_polena"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconUkupnoPolena"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoMeda" />
+
+    <ImageView
+        android:id="@+id/iconUkupnoPropolisa"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_propolis"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoPolena"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnUkupnoPropolisa"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ukupno_propolisa"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconUkupnoPropolisa"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoPolena" />
+
+    <ImageView
+        android:id="@+id/iconUkupnoMaticnogMleca"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_maticni_mlec"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoPropolisa"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnUkupnoMaticnogMleca"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ukupno_mati_nog_mle_a"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconUkupnoMaticnogMleca"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoPropolisa" />
+
+    <ImageView
+        android:id="@+id/iconUkupnoPrikupljenePerge"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/ic_perga"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoMaticnogMleca"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnUkupnoPrikupljenePerge"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ukupno_prikupljene_perge"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconUkupnoPrikupljenePerge"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkupnoMaticnogMleca" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
