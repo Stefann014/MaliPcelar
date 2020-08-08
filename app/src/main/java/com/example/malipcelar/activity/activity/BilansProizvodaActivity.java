@@ -2,6 +2,8 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -100,6 +103,24 @@ public class BilansProizvodaActivity extends AppCompatActivity {
                 if (bilansi.size() == 0) {
                     poruka();
                 }
+
+                for (KlasaBilans b : bilansi) {
+                    LatLng latLng = srediLatLng(b.getLokacija());
+
+                    if (latLng != null) {
+                        Address address = getAddressFromLatLng(latLng);
+
+                        assert address != null;
+                        if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
+                            if (address.getSubAdminArea() != null) {
+                                b.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
+                            }
+                        } else {
+                            b.setLokacija(address.getAddressLine(0));
+                        }
+                    }
+                }
+
                 adapter.submitList(bilansi);
             }
         });
@@ -115,7 +136,22 @@ public class BilansProizvodaActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private Address getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(BilansProizvodaActivity.this);
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
+            if (addresses != null) {
+                return addresses.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void ukljuciBtnIstorijuPasa() {
@@ -135,6 +171,20 @@ public class BilansProizvodaActivity extends AppCompatActivity {
                 Toast.makeText(BilansProizvodaActivity.this, "Morate imati unete paše da biste pristupili istoriji paša", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+
+    private LatLng srediLatLng(String lokacija) {
+        String[] lokacije = lokacija.split(",");
+        String lok1 = lokacije[0] + "";
+        String lok2 = lokacije[1] + "";
+
+        if (lok1.equals("null") || lok2.equals("null")) {
+            return null;
+        }
+        double latitude = Double.parseDouble(lokacije[0]);
+        double longitude = Double.parseDouble(lokacije[1]);
+        return new LatLng(latitude, longitude);
     }
 
     private void ukljuciBtnNovaPasa() {

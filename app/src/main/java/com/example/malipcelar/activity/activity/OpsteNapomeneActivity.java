@@ -26,9 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.pomocneKlase.ReminderBroadcast;
 import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
+import com.example.malipcelar.activity.pomocneKlase.ReminderBroadcast;
 import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -85,14 +85,29 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OpsteNapomeneAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(OpstaNapomena opstaNapomena) {
+
+                String poruka = "Tip napomene: " + opstaNapomena.getTipOpsteNapomene() + "\n\n" + opstaNapomena.getOpstaNapomena() + "\n"
+                        + "\n\n" + datumZaPrikaz(opstaNapomena.getDatumNapomene());
+
+                prikaziPoruku("Napomena", poruka);
+            }
+
+            @Override
+            public void onLongItemClick(OpstaNapomena opstaNapomena) {
                 Intent intent = new Intent(OpsteNapomeneActivity.this, Dodaj_IzmeniOpstuNapomenuActivity.class);
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_ID, opstaNapomena.getOpstaNapomenaID());
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_TIP_NAPOMENE, opstaNapomena.getTipOpsteNapomene());
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA, opstaNapomena.getOpstaNapomena());
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM, opstaNapomena.getDatumNapomene());
                 startActivityForResult(intent, IZMENI_NAPOMENU);
+
             }
         });
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     private void srediBrisanje() {
@@ -164,7 +179,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
 
 
             Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
-            intent.putExtra("NAPOMENA",opstaNapomena.getOpstaNapomena());
+            intent.putExtra("NAPOMENA", opstaNapomena.getOpstaNapomena());
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
 
@@ -207,7 +222,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             opstaNapomenaViewModel.update(opstaNapomena);
 
             Intent intent = new Intent(OpsteNapomeneActivity.this, ReminderBroadcast.class);
-            intent.putExtra("NAPOMENA",opstaNapomena.getOpstaNapomena());
+            intent.putExtra("NAPOMENA", opstaNapomena.getOpstaNapomena());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(OpsteNapomeneActivity.this, 0, intent, 0);
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

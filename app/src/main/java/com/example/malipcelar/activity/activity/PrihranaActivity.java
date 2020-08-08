@@ -188,21 +188,24 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
             @Override
             public void onItemClick(Prihrana prihrana) {
 
-                StringBuffer buffer = new StringBuffer();
-                buffer.append("Pcelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + "\n");
-                buffer.append("Kosnica: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + "\n");
-                buffer.append("Datum: " + datumZaPrikaz(prihrana.getDatumPrihrane() + "\n"));
-                buffer.append("Vrsta prihrane:" + prihrana.getVrstaPrihrane() + "\n");
-                buffer.append("Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n");
 
+                String poruka = "Pcelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + "\n" +
+                        "Kosnica: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + "\n" +
+                        "Datum: " + datumZaPrikaz(prihrana.getDatumPrihrane() + "\n") +
+                        "Vrsta prihrane:" + prihrana.getVrstaPrihrane() + "\n" +
+                        "Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n";
+                prikaziPoruku("Prihrana: ", poruka);
 
-                showMessage("Lecenje: ", buffer.toString());
+            }
 
+            @Override
+            public void onLongItemClick(Prihrana prihrana) {
+                Toast.makeText(PrihranaActivity.this, "AJ DA VIDIMO", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void showMessage(String title, String Message) {
+    public void prikaziPoruku(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);

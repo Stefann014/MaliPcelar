@@ -69,7 +69,6 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         private TextView txtLokacija;
         private TextView txtNadmorskaVisina;
         private ImageView pcelinjak_slika;
-        private ImageView izmeni;
 
         public PcelinjakHolder(View itemView) {
             super(itemView);
@@ -77,7 +76,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
             txtLokacija = itemView.findViewById(R.id.txtLokacija);
             txtNadmorskaVisina = itemView.findViewById(R.id.txtNadmorskaVisina);
             pcelinjak_slika = itemView.findViewById(R.id.pcelinjak_slika);
-            izmeni = itemView.findViewById(R.id.ic_izmeni);
+            ImageView izmeni = itemView.findViewById(R.id.ic_izmeni);
 
             izmeni.setOnClickListener(new View.OnClickListener() {
                 @Override

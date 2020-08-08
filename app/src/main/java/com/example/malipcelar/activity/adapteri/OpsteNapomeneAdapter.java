@@ -87,6 +87,7 @@ public class OpsteNapomeneAdapter extends ListAdapter<OpstaNapomena, OpsteNapome
             txtDatumOpsteNapomene = itemView.findViewById(R.id.txtDatumOpsteNapomene);
             slikaNapomene = itemView.findViewById(R.id.slikaNapomene);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,11 +97,25 @@ public class OpsteNapomeneAdapter extends ListAdapter<OpstaNapomena, OpsteNapome
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick(getItem(position));
+                    }
+                    return false;
+                }
+            });
+
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(OpstaNapomena opstaNapomena);
+
+        void onLongItemClick(OpstaNapomena item);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

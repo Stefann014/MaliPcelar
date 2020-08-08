@@ -74,6 +74,19 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
             txtSmisliti = itemView.findViewById(R.id.txtSmislicemoPrihranu);
             txtDatumPrihrane = itemView.findViewById(R.id.txtDatumPrihrane);
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick(getItem(position));
+
+                        return false;
+                    }
+                    return false;
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,6 +101,8 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
 
     public interface OnItemClickListener {
         void onItemClick(Prihrana prihrana);
+
+        void onLongItemClick(Prihrana prihrana);
     }
 
     public void setOnItemClickListener(PrihranaAdapter.OnItemClickListener listener) {
