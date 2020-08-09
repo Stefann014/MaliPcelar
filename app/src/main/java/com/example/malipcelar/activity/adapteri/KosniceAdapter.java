@@ -1,6 +1,7 @@
 package com.example.malipcelar.activity.adapteri;
 
 
+import android.annotation.SuppressLint;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -22,9 +23,6 @@ import com.example.malipcelar.activity.domen.Kosnica;
 public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> {
 
     private KosniceAdapter.OnItemClickListener listener;
-    private OnPregledClickListener listener1;
-    private OnLecenjeClickListener listener2;
-    private OnPrihranaClickListener listener3;
 
     public KosniceAdapter() {
         super(DIFF_CALLBACK);
@@ -51,25 +49,26 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         return new KosniceAdapter.KosnicaHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull KosniceAdapter.KosnicaHolder holder, int position) {
         Kosnica trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
         holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + " pcelinjak");
         if (trenutnaKosnica.getDatumPoslednjegPregleda() != null && !trenutnaKosnica.getDatumPoslednjegPregleda().equals("")) {
-            holder.btnPregled.setText("Datum poslednjeg pregleda: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegPregleda()));
+            holder.btnPregled.setText("Datum poslednjeg pregleda:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegPregleda()));
         } else {
-            holder.btnPregled.setText("Jos uvek nema unesenih pregleda");
+            holder.btnPregled.setText("Još uvek nema unesenih pregleda");
         }
         if (trenutnaKosnica.getDatumPoslednjegLecenja() != null && !trenutnaKosnica.getDatumPoslednjegLecenja().equals("")) {
-            holder.btnLecenje.setText("Datum poslednjeg lecenja: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegLecenja()));
+            holder.btnLecenje.setText("Datum poslednjeg lečenja:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegLecenja()));
         } else {
-            holder.btnLecenje.setText("Jos uvek nema lecenja");
+            holder.btnLecenje.setText("Još uvek nema lečenja");
         }
         if (trenutnaKosnica.getDatumPoslednjePrihrane() != null && !trenutnaKosnica.getDatumPoslednjePrihrane().equals("")) {
-            holder.btnPrihrana.setText("Datum poslednje prihrane: " + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjePrihrane()));
+            holder.btnPrihrana.setText("Datum poslednje prihrane:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjePrihrane()));
         } else {
-            holder.btnPrihrana.setText("Jos uvek nema unesenih prihrana");
+            holder.btnPrihrana.setText("Još uvek nema unesenih prihrana");
         }
     }
 
@@ -121,8 +120,8 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listener1 != null && position != RecyclerView.NO_POSITION) {
-                        listener1.onPregledClick(getItem(position));
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onPregledClick(getItem(position));
                     }
                 }
             });
@@ -131,8 +130,8 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listener2 != null && position != RecyclerView.NO_POSITION) {
-                        listener2.onLecenjeClick(getItem(position));
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLecenjeClick(getItem(position));
                     }
                 }
             });
@@ -141,8 +140,8 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listener3 != null && position != RecyclerView.NO_POSITION) {
-                        listener3.onPrihranaClick(getItem(position));
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onPrihranaClick(getItem(position));
                     }
                 }
             });
@@ -162,40 +161,20 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
     public interface OnItemClickListener {
         void onItemClick(Kosnica kosnica);
+
+        void onPregledClick(Kosnica kosnica);
+
+        void onLecenjeClick(Kosnica kosnica);
+
+        void onPrihranaClick(Kosnica kosnica);
     }
 
     public void setOnItemClickListener(KosniceAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnPregledClickListener {
-        void onPregledClick(Kosnica kosnica);
-    }
-
-    public interface OnLecenjeClickListener {
-        void onLecenjeClick(Kosnica kosnica);
-    }
-
-
-    public interface OnPrihranaClickListener {
-        void onPrihranaClick(Kosnica kosnica);
-    }
-
-    public void onPregledClickListener(OnPregledClickListener listener1) {
-        this.listener1 = listener1;
-    }
-
-    public void onLecenjeClickListener(OnLecenjeClickListener listener2) {
-        this.listener2 = listener2;
-    }
-
-    public void onPrihranaClickListener(OnPrihranaClickListener listener3) {
-        this.listener3 = listener3;
-    }
-
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 }

@@ -1,13 +1,12 @@
 package com.example.malipcelar.activity.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -26,11 +25,10 @@ import java.util.List;
 
 public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
 
-
-    private static final String TAG = "Dodaj_IzmeniKosnicuActivity";
-
     public static final String EXTRA_RB_KOSNICE =
             "com.example.malipcelar.activity.activity.EXTRA_RB_KOSNICE";
+    public static final String EXTRA_REGISTARSKI_BROJ_KOSNICE =
+            "com.example.malipcelar.activity.activity.EXTRA_REGISTARSKI_BROJ_KOSNICE";
     public static final String EXTRA_GODINA_PROIZVODNJE_MATICE =
             "com.example.malipcelar.activity.activity.EXTRA_GODINA_PROIZVODNJE_MATICE";
     public static final String EXTRA_RB_SELEKCIONISANA =
@@ -45,6 +43,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             "com.example.malipcelar.activity.activity.EXTRA_ZAUZETI_RB";
 
     TextView txtRedniBroj;
+    TextView txtRegistarskiBroj;
     Spinner spGodinaProizvodnje;
     RadioButton rbSelekcionisana;
     RadioButton rbPrirodna;
@@ -52,6 +51,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
     TextView txtNapomena;
     List<Integer> zauzetiRbOvi;
     RadioGroup radioGroup;
+    Button btnSacuvaj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +59,29 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         setContentView(R.layout.dodaj_izmeni_kosnicu_activity);
 
         srediAtribute();
+        srediListenere();
         srediIntent();
     }
 
+    private void srediListenere() {
+        btnSacuvaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sacuvajKosnicu();
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
     private void srediIntent() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_RB_KOSNICE)) {
-            setTitle("Izmeni kosnicu");
+            setTitle("Izmeni košnicu");
             txtRedniBroj.setText(intent.getIntExtra(EXTRA_RB_KOSNICE, -1) + "");
             txtBolesti.setText(intent.getStringExtra(EXTRA_BOLESTI));
             txtNapomena.setText(intent.getStringExtra(EXTRA_NAPOMENA));
-
-            Boolean prirodna = intent.getBooleanExtra(EXTRA_RB_PRIRODNA, false);
+            txtRegistarskiBroj.setText(intent.getStringExtra(EXTRA_REGISTARSKI_BROJ_KOSNICE));
+            boolean prirodna = intent.getBooleanExtra(EXTRA_RB_PRIRODNA, false);
             String godina = intent.getStringExtra(EXTRA_GODINA_PROIZVODNJE_MATICE);
 
             if (prirodna) {
@@ -81,7 +92,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             spGodinaProizvodnje.setSelection(((ArrayAdapter<String>) spGodinaProizvodnje.getAdapter()).getPosition(godina));
 
         } else {
-            setTitle("Dodaj pcelinjak");
+            setTitle("Dodaj novu košnicu");
         }
     }
 
@@ -91,21 +102,22 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         rbSelekcionisana = findViewById(R.id.rbSelekcionisana);
         rbPrirodna = findViewById(R.id.rbPrirodna);
         txtBolesti = findViewById(R.id.txtBolesti);
-        txtNapomena = findViewById(R.id.txtNapomena);
+        txtNapomena = findViewById(R.id.txtNapomenaKosnica);
+        btnSacuvaj = findViewById(R.id.btnSacuvajKosnicu);
         radioGroup = findViewById(R.id.radioGroup);
+        txtRegistarskiBroj = findViewById(R.id.txtRegistarskiBroj);
         srediSpinner();
 
         zauzetiRbOvi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
     }
 
     private void srediSpinner() {
-        Long mili = System.currentTimeMillis();
+        long mili = System.currentTimeMillis();
 
         Date date = new Date(mili);
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
-        //Add one to month {0 - 11}
 
         ArrayList<String> godine = new ArrayList<>();
         godine.add(year - 5 + "");
@@ -122,7 +134,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         godine.add(year + 4 + "");
         godine.add(year + 5 + "");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, godine); // ako je greska tu je
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGodinaProizvodnje.setAdapter(adapter);
@@ -135,31 +147,11 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
-                sacuvajKosnicu();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void sacuvajKosnicu() {
         String rb = txtRedniBroj.getText().toString().trim();
-        int redniBroj = -1;
+        int redniBroj;
         try {
             redniBroj = Integer.parseInt(rb);
         } catch (Exception e) {
@@ -170,6 +162,12 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         if (redniBroj == (getIntent().getIntExtra(EXTRA_RB_KOSNICE, -1))) {
             //izmena
 
+            String registarskiBrojNaziv = txtRegistarskiBroj.getText().toString().trim();
+            if (registarskiBrojNaziv.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Morate uneti registarski broj ili naziv", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             String godina = (String) spGodinaProizvodnje.getSelectedItem();
 
             if (radioGroup.getCheckedRadioButtonId() == -1) {
@@ -178,12 +176,9 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             }
 
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            // find the radiobutton by returned id
             RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-            Toast.makeText(getApplicationContext(), selectedRadioButton.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
-
-            Boolean prirodna = false;
-            Boolean selekcionisana = false;
+            boolean prirodna = false;
+            boolean selekcionisana = false;
 
             if (selectedRadioButton.getText().toString().equals("Prirodna")) {
                 prirodna = true;
@@ -197,6 +192,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             Intent podaci = new Intent();
             podaci.putExtra(EXTRA_RB_KOSNICE, redniBroj);
             podaci.putExtra(EXTRA_GODINA_PROIZVODNJE_MATICE, godina);
+            podaci.putExtra(EXTRA_REGISTARSKI_BROJ_KOSNICE, registarskiBrojNaziv);
             podaci.putExtra(EXTRA_RB_SELEKCIONISANA, selekcionisana);
             podaci.putExtra(EXTRA_RB_PRIRODNA, prirodna);
             podaci.putExtra(EXTRA_BOLESTI, bolesti);
@@ -209,7 +205,13 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         }
         //novi
         if (zauzetiRbOvi.contains(redniBroj)) {
-            Toast.makeText(getApplicationContext(), "Pokusavate da unosite postojeci redni broj", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Pokušavate da unosite postojeći redni broj", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String registarskiBrojNaziv = txtRegistarskiBroj.getText().toString().trim();
+        if (registarskiBrojNaziv.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Morate uneti registarski broj ili naziv", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -221,12 +223,10 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         }
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
-        // find the radiobutton by returned id
         RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
-        Toast.makeText(getApplicationContext(), selectedRadioButton.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
 
-        Boolean prirodna = false;
-        Boolean selekcionisana = false;
+        boolean prirodna = false;
+        boolean selekcionisana = false;
 
         if (selectedRadioButton.getText().toString().equals("Prirodna")) {
             prirodna = true;
@@ -241,16 +241,12 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB_KOSNICE, redniBroj);
         podaci.putExtra(EXTRA_GODINA_PROIZVODNJE_MATICE, godina);
-
+        podaci.putExtra(EXTRA_REGISTARSKI_BROJ_KOSNICE, registarskiBrojNaziv);
         podaci.putExtra(EXTRA_RB_SELEKCIONISANA, selekcionisana);
         podaci.putExtra(EXTRA_RB_PRIRODNA, prirodna);
         podaci.putExtra(EXTRA_BOLESTI, bolesti);
         podaci.putExtra(EXTRA_NAPOMENA, napomena);
-        /*
-        int id = getIntent().getIntExtra(EXTRA_RB, -1);
-        if (id != -1) {
-            podaci.putExtra(EXTRA_RB, id);
-        }*/
+
         setResult(RESULT_OK, podaci);
         finish();
     }

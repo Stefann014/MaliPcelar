@@ -1,124 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity.Dodaj_IzmeniKosnicuActivity">
+    android:background="@color/quantum_yellow100"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/txtRedniBrojKosnice"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
-        android:text="Redni broj: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activity.activity.Dodaj_IzmeniKosnicuActivity">
 
-    <EditText
-        android:id="@+id/txtRBKosnice"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/txtRedniBrojKosnice"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtGod"
-        android:layout_width="180dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:text="Godina proizvodnje matice: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
-
-    <Spinner
-        android:id="@+id/spGodinaProizvodnje"
-        android:layout_width="120dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/txtGod"
-        app:layout_constraintTop_toBottomOf="@+id/txtRBKosnice" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="178dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/txtVrstaMatice"
-        app:layout_constraintTop_toBottomOf="@+id/txtGod">
-
-        <RadioButton
-            android:id="@+id/rbSelekcionisana"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtRedniBrojKosnice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selekcionisana" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/redni_broj"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/rbPrirodna"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/txtRBKosnice"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="Prirodna" />
-    </RadioGroup>
+            android:layout_marginStart="111dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/txtRedniBrojKosnice"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="Autofill,LabelFor" />
 
-    <TextView
-        android:id="@+id/txtVrstaMatice"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:text="Vrsta matice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtGod" />
+        <TextView
+            android:id="@+id/txtGod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="65dp"
+            android:text="@string/godina_proizvodnje_matice"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
-    <TextView
-        android:id="@+id/bolesti"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="37dp"
-        android:text="Bolesti:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtVrstaMatice" />
+        <Spinner
+            android:id="@+id/spGodinaProizvodnje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="59dp"
+            app:layout_constraintStart_toEndOf="@+id/txtGod"
+            app:layout_constraintTop_toBottomOf="@+id/txtRegistarskiBroj" />
 
-    <EditText
-        android:id="@+id/txtBolesti"
-        android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="178dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="57dp"
+            android:layout_marginTop="55dp"
+            app:layout_constraintStart_toEndOf="@+id/txtVrstaMatice"
+            app:layout_constraintTop_toBottomOf="@+id/txtGod">
 
-    <TextView
-        android:id="@+id/txtNap"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="60dp"
-        android:text="Napomena: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bolesti" />
+            <RadioButton
+                android:id="@+id/rbSelekcionisana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selekcionisana" />
 
-    <EditText
-        android:id="@+id/txtNapomena"
-        android:layout_width="250dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBolesti" />
+            <RadioButton
+                android:id="@+id/rbPrirodna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prirodna" />
+        </RadioGroup>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtVrstaMatice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="65dp"
+            android:text="@string/vrsta_matice"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGod" />
+
+        <TextView
+            android:id="@+id/bolesti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="65dp"
+            android:text="@string/bolesti"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtVrstaMatice" />
+
+        <EditText
+            android:id="@+id/txtBolesti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
+            android:scrollbars="vertical"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            tools:ignore="Autofill,LabelFor" />
+
+        <TextView
+            android:id="@+id/txtNap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="65dp"
+            android:text="@string/napomena"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBolesti" />
+
+        <EditText
+            android:id="@+id/txtNapomenaKosnica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBolesti"
+            tools:ignore="Autofill,LabelFor" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="65dp"
+            android:text="@string/registarski_broj_naziv"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
+
+        <EditText
+            android:id="@+id/txtRegistarskiBroj"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="1"
+            android:scrollbars="vertical"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView31"
+            app:layout_constraintTop_toBottomOf="@+id/txtRBKosnice"
+            tools:ignore="Autofill,LabelFor" />
+
+        <Button
+            android:id="@+id/btnSacuvajKosnicu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/round"
+            android:text="@string/sa_uvaj"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNapomenaKosnica" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

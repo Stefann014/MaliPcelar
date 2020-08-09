@@ -101,7 +101,6 @@
     <string name="gazdinstvo">Gazdinstvo:</string>
     <string name="trenutna_lokacija_p_elinjaka">Trenutna lokacija pčelinjaka:</string>
     <string name="izmeni">Izmeni</string>
-    <string name="sa_uvaj">Sačuvaj</string>
     <string name="napomena">Napomena</string>
     <string name="_20_05_2020">20.05.2020</string>
     <string name="tip_napomene">Tip Napomene</string>
@@ -146,4 +145,11 @@
     <string name="datum_pregleda">Datum pregleda</string>
     <string name="datum_le_enja">Datum lečenja</string>
     <string name="datum_prihrane">Datum prihrane</string>
+    <string name="sa_uvaj">Sačuvaj</string>
+    <string name="registarski_broj_naziv">Registarski broj/Naziv:</string>
+    <string name="godina_proizvodnje_matice">Godina proizvodnje matice:</string>
+    <string name="selekcionisana">Selekcionisana</string>
+    <string name="prirodna">Prirodna</string>
+    <string name="vrsta_matice">Vrsta matice:</string>
+    <string name="bolesti">Bolesti:</string>
 </resources>

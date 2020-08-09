@@ -2,9 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -146,17 +143,18 @@ public class KosniceActivity extends AppCompatActivity {
             Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
             String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
             String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
+            String naziv = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE);
 
-            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), "", godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
+            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), naziv, godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
             kosnicaViewModel.insert(k);
 
-            Toast.makeText(this, "Kosnica je sacuvana", Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
+            Toast.makeText(this, "Košnica je sačuvana", Toast.LENGTH_SHORT).show();
+
         } else if (requestCode == IZMENI_KOSNICU && resultCode == RESULT_OK) {
 
             int id = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             if (id == -1) {
-                Toast.makeText(this, "Kosnica ne moze biti izmenjen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Košnica ne moze biti izmenjena", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -166,20 +164,16 @@ public class KosniceActivity extends AppCompatActivity {
             Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
             String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
             String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
+            String naziv = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE);
 
-
-            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), "", godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
+            Kosnica k = new Kosnica(kosnicaRB, pcelinjak.getRedniBrojPcelinjaka(), naziv, godinaProizvodnjeMatice, selekcionisana, prirodna, bolesti, napomena);
 
             kosnicaViewModel.update(k);
             if (stariRb != -1) {
                 kosnicaViewModel.updateRb(stariRb, kosnicaRB);
-
             }
-            adapter.notifyDataSetChanged();
-            Toast.makeText(this, k.toString(), Toast.LENGTH_SHORT).show();
-
         } else {
-            Toast.makeText(this, "Kosnica nije izmenjena", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Košnica nije izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -194,7 +188,7 @@ public class KosniceActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 kosnicaViewModel.delete(adapter.getKosnicaAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(KosniceActivity.this, "Kosniica je izbrisana", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KosniceActivity.this, "Košniica je izbrisana", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
     }
@@ -208,6 +202,7 @@ public class KosniceActivity extends AppCompatActivity {
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, kosnica.getRedniBrojKosnice());
                 stariRb = kosnica.getRedniBrojKosnice();
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE, kosnica.getGodinaProizvodnjeMatice());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE, kosnica.getNazivKosnice());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, kosnica.getSelekcionisana());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, kosnica.getPrirodna());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI, kosnica.getBolesti());
@@ -218,9 +213,6 @@ public class KosniceActivity extends AppCompatActivity {
 
                 startActivityForResult(intent, IZMENI_KOSNICU);
             }
-        });
-
-        adapter.onPregledClickListener(new KosniceAdapter.OnPregledClickListener() {
 
             @Override
             public void onPregledClick(Kosnica kosnica) {
@@ -229,9 +221,6 @@ public class KosniceActivity extends AppCompatActivity {
                 intent.putExtra(PregledActivity.EXTRA_KOSNICA, kosnica);
                 startActivity(intent);
             }
-        });
-
-        adapter.onLecenjeClickListener(new KosniceAdapter.OnLecenjeClickListener() {
 
             @Override
             public void onLecenjeClick(Kosnica kosnica) {
@@ -240,9 +229,6 @@ public class KosniceActivity extends AppCompatActivity {
                 intent.putExtra(LecenjeActivity.EXTRA_PCELINJAK, pcelinjak);
                 startActivity(intent);
             }
-        });
-
-        adapter.onPrihranaClickListener(new KosniceAdapter.OnPrihranaClickListener() {
 
             @Override
             public void onPrihranaClick(Kosnica kosnica) {
@@ -252,26 +238,7 @@ public class KosniceActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.glavni_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.izbrisiSve:
-                kosnicaViewModel.deleteAllKosnice();
-                Toast.makeText(this, "Sve kosnice su izbrisane", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 }
