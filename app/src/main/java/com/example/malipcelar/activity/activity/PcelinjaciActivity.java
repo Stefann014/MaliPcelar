@@ -3,9 +3,6 @@ package com.example.malipcelar.activity.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,8 +29,8 @@ import java.util.List;
 public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDaIzbrisesDialog.ExampleDialogListener {
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
-    private static final int DODAJ_NOVI_PCELINJAK = 3;
-    private static final int IZMENI_PCELINJAK = 4;
+    private static final int DODAJ_NOVI_PCELINJAK = 1;
+    private static final int IZMENI_PCELINJAK = 2;
 
 
     //vars
@@ -50,6 +47,7 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pcelinjaci_activity);
+        setTitle("Pčelinjaci");
         srediAtribute();
         if (isServiceOK()) {
             srediListenere();
@@ -203,24 +201,6 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             Toast.makeText(this, "Pčelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.glavni_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.izbrisiSve) {
-            pcelinjakViewModel.deleteAllPcelinjaci();
-            Toast.makeText(this, "Svi pcelinjaci su izbrisani", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public void kliknutoDa(Pasa pasa) {

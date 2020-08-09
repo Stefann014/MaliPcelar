@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="10dp"
-                android:text="263.22m"
+                android:text="@string/_263_22m"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
                 android:layout_toEndOf="@+id/pcelinjak_slika"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="1. Pcelinjak"
+                android:text="@string/_1_pcelinjak"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
                 android:layout_toStartOf="@id/txtNadmorskaVisina"
                 android:layout_toEndOf="@+id/pcelinjak_slika"
                 android:maxLines="2"
-                android:text="Latituda,Longituda"
+                android:text="@string/latituda_longituda"
                 app:layout_constraintEnd_toStartOf="@+id/ic_izmeni"
                 app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
                 app:layout_constraintTop_toBottomOf="@+id/txtRBiNaziv" />
@@ -80,6 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
@@ -91,7 +92,8 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_izmeni"
                 app:layout_constraintEnd_toStartOf="@+id/ic_izbrisi"
-                app:layout_constraintTop_toBottomOf="@+id/txtNadmorskaVisina" />
+                app:layout_constraintTop_toBottomOf="@+id/txtNadmorskaVisina"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/ic_izbrisi"
@@ -102,7 +104,8 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtNadmorskaVisina" />
+                app:layout_constraintTop_toBottomOf="@+id/txtNadmorskaVisina"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
