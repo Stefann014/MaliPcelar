@@ -1,5 +1,7 @@
 package com.example.malipcelar.activity.pomocneKlase;
 
+import androidx.annotation.NonNull;
+
 public class PcelinjakIDatumi {
 
     String pcelinjak;
@@ -39,6 +41,7 @@ public class PcelinjakIDatumi {
         this.maxDatumLecenja = maxDatumLecenja;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "PcelinjakIDatumi{" +

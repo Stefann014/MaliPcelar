@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.malipcelar.R;
@@ -14,15 +15,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {
     private BottomSheetListener listener;
-    private Button pogaca;
-    private Button sirup;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
-        pogaca = v.findViewById(R.id.btnPogaca);
-        sirup = v.findViewById(R.id.btnSirup);
+        Button pogaca = v.findViewById(R.id.btnPogaca);
+        Button sirup = v.findViewById(R.id.btnSirup);
 
         pogaca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,11 +42,12 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
 
     public interface BottomSheetListener {
         void onBtnPogacaClicked();
+
         void onBtnSirupClicked();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
             listener = (BottomSheetListener) context;

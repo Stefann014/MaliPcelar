@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -20,10 +19,9 @@ public class MestaApi {
         HttpURLConnection connection = null;
         StringBuilder jsonResult = new StringBuilder();
         try {
-            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/autocomplete/json?");
-            sb.append("input=" + input);
-            sb.append("&key=AIzaSyBETypVelODVcyN2Pp_aYjSGs65-mDXW9s");
-            URL url = new URL(sb.toString());
+            String sb = "https://maps.googleapis.com/maps/api/place/autocomplete/json?" + "input=" + input +
+                    "&key=AIzaSyBETypVelODVcyN2Pp_aYjSGs65-mDXW9s";
+            URL url = new URL(sb);
             connection = (HttpURLConnection) url.openConnection();
             InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream());
 
@@ -35,8 +33,6 @@ public class MestaApi {
             }
 
             Log.d("JSon", jsonResult.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -41,10 +41,6 @@ public class LecenjeRepository {
         new LecenjeRepository.DeleteLecenjeAsyncTask(lecenjeDAO).execute(lecenje);
     }
 
-    public void deleteAllOpsteNapomene() {
-        new LecenjeRepository.DeleteAllLecenjaAsyncTask(lecenjeDAO).execute();
-    }
-
 /////////////////// da ne bi pukla aplikacija ovo moramo raditi u pozadini, livedata je automatski sinhronizovan
 
     private static class InsertLecenjeAsyncTask extends AsyncTask<Lecenje, Void, Void> {
@@ -88,19 +84,4 @@ public class LecenjeRepository {
             return null;
         }
     }
-
-    private static class DeleteAllLecenjaAsyncTask extends AsyncTask<Void, Void, Void> {
-        private LecenjeDAO lecenjeDAO;
-
-        private DeleteAllLecenjaAsyncTask(LecenjeDAO lecenjeDAO) {
-            this.lecenjeDAO = lecenjeDAO;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            lecenjeDAO.deleteAllLecenje();
-            return null;
-        }
-    }
-
 }

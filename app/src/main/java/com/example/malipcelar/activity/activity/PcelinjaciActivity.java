@@ -2,8 +2,6 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -22,11 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
 import com.example.malipcelar.activity.domen.Pcelinjak;
-import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -34,7 +31,6 @@ import java.util.List;
 
 public class PcelinjaciActivity extends AppCompatActivity {
 
-    private static final String TAG = "PcelinjaciActivity";
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final int DODAJ_NOVI_PCELINJAK = 3;
     private static final int IZMENI_PCELINJAK = 4;
@@ -72,12 +68,9 @@ public class PcelinjaciActivity extends AppCompatActivity {
                 intent.putExtra(KosniceActivity.EXTRA_PCELINJAK, pcelinjak);
                 startActivity(intent);
             }
-        });
-
-        adapter.setOnIzmeniClickListener(new PcelinjaciAdapter.OnDropdownClickListener() {
 
             @Override
-            public void onItemClickk(Pcelinjak pcelinjak) {
+            public void onIzmeniClick(Pcelinjak pcelinjak) {
                 Intent intent = new Intent(PcelinjaciActivity.this, Dodaj_IzmeniPcelinjakActivity.class);
                 intent.putExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, pcelinjak.getRedniBrojPcelinjaka());
                 stariRb = pcelinjak.getRedniBrojPcelinjaka();
@@ -106,27 +99,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Pcelinjak> pcelinjaci) {
                 PcelinjaciActivity.this.pcelinjaci = pcelinjaci;
-
-                if (PcelinjaciActivity.this.pcelinjaci != null) {
-                    for (Pcelinjak p : PcelinjaciActivity.this.pcelinjaci) {
-                        LatLng latLng = srediLatLng(p.getLokacija());
-
-                        if (latLng != null) {
-                            Address address = getAddressFromLatLng(latLng);
-
-                            assert address != null;
-                            if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
-                                if (address.getSubAdminArea() != null) {
-                                    p.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
-                                }
-                            } else {
-                                p.setLokacija(address.getAddressLine(0));
-                            }
-                        }
-                    }
-                }
-
-
                 adapter.submitList(pcelinjaci);
             }
         });
@@ -155,18 +127,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private LatLng srediLatLng(String lokacija) {
-        String[] lokacije = lokacija.split(",");
-        String lok1 = lokacije[0] + "";
-        String lok2 = lokacije[1] + "";
-
-        if (lok1.equals("null") || lok2.equals("null")) {
-            return null;
-        }
-        double latitude = Double.parseDouble(lokacije[0]);
-        double longitude = Double.parseDouble(lokacije[1]);
-        return new LatLng(latitude, longitude);
-    }
 
     public void srediListenere() {
         btnDodajPcelinjak.setOnClickListener(new View.OnClickListener() {
@@ -199,12 +159,12 @@ public class PcelinjaciActivity extends AppCompatActivity {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 pcelinjakViewModel.delete(adapter.getPcelinjakAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(PcelinjaciActivity.this, "Pcelinjak je izbrisana", Toast.LENGTH_SHORT).show();
             }
@@ -263,30 +223,13 @@ public class PcelinjaciActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.izbrisiSve:
-                pcelinjakViewModel.deleteAllPcelinjaci();
-                Toast.makeText(this, "Svi pcelinjaci su izbrisani", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.izbrisiSve) {
+            pcelinjakViewModel.deleteAllPcelinjaci();
+            Toast.makeText(this, "Svi pcelinjaci su izbrisani", Toast.LENGTH_SHORT).show();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    private Address getAddressFromLatLng(LatLng latLng) {
-        Geocoder geocoder = new Geocoder(PcelinjaciActivity.this);
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
-            if (addresses != null) {
-                return addresses.get(0);
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 }

@@ -36,10 +36,6 @@ public class PasaRepository {
         new DeletePaseAsyncTask(pasaDAO).execute(pasa);
     }
 
-    public void deleteAllPase() {
-        new DeleteAllPaseAsyncTask(pasaDAO).execute();
-    }
-
 /////////////////// da ne bi pukla aplikacija ovo moramo raditi u pozadini, livedata je automatski sinhronizovan
 
     private static class InsertPaseAsyncTask extends AsyncTask<Pasa, Void, Void> {
@@ -83,19 +79,4 @@ public class PasaRepository {
             return null;
         }
     }
-
-    private static class DeleteAllPaseAsyncTask extends AsyncTask<Void, Void, Void> {
-        private PasaDAO pasaDAO;
-
-        private DeleteAllPaseAsyncTask(PasaDAO pasaDAO) {
-            this.pasaDAO = pasaDAO;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            pasaDAO.deleteAllPase();
-            return null;
-        }
-    }
-
 }

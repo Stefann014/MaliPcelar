@@ -284,6 +284,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         if (intent.hasExtra(EXTRA_RB)) {
 
             String lokacija = intent.getStringExtra(EXTRA_LOKACIJA);
+            Log.d("LOKACIJA", lokacija);
             String[] lokacije = lokacija.split(",");
             String lok1 = lokacije[0] + "";
             String lok2 = lokacije[1] + "";

@@ -41,10 +41,6 @@ public class PrihranaRepository {
         new PrihranaRepository.DeletePrihranaAsyncTask(prihranaDAO).execute(prihrana);
     }
 
-    public void deleteAllOpsteNapomene() {
-        new PrihranaRepository.DeleteAllPrihranaAsyncTask(prihranaDAO).execute();
-    }
-
 /////////////////// da ne bi pukla aplikacija ovo moramo raditi u pozadini, livedata je automatski sinhronizovan
 
     private static class InsertPrihranaAsyncTask extends AsyncTask<Prihrana, Void, Void> {
@@ -88,19 +84,4 @@ public class PrihranaRepository {
             return null;
         }
     }
-
-    private static class DeleteAllPrihranaAsyncTask extends AsyncTask<Void, Void, Void> {
-        private PrihranaDAO prihranaDAO;
-
-        private DeleteAllPrihranaAsyncTask(PrihranaDAO prihranaDAO) {
-            this.prihranaDAO = prihranaDAO;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            prihranaDAO.deleteAllPrihrana();
-            return null;
-        }
-    }
-
 }

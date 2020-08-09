@@ -19,6 +19,7 @@ import com.example.malipcelar.R;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
 
@@ -28,9 +29,10 @@ public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
 
     private DialogNovoLecenjeListener listener;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_novo_lecenje_layout, null);
         btnDatumPrihrane = view.findViewById(R.id.btnDatumPrihrane);
@@ -60,7 +62,7 @@ public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
                             return;
                         }
 
-                        double kilo = -1;
+                        double kilo;
                         try {
                             kilo = Double.parseDouble(kg);
                         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.example.malipcelar.activity.domen;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -77,6 +78,7 @@ public class Pcelinjak implements Serializable {
         this.slika = slika;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return redniBrojPcelinjaka + ". " +

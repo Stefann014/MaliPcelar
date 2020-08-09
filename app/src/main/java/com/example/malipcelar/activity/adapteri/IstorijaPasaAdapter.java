@@ -64,21 +64,16 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
-    public Pasa getPasaAt(int position) {
-        return getItem(position);
-    }
-
     class PasaHolder extends RecyclerView.ViewHolder {
         private TextView txtDatumOd;
         private TextView txtDatumDo;
-        private ImageView slikaIzbrisi;
 
         public PasaHolder(View itemView) {
             super(itemView);
 
             txtDatumOd = itemView.findViewById(R.id.txtDatumOd);
             txtDatumDo = itemView.findViewById(R.id.txtDatumDo);
-            slikaIzbrisi = itemView.findViewById(R.id.slikaKanta);
+            ImageView slikaIzbrisi = itemView.findViewById(R.id.slikaKanta);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

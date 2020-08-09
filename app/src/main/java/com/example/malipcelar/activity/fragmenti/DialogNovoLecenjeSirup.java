@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.fragmenti;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,25 +20,27 @@ import com.example.malipcelar.R;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
 
     Button btnDatumPrihrane;
     private TextView txtLitri;
     private CheckBox chPrimeniNaSveKosnice;
-    private TextView txtKolicina;
 
     private DialogNovoLecenjeSirupListener listener;
 
+    @NonNull
+    @SuppressLint("SetTextI18n")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_novo_lecenje_layout, null);
         btnDatumPrihrane = view.findViewById(R.id.btnDatumPrihrane);
         txtLitri = view.findViewById(R.id.txtKilogramiLitri);
         chPrimeniNaSveKosnice = view.findViewById(R.id.chPrimeniPrihranuNaSveKosnice);
-        txtKolicina = view.findViewById(R.id.tvKolicina);
+        TextView txtKolicina = view.findViewById(R.id.tvKolicina);
         txtKolicina.setText("Unesite litre: ");
         Date c = Calendar.getInstance().getTime();
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
@@ -62,7 +65,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
                             return;
                         }
 
-                        double litri = -1;
+                        double litri;
                         try {
                             litri = Double.parseDouble(litar);
                         } catch (Exception e) {

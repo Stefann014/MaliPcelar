@@ -5,6 +5,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import androidx.annotation.NonNull;
+
 import com.example.malipcelar.activity.pomocneKlase.MestaApi;
 
 import java.util.ArrayList;
@@ -33,9 +35,10 @@ public class MestaAutoCompleteAdapter extends ArrayAdapter implements Filterable
         return results.get(pos);
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
-        Filter filter = new Filter() {
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
@@ -49,8 +52,8 @@ public class MestaAutoCompleteAdapter extends ArrayAdapter implements Filterable
             }
 
             @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (results != null && results.count > 0) {
+            protected void publishResults(CharSequence constraint, FilterResults results1) {
+                if (results1 != null && results1.count > 0) {
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();
@@ -58,7 +61,6 @@ public class MestaAutoCompleteAdapter extends ArrayAdapter implements Filterable
 
             }
         };
-        return filter;
     }
 
 }

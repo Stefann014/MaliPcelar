@@ -1,7 +1,11 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 
 public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.PcelinjakHolder> {
-
+    Context context;
     private OnItemClickListener listener;
-    private OnDropdownClickListener listenerr;
 
     public PcelinjaciAdapter() {
         super(DIFF_CALLBACK);
@@ -49,15 +55,37 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         return new PcelinjaciAdapter.PcelinjakHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PcelinjaciAdapter.PcelinjakHolder holder, int position) {
         Pcelinjak trenuntiPcelinjak = getItem(position);
         holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.toString());
-        holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
+        holder.txtLokacija.setText(napraviAdresu(trenuntiPcelinjak.getLokacija()));
         holder.txtNadmorskaVisina.setText(trenuntiPcelinjak.getNadmorskaVisina() + "m");
         if (trenuntiPcelinjak.getSlika() != null && !trenuntiPcelinjak.getSlika().equals("")) {
             holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
         }
+    }
+
+    private String napraviAdresu(String lokacija) {
+        String adresa = "";
+        LatLng latLng = srediLatLng(lokacija);
+
+        if (latLng != null) {
+            Address address = getAddressFromLatLng(latLng);
+
+            assert address != null;
+            if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
+                if (address.getSubAdminArea() != null) {
+                    adresa += address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();
+                }
+            } else {
+                adresa += address.getAddressLine(0);
+            }
+        }
+
+
+        return adresa;
     }
 
     public Pcelinjak getPcelinjakAt(int position) {
@@ -82,8 +110,8 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listenerr != null && position != RecyclerView.NO_POSITION) {
-                        listenerr.onItemClickk(getItem(position));
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onIzmeniClick(getItem(position));
                     }
                 }
             });
@@ -102,18 +130,12 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
 
     public interface OnItemClickListener {
         void onItemClick(Pcelinjak pcelinjak);
-    }
 
-    public interface OnDropdownClickListener {
-        void onItemClickk(Pcelinjak pcelinjak);
+        void onIzmeniClick(Pcelinjak item);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
-    }
-
-    public void setOnIzmeniClickListener(OnDropdownClickListener listenerr) {
-        this.listenerr = listenerr;
     }
 
     private static Bitmap stringToBitmap(String encodedString) {
@@ -124,5 +146,40 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
             e.getMessage();
             return null;
         }
+    }
+
+    private LatLng srediLatLng(String lokacija) {
+        String[] lokacije = lokacija.split(",");
+        String lok1 = lokacije[0] + "";
+        String lok2 = lokacije[1] + "";
+
+        if (lok1.equals("null") || lok2.equals("null")) {
+            return null;
+        }
+        double latitude = Double.parseDouble(lokacije[0]);
+        double longitude = Double.parseDouble(lokacije[1]);
+        return new LatLng(latitude, longitude);
+    }
+
+    private Address getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
+            if (addresses != null) {
+                return addresses.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        context = recyclerView.getContext();
     }
 }
