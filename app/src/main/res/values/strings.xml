@@ -137,4 +137,10 @@
     <string name="_263_22m">263.22m</string>
     <string name="_1_pcelinjak">1. Pcelinjak</string>
     <string name="latituda_longituda">Latituda,Longituda</string>
+    <string name="slikaj">Slikaj</string>
+    <string name="dodaj_sliku_iz_galerije">Dodaj sliku iz galerije</string>
+    <string name="redni_broj">Redni broj:</string>
+    <string name="naziv">Naziv:</string>
+    <string name="ukloni_sliku">Ukloni sliku</string>
+    <string name="unesite_adresu_grad_ili_po_tanski_broj">Unesite adresu, grad ili poštanski broj</string>
 </resources>
