@@ -119,6 +119,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private RequestQueue mQueue;
     double nVisina;
     List<Integer> zauzetiRBovi;
+    Bitmap defaultBitMap;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -183,17 +184,20 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
             Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
             String slika;
-            if (image != null) {
-                if (image.getWidth() == 250 && image.getHeight() == 250) {
-                    slika = bitmapToString(image);
-                } else {
-                    slika = bitmapToString(resizeBitmap(image));
-                }
-            } else {
-
+            if (image == defaultBitMap) {
                 slika = "";
-
+            } else {
+                if (image != null) {
+                    if (image.getWidth() == 250 && image.getHeight() == 250) {
+                        slika = bitmapToString(image);
+                    } else {
+                        slika = bitmapToString(resizeBitmap(image));
+                    }
+                } else {
+                    slika = "";
+                }
             }
+
             if (naziv.isEmpty()) {
                 Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
                 return;
@@ -247,16 +251,19 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
         Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
         String slika;
-        if (image != null) {
-            if (image.getWidth() == 250 && image.getHeight() == 250) {
-                slika = bitmapToString(image);
-            } else {
-                slika = bitmapToString(resizeBitmap(image));
-            }
-        } else {
+        if (image == defaultBitMap) {
             slika = "";
+        } else {
+            if (image != null) {
+                if (image.getWidth() == 250 && image.getHeight() == 250) {
+                    slika = bitmapToString(image);
+                } else {
+                    slika = bitmapToString(resizeBitmap(image));
+                }
+            } else {
+                slika = "";
+            }
         }
-
         Intent podaci = new Intent();
         podaci.putExtra(EXTRA_RB, redniBroj);
         podaci.putExtra(EXTRA_NAZIV_PCELINJAKA, naziv);
@@ -276,7 +283,8 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             txtRedniBroj.setText(intent.getIntExtra(EXTRA_RB, -1) + "");
             txtNaziv.setText(intent.getStringExtra(EXTRA_NAZIV_PCELINJAKA));
             String slika = intent.getStringExtra(EXTRA_SLIKA);
-            if (slika != null) {
+            pcelinjakSlika.setImageBitmap(null);
+            if (slika != null || !slika.equals("")) {
                 pcelinjakSlika.setImageBitmap(stringToBitmap(slika));
             }
 
@@ -409,6 +417,17 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         mQueue = Volley.newRequestQueue(this);
         nVisina = -1000;
         zauzetiRBovi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
+
+        srediPcelinjakSliku();
+
+    }
+
+    private void srediPcelinjakSliku() {
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.placeholder_za_slike);
+        icon = resizeBitmap(icon);
+        defaultBitMap = icon;
+        pcelinjakSlika.setImageBitmap(icon);
     }
 
     private LatLng getLatLngFromAddress(String address) {
