@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Base64;
@@ -28,6 +29,8 @@ import java.util.List;
 public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.PcelinjakHolder> {
     Context context;
     private OnItemClickListener listener;
+    private static final float PREFERRED_WIDTH = 250;
+    private static final float PREFERRED_HEIGHT = 250;
 
     public PcelinjaciAdapter() {
         super(DIFF_CALLBACK);
@@ -63,7 +66,8 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         holder.txtLokacija.setText(napraviAdresu(trenuntiPcelinjak.getLokacija()));
         holder.txtNadmorskaVisina.setText(trenuntiPcelinjak.getNadmorskaVisina() + "m");
         if (trenuntiPcelinjak.getSlika() != null && !trenuntiPcelinjak.getSlika().equals("")) {
-            holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlika()));
+            Bitmap mBitmap = stringToBitmap(trenuntiPcelinjak.getSlika());
+            holder.pcelinjak_slika.setImageBitmap(mBitmap);
         }
     }
 
@@ -73,12 +77,11 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
 
         if (latLng != null) {
             Address address = getAddressFromLatLng(latLng);
-
             assert address != null;
-            if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
-                if (address.getSubAdminArea() != null) {
-                    adresa += address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();
-                }
+            if (address.getLocality() == null) {
+
+                adresa += address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();
+
             } else {
                 adresa += address.getAddressLine(0);
             }
@@ -86,10 +89,6 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
 
 
         return adresa;
-    }
-
-    public Pcelinjak getPcelinjakAt(int position) {
-        return getItem(position);
     }
 
     class PcelinjakHolder extends RecyclerView.ViewHolder {
@@ -105,6 +104,7 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
             txtNadmorskaVisina = itemView.findViewById(R.id.txtNadmorskaVisina);
             pcelinjak_slika = itemView.findViewById(R.id.pcelinjak_slika);
             ImageView izmeni = itemView.findViewById(R.id.ic_izmeni);
+            ImageView izbrisi = itemView.findViewById(R.id.ic_izbrisi);
 
             izmeni.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,6 +112,16 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onIzmeniClick(getItem(position));
+                    }
+                }
+            });
+
+            izbrisi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onIzbrisiClick(getItem(position));
                     }
                 }
             });
@@ -132,6 +142,8 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         void onItemClick(Pcelinjak pcelinjak);
 
         void onIzmeniClick(Pcelinjak item);
+
+        void onIzbrisiClick(Pcelinjak item);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -182,4 +194,19 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         super.onAttachedToRecyclerView(recyclerView);
         context = recyclerView.getContext();
     }
+
+    public static Bitmap resizeBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float scaleWidth = PREFERRED_WIDTH / width;
+        float scaleHeight = PREFERRED_HEIGHT / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bitmap, 0, 0, width, height, matrix, false);
+        bitmap.recycle();
+        return resizedBitmap;
+    }
+
 }

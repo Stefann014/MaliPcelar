@@ -111,7 +111,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
                         Address address = getAddressFromLatLng(latLng);
 
                         assert address != null;
-                        if (address.getLocality() == null || address.getThoroughfare().equals("Unnamed Road")) {
+                        if (address.getLocality() == null) {
                             if (address.getSubAdminArea() != null) {
                                 b.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
                             }

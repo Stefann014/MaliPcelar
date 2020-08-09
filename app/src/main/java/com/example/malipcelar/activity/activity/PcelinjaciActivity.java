@@ -9,18 +9,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.PcelinjaciAdapter;
+import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.DaLiZelisDaIzbrisesDialog;
 import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -29,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PcelinjaciActivity extends AppCompatActivity {
+public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDaIzbrisesDialog.ExampleDialogListener {
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final int DODAJ_NOVI_PCELINJAK = 3;
@@ -55,7 +55,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
             srediListenere();
         }
         srediKomunikacijuSaViewModel();
-        srediBrisanje();
         srediIzmeniPcelinjakNaKlik();
     }
 
@@ -84,8 +83,17 @@ public class PcelinjaciActivity extends AppCompatActivity {
 
                 startActivityForResult(intent, IZMENI_PCELINJAK);
             }
-        });
 
+            @Override
+            public void onIzbrisiClick(Pcelinjak pcelinjak) {
+                daLiZelisDaIzbrises(pcelinjak);
+            }
+        });
+    }
+
+    private void daLiZelisDaIzbrises(Pcelinjak pcelinjak) {
+        DaLiZelisDaIzbrisesDialog dialog = new DaLiZelisDaIzbrisesDialog(pcelinjak);
+        dialog.show(getSupportFragmentManager(), "Dialog");
     }
 
     private void srediKomunikacijuSaViewModel() {
@@ -127,7 +135,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-
     public void srediListenere() {
         btnDodajPcelinjak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,22 +162,6 @@ public class PcelinjaciActivity extends AppCompatActivity {
         return false;
     }
 
-    private void srediBrisanje() {
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                pcelinjakViewModel.delete(adapter.getPcelinjakAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(PcelinjaciActivity.this, "Pcelinjak je izbrisana", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerView);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,13 +176,13 @@ public class PcelinjaciActivity extends AppCompatActivity {
 
             Pcelinjak pcelinjak = new Pcelinjak(pcelinjakRB, nazivPcelinjaka, lokacija, nadmorskaVisina, slika);
             pcelinjakViewModel.insert(pcelinjak);
-            Toast.makeText(this, "Pcelinjak je sacuvan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pčelinjak je sačuvan", Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
         } else if (requestCode == IZMENI_PCELINJAK && resultCode == RESULT_OK) {
 
             int id = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
             if (id == -1) {
-                Toast.makeText(this, "Pcelinjak ne moze biti izmenjen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Pčelinjak ne može biti izmenjen", Toast.LENGTH_SHORT).show();
                 return;
             }
             int pcelinjakRB = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
@@ -204,13 +195,12 @@ public class PcelinjaciActivity extends AppCompatActivity {
             pcelinjakViewModel.update(pcelinjak);
             if (stariRb != -1) {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
-
             }
             adapter.notifyDataSetChanged();
             Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "Pcelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pčelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -232,4 +222,13 @@ public class PcelinjaciActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void kliknutoDa(Pasa pasa) {
+
+    }
+
+    @Override
+    public void kliknutoDa(Pcelinjak pcelinjak) {
+        pcelinjakViewModel.delete(pcelinjak);
+    }
 }

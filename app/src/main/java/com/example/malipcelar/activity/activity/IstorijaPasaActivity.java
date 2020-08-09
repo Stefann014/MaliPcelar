@@ -115,6 +115,11 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
         pasaViewModel.delete(pasa);
     }
 
+    @Override
+    public void kliknutoDa(Pcelinjak pcelinjak) {
+
+    }
+
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
