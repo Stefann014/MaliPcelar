@@ -79,6 +79,8 @@ public class KosniceActivity extends AppCompatActivity {
     private void srediAtribute() {
         Intent intent = getIntent();
         this.pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
+        assert pcelinjak != null;
+        setTitle("Košnice za pčelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka());
         btnDodajKosnicu = findViewById(R.id.btnDodajNovuKosnicu);
         recyclerView = findViewById(R.id.rvKosnice);
         kosnice = null;
@@ -141,8 +143,8 @@ public class KosniceActivity extends AppCompatActivity {
 
             int kosnicaRB = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             String godinaProizvodnjeMatice = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE);
-            Boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
-            Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
+            boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
+            boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
             String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
             String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
             String naziv = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE);
@@ -162,8 +164,8 @@ public class KosniceActivity extends AppCompatActivity {
 
             int kosnicaRB = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             String godinaProizvodnjeMatice = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE);
-            Boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
-            Boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
+            boolean selekcionisana = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, false);
+            boolean prirodna = data.getBooleanExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, false);
             String bolesti = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI);
             String napomena = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA);
             String naziv = data.getStringExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE);
@@ -181,7 +183,7 @@ public class KosniceActivity extends AppCompatActivity {
 
     private void srediBrisanje() {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -234,8 +236,8 @@ public class KosniceActivity extends AppCompatActivity {
                 stariRb = kosnica.getRedniBrojKosnice();
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_GODINA_PROIZVODNJE_MATICE, kosnica.getGodinaProizvodnjeMatice());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_REGISTARSKI_BROJ_KOSNICE, kosnica.getNazivKosnice());
-                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, kosnica.getSelekcionisana());
-                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, kosnica.getPrirodna());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_SELEKCIONISANA, kosnica.isSelekcionisana());
+                intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_PRIRODNA, kosnica.isPrirodna());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_BOLESTI, kosnica.getBolesti());
                 intent.putExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_NAPOMENA, kosnica.getNapomena());
 
@@ -249,10 +251,10 @@ public class KosniceActivity extends AppCompatActivity {
 
     private void poruka(Kosnica kosnica) {
         String prir;
-        if (kosnica.getPrirodna()) {
-            prir = "prirodna";
+        if (kosnica.isPrirodna()) {
+            prir = "Prirodna";
         } else {
-            prir = "selekcionisana";
+            prir = "Selekcionisana";
         }
         String buffer = "Redni broj pčelinjaka: " + kosnica.getRednibrojPcelinjaka() + "\n"
                 + "Redni broj košnice: " + kosnica.getRedniBrojKosnice() + "\n"

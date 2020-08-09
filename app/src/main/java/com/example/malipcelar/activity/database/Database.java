@@ -50,7 +50,7 @@ public abstract class Database extends RoomDatabase {
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    Database.class, "database1") // menjaj naziv kad izmenis nesto
+                    Database.class, "database2") // menjaj naziv kad izmenis nesto
                     .fallbackToDestructiveMigration() // da ne bi povecavali verziju, brisemo je ii instaliramo opet
                     .addCallback(roomCallback) // da popunimo necim bazu, ali samo prvi put kad se instancira singlton
                     .build();

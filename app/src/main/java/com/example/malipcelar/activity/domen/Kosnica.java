@@ -26,9 +26,9 @@ public class Kosnica implements Serializable {
     @ColumnInfo(name = "godina_proizvodnje_matice")
     String godinaProizvodnjeMatice;
     @ColumnInfo(name = "selekcionisana")
-    Boolean selekcionisana;
+    boolean selekcionisana;
     @ColumnInfo(name = "prirodna")
-    Boolean prirodna;
+    boolean prirodna;
     @ColumnInfo(name = "bolesti")
     String bolesti;
     @ColumnInfo(name = "napomena")
@@ -44,7 +44,7 @@ public class Kosnica implements Serializable {
     public Kosnica() {
     }
 
-    public Kosnica(int redniBrojKosnice, int rednibrojPcelinjaka, String naziv, String godinaProizvodnjeMatice, Boolean selekcionisana, Boolean prirodna, String bolesti, String napomena) {
+    public Kosnica(int redniBrojKosnice, int rednibrojPcelinjaka, String naziv, String godinaProizvodnjeMatice, boolean selekcionisana, boolean prirodna, String bolesti, String napomena) {
         this.redniBrojKosnice = redniBrojKosnice;
         this.rednibrojPcelinjaka = rednibrojPcelinjaka;
         this.nazivKosnice = naziv;
@@ -106,19 +106,19 @@ public class Kosnica implements Serializable {
         this.godinaProizvodnjeMatice = godinaProizvodnjeMatice;
     }
 
-    public Boolean getSelekcionisana() {
+    public boolean isSelekcionisana() {
         return selekcionisana;
     }
 
-    public void setSelekcionisana(Boolean selekcionisana) {
+    public void setSelekcionisana(boolean selekcionisana) {
         this.selekcionisana = selekcionisana;
     }
 
-    public Boolean getPrirodna() {
+    public boolean isPrirodna() {
         return prirodna;
     }
 
-    public void setPrirodna(Boolean prirodna) {
+    public void setPrirodna(boolean prirodna) {
         this.prirodna = prirodna;
     }
 
