@@ -118,6 +118,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     Button btnSlikaj;
     private RequestQueue mQueue;
     double nVisina;
+    Button btnUkloniSliku;
     List<Integer> zauzetiRBovi;
     Bitmap defaultBitMap;
 
@@ -379,6 +380,16 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             }
         });
 
+        btnUkloniSliku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
+                if (image != null && image != defaultBitMap) {
+                    pcelinjakSlika.setImageBitmap(defaultBitMap);
+                }
+            }
+        });
+
     }
 
     private void vratiNadmorskuVisinu(double latitude, double longitude) {
@@ -430,6 +441,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         mQueue = Volley.newRequestQueue(this);
         nVisina = -1000;
         zauzetiRBovi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
+        btnUkloniSliku = findViewById(R.id.btnUkloniSliku);
         srediPcelinjakSliku();
 
     }
