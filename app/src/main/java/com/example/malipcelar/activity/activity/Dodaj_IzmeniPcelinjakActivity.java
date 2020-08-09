@@ -121,6 +121,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     Button btnUkloniSliku;
     List<Integer> zauzetiRBovi;
     Bitmap defaultBitMap;
+    int stepen;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -358,6 +359,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                     Toast.makeText(getApplicationContext(), nVisina + "", Toast.LENGTH_LONG).show();
                 }
             }
+
         });
 
         btnSlikaj.setOnClickListener(new View.OnClickListener() {
@@ -386,6 +388,18 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 Bitmap image = ((BitmapDrawable) pcelinjakSlika.getDrawable()).getBitmap();
                 if (image != null && image != defaultBitMap) {
                     pcelinjakSlika.setImageBitmap(defaultBitMap);
+                }
+            }
+        });
+
+        pcelinjakSlika.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pcelinjakSlika.setRotation(stepen);
+                if (stepen == 360) {
+                    stepen = 0;
+                } else {
+                    stepen += 90;
                 }
             }
         });
@@ -442,6 +456,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         nVisina = -1000;
         zauzetiRBovi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
         btnUkloniSliku = findViewById(R.id.btnUkloniSliku);
+        stepen = 90;
         srediPcelinjakSliku();
 
     }
