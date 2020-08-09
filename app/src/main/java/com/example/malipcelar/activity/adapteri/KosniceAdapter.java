@@ -54,7 +54,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     public void onBindViewHolder(@NonNull KosniceAdapter.KosnicaHolder holder, int position) {
         Kosnica trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
-        holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + " pcelinjak");
+        holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + ". Pčelinjak");
         if (trenutnaKosnica.getDatumPoslednjegPregleda() != null && !trenutnaKosnica.getDatumPoslednjegPregleda().equals("")) {
             holder.btnPregled.setText("Datum poslednjeg pregleda:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegPregleda()));
         } else {
@@ -146,6 +146,17 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
                 }
             });
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick(getItem(position));
+                    }
+                    return false;
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -167,6 +178,8 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         void onLecenjeClick(Kosnica kosnica);
 
         void onPrihranaClick(Kosnica kosnica);
+
+        void onLongItemClick(Kosnica item);
     }
 
     public void setOnItemClickListener(KosniceAdapter.OnItemClickListener listener) {

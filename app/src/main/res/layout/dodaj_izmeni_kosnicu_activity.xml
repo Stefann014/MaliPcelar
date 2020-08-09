@@ -52,10 +52,12 @@
 
         <Spinner
             android:id="@+id/spGodinaProizvodnje"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="59dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtGod"
             app:layout_constraintTop_toBottomOf="@+id/txtRegistarskiBroj" />
 
@@ -187,8 +189,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="50dp"
+            android:layout_marginBottom="84dp"
             android:background="@drawable/round"
             android:text="@string/sa_uvaj"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNapomenaKosnica" />
 

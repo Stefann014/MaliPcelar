@@ -258,7 +258,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     }
 
     private void poruka() {
-        String buffer = "\tOpšte napomene služe za unošenje napomena, koje treba da podsete pčelara na njegove obaveze.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+        String buffer = "Opšte napomene služe za unošenje napomena, koje treba da podsete pčelara na njegove obaveze.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
         prikaziPoruku("Opšte napomene", buffer);
 
     }
