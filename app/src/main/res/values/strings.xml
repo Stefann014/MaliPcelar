@@ -105,9 +105,7 @@
     <string name="napomena">Napomena</string>
     <string name="_20_05_2020">20.05.2020</string>
     <string name="tip_napomene">Tip Napomene</string>
-    <string name="datum_prihrane">Datum prihrane</string>
     <string name="datum_lecenja">Datum lecenja</string>
-    <string name="datum_pregleda">Datum pregleda</string>
     <string name="pogledajte_poslednje_aktivnosti"><![CDATA[Pogledajte poslednje aktivnosti]]></string>
     <string name="naziv_i_redni_broj_p_elinjaka">Naziv i redni broj pčelinjaka</string>
     <string name="tipnapomene">Tip napomene:</string>
@@ -143,4 +141,9 @@
     <string name="naziv">Naziv:</string>
     <string name="ukloni_sliku">Ukloni sliku</string>
     <string name="unesite_adresu_grad_ili_po_tanski_broj">Unesite adresu, grad ili poštanski broj</string>
+    <string name="redni_broj_i_registarski_broj">Redni broj i registarski broj</string>
+    <string name="p_elinjak">Pčelinjak</string>
+    <string name="datum_pregleda">Datum pregleda</string>
+    <string name="datum_le_enja">Datum lečenja</string>
+    <string name="datum_prihrane">Datum prihrane</string>
 </resources>

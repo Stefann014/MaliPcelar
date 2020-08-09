@@ -4,9 +4,10 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E4E3E3">
+    android:background="@color/quantum_yellow100">
 
 
     <androidx.cardview.widget.CardView
@@ -47,7 +48,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/tip_napomene_spinner_kosnica" />
+                    android:src="@drawable/tip_napomene_spinner_kosnica"
+                    tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
 
@@ -57,8 +59,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Redni broj i registarski broj"
+                android:layout_marginEnd="10dp"
+                android:text="@string/redni_broj_i_registarski_broj"
                 app:layout_constraintBottom_toTopOf="@+id/txtPcelinjak"
+                app:layout_constraintEnd_toStartOf="@+id/btnStrelica"
                 app:layout_constraintStart_toEndOf="@+id/viewId"
                 app:layout_constraintTop_toTopOf="@+id/viewId" />
 
@@ -68,8 +72,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Pcelinjak"
+                android:layout_marginEnd="10dp"
+                android:text="@string/p_elinjak"
                 android:textColor="#8A000000"
+                app:layout_constraintEnd_toStartOf="@+id/btnStrelica"
                 app:layout_constraintStart_toEndOf="@+id/viewId"
                 app:layout_constraintTop_toBottomOf="@+id/txtRedniBrojKosnice" />
 
@@ -98,46 +104,54 @@
                     android:id="@+id/iconPregled"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="22dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/ic_pregled"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnPregled"
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Datum pregleda"
+                    android:background="@drawable/round"
+                    android:text="@string/datum_pregleda"
+                    android:textAllCaps="false"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iconPregled"
+                    app:layout_constraintStart_toEndOf="@+id/iconPregled"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iconLecenje"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="22dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/ic_lecenje"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnPregled"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnLecenje"
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Datum lecenja"
+                    android:background="@drawable/round"
+                    android:text="@string/datum_le_enja"
+                    android:textAllCaps="false"
                     android:textColor="#000"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconLecenje"
                     app:layout_constraintTop_toBottomOf="@+id/btnPregled" />
@@ -146,22 +160,28 @@
                     android:id="@+id/iconPrihrana"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="22dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/ic_prihrana"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnLecenje"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/btnPrihrana"
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Datum prihrane"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round"
+                    android:text="@string/datum_prihrane"
+                    android:textAllCaps="false"
                     android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconPrihrana"
                     app:layout_constraintTop_toBottomOf="@+id/btnLecenje" />
