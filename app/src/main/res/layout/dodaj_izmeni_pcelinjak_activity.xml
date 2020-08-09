@@ -92,7 +92,9 @@
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNz" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNz"
+        tools:layout="@layout/ss_mapa"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relLayout1"

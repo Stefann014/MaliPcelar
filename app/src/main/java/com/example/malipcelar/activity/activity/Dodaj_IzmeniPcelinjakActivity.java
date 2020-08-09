@@ -168,6 +168,11 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     }
 
     private void sacuvajPcelinjak() {
+        if (!isOnline()) {
+            Toast.makeText(this, "Morate uključiti internet da biste uneli lokaciju", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         String rb = txtRedniBroj.getText().toString().trim();
         int redniBroj;
         try {
@@ -355,9 +360,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         btnSacuvaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMarker != null) {
-                    Toast.makeText(getApplicationContext(), nVisina + "", Toast.LENGTH_LONG).show();
-                }
+                sacuvajPcelinjak();
             }
 
         });
