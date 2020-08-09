@@ -1,6 +1,7 @@
 package com.example.malipcelar.activity.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -107,7 +108,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     //vars
     private Boolean mLokacijaDozvoljena;
     GoogleMap mMap;
-    private FusedLocationProviderClient mProvajderLokacije;
     MestaAutoCompleteAdapter mestaAutoCompleteAdapter;
     private Marker mMarker;
     SupportMapFragment mapFragment;
@@ -157,7 +157,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
     private void sacuvajPcelinjak() {
         String rb = txtRedniBroj.getText().toString().trim();
-        int redniBroj = -1;
+        int redniBroj;
         try {
             redniBroj = Integer.parseInt(rb);
         } catch (Exception e) {
@@ -276,10 +276,11 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         finish();
     }
 
+    @SuppressLint("SetTextI18n")
     private void srediIntentBezMape() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_RB)) {
-            setTitle("Izmeni pcelinjak");
+            setTitle("Izmeni pčelinjak");
             txtRedniBroj.setText(intent.getIntExtra(EXTRA_RB, -1) + "");
             txtNaziv.setText(intent.getStringExtra(EXTRA_NAZIV_PCELINJAKA));
             String slika = intent.getStringExtra(EXTRA_SLIKA);
@@ -287,12 +288,12 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             if (slika != null && !slika.equals("")) {
                 pcelinjakSlika.setImageBitmap(stringToBitmap(slika));
             }
-            if (slika.equals("")) {
+            if (slika != null && slika.equals("")) {
                 pcelinjakSlika.setImageBitmap(defaultBitMap);
             }
 
         } else {
-            setTitle("Dodaj pcelinjak");
+            setTitle("Novi pčelinjak");
             pcelinjakSlika.setImageBitmap(defaultBitMap);
         }
     }
@@ -302,8 +303,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         if (intent.hasExtra(EXTRA_RB)) {
 
             String lokacija = intent.getStringExtra(EXTRA_LOKACIJA);
-            Log.d("LOKACIJA", lokacija);
-            String[] lokacije = lokacija.split(",");
+            String[] lokacije = new String[0];
+            if (lokacija != null) {
+                lokacije = lokacija.split(",");
+            }
             String lok1 = lokacije[0] + "";
             String lok2 = lokacije[1] + "";
 
@@ -313,7 +316,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             double latitude = Double.parseDouble(lokacije[0]);
             double longitude = Double.parseDouble(lokacije[1]);
             LatLng latLng = new LatLng(latitude, longitude);
-            pomeriKameru(latLng, DEFAULT_ZOOM, "Adresa");
+            pomeriKameru(latLng, "Adresa");
 
             vratiNadmorskuVisinu(latitude, longitude);
 
@@ -329,7 +332,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 Address adresa = lista.get(0);
 
                 pomeriKameru(new LatLng(latitude, longitude),
-                        DEFAULT_ZOOM, adresa.getAddressLine(0));
+                        adresa.getAddressLine(0));
             }
         } else {
             setTitle("Dodaj pcelinjak");
@@ -383,8 +386,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject visina = jsonArray.getJSONObject(i);
 
-                                double nadmorskaVisina = visina.getDouble("elevation");
-                                nVisina = nadmorskaVisina;
+                                nVisina = visina.getDouble("elevation");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -433,43 +435,8 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         pcelinjakSlika.setImageBitmap(icon);
     }
 
-    private LatLng getLatLngFromAddress(String address) {
-
-        Geocoder geocoder = new Geocoder(Dodaj_IzmeniPcelinjakActivity.this);
-        List<Address> addressList;
-        try {
-            addressList = geocoder.getFromLocationName(address, 1);
-            if (addressList != null) {
-                Address singleaddress = addressList.get(0);
-                return new LatLng(singleaddress.getLatitude(), singleaddress.getLongitude());
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private Address getAddressFromLatLng(LatLng latLng) {
-        Geocoder geocoder = new Geocoder(Dodaj_IzmeniPcelinjakActivity.this);
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
-            if (addresses != null) {
-                Address address = addresses.get(0);
-                return address;
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private void pomeriKameru(LatLng latLng, float zoom, String title) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    private void pomeriKameru(LatLng latLng, String title) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, (float) Dodaj_IzmeniPcelinjakActivity.DEFAULT_ZOOM));
         if (!title.equals("Moja lokacija")) {
             skiniMarkere();
             mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(title));
@@ -515,7 +482,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                     try {
                         if (mMarker.isInfoWindowShown()) {
                             mMarker.hideInfoWindow();
-                            pomeriKameru(new LatLng(mMarker.getPosition().latitude, mMarker.getPosition().longitude), DEFAULT_ZOOM, mMarker.getTitle());
+                            pomeriKameru(new LatLng(mMarker.getPosition().latitude, mMarker.getPosition().longitude), mMarker.getTitle());
                         } else {
                             mMarker.showInfoWindow();
                         }
@@ -549,7 +516,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                     Address adresa = lista.get(0);
 
                     pomeriKameru(new LatLng(latituda, longituda),
-                            DEFAULT_ZOOM, adresa.getAddressLine(0));
+                            adresa.getAddressLine(0));
 
                 }
             }
@@ -585,7 +552,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             Address adresa = lista.get(0);
             Log.d(TAG, "Pronadjena lokacija: " + adresa.toString());
             pomeriKameru(new LatLng(adresa.getLatitude(), adresa.getLongitude()),
-                    DEFAULT_ZOOM, adresa.getAddressLine(0));
+                    adresa.getAddressLine(0));
         }
         iskljuciTastaturu();
 
@@ -598,7 +565,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     }
 
     private void getLokacijaUredjaja() {
-        mProvajderLokacije = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient mProvajderLokacije = LocationServices.getFusedLocationProviderClient(this);
         try {
             if (mLokacijaDozvoljena) {
                 final Task lokacija = mProvajderLokacije.getLastLocation();
@@ -613,7 +580,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                                 return;
                             }
                             pomeriKameru(new LatLng(trenutnaLokacija.getLatitude(), trenutnaLokacija.getLongitude()),
-                                    DEFAULT_ZOOM, "Moja lokacija");
+                                    "Moja lokacija");
                         } else {
                             Toast.makeText(Dodaj_IzmeniPcelinjakActivity.this,
                                     "Nemoguće dobiti trenutnu lokaciju", Toast.LENGTH_LONG).show();
@@ -661,19 +628,17 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mLokacijaDozvoljena = false;
-        switch (requestCode) {
-            case LOCATION_PERMISSION_ZAHTEV: {
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLokacijaDozvoljena = false;
-                            return;
-                        }
+        if (requestCode == LOCATION_PERMISSION_ZAHTEV) {
+            if (grantResults.length > 0) {
+                for (int grantResult : grantResults) {
+                    if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                        mLokacijaDozvoljena = false;
+                        return;
                     }
-                    mLokacijaDozvoljena = true;
-
-                    inicijalizujMapu();
                 }
+                mLokacijaDozvoljena = true;
+
+                inicijalizujMapu();
             }
         }
     }
@@ -696,13 +661,11 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
-                sacuvajPcelinjak();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.sacuvaj_napomenu) {
+            sacuvajPcelinjak();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public boolean isOnline() {
@@ -710,11 +673,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         assert connManager != null;
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
     @Override
@@ -723,6 +682,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
+            assert extras != null;
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             pcelinjakSlika.setImageBitmap(imageBitmap);
         }
@@ -730,6 +690,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
             try {
                 Uri selectedImage = data.getData();
+                assert selectedImage != null;
                 InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                 pcelinjakSlika.setImageBitmap(BitmapFactory.decodeStream(imageStream));
             } catch (IOException exception) {
@@ -773,6 +734,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        assert manager != null;
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
 
