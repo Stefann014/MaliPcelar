@@ -140,8 +140,18 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         }
         if (isOnline()) {
             srediIntentMapa();
-            //DODATI OBAVESTENJE AKO NIJE ONLINE DA NE MOZE DA MENJA LOKACIJU
+        } else {
+            String poruka = "\nUključite internet konekciju, da biste mogli da koristite sve funkcionalnosti mape. ";
+            prikaziPoruku("Internet", poruka);
         }
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     @Override
@@ -199,7 +209,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             }
 
             if (naziv.isEmpty()) {
-                Toast.makeText(this, "Unesite naziv pcelinjaka", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unesite naziv pčelinjaka", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -222,7 +232,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         }
         //novi
         if (zauzetiRBovi.contains(redniBroj)) {
-            Toast.makeText(getApplicationContext(), "Pokusavate da unosite postojeci redni broj", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Pokušavate da unosite postojeći redni broj", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -241,7 +251,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
 
         if (naziv.isEmpty()) {
-            Toast.makeText(this, "Unesite pcelinjak", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unesite pčelinjak", Toast.LENGTH_SHORT).show();
             return;
         }
         if (visina == -1000) {
@@ -335,7 +345,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                         adresa.getAddressLine(0));
             }
         } else {
-            setTitle("Dodaj pcelinjak");
+            setTitle("Dodaj pčelinjak");
         }
     }
 
@@ -398,7 +408,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 error.printStackTrace();
             }
         });
-
         mQueue.add(request);
     }
 
@@ -409,7 +418,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         mGps = (ImageView) findViewById(R.id.ic_gps);
         mInfo = (ImageView) findViewById(R.id.mesto_info);
         pcelinjakSlika = (ImageView) findViewById(R.id.pcelinjak_slika);
-
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.frgMap);
         mMarker = null;
@@ -422,7 +430,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         mQueue = Volley.newRequestQueue(this);
         nVisina = -1000;
         zauzetiRBovi = getIntent().getIntegerArrayListExtra(EXTRA_ZAUZETI_RB);
-
         srediPcelinjakSliku();
 
     }
@@ -550,7 +557,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         }
         if (lista.size() > 0) {
             Address adresa = lista.get(0);
-            Log.d(TAG, "Pronadjena lokacija: " + adresa.toString());
+            Log.d(TAG, "Pronađena lokacija: " + adresa.toString());
             pomeriKameru(new LatLng(adresa.getLatitude(), adresa.getLongitude()),
                     adresa.getAddressLine(0));
         }
@@ -576,7 +583,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                             Location trenutnaLokacija = (Location) task.getResult();
                             if (trenutnaLokacija == null) {
                                 statusCheck();
-                                Log.d("TAGG", "Ukljucite lokaciju");
                                 return;
                             }
                             pomeriKameru(new LatLng(trenutnaLokacija.getLatitude(), trenutnaLokacija.getLongitude()),
@@ -743,14 +749,14 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Ukljucite lokaciju, da biste pristupili trenutnoj lokaciji")
+        builder.setMessage("Uključite lokaciju, da biste pristupili trenutnoj lokaciji")
                 .setCancelable(false)
-                .setPositiveButton("Ukljuci", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Uključi", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton("Izadji", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Izađi", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
                     }
