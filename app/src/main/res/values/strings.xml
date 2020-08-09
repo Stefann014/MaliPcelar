@@ -104,7 +104,7 @@
     <string name="napomena">Napomena</string>
     <string name="_20_05_2020">20.05.2020</string>
     <string name="tip_napomene">Tip Napomene</string>
-    <string name="datum_lecenja">Datum lecenja</string>
+    <string name="datum_lecenja">Datum lečenja</string>
     <string name="pogledajte_poslednje_aktivnosti"><![CDATA[Pogledajte poslednje aktivnosti]]></string>
     <string name="naziv_i_redni_broj_p_elinjaka">Naziv i redni broj pčelinjaka</string>
     <string name="tipnapomene">Tip napomene:</string>
@@ -128,11 +128,11 @@
     <string name="ukupno_mati_nog_mle_a">Ukupno matičnog mleča:</string>
     <string name="ukupno_prikupljene_perge">Ukupno prikupljene perge:</string>
     <string name="adresa">Adresa</string>
-    <string name="naziv_i_redni_broj_kosnice">Naziv i redni broj kosnice</string>
+    <string name="naziv_i_redni_broj_kosnice">Naziv i redni broj košnice</string>
     <string name="istorija_pa_a">Istorija paša</string>
     <string name="nova_pa_a">Nova paša</string>
     <string name="_263_22m">263.22m</string>
-    <string name="_1_pcelinjak">1. Pcelinjak</string>
+    <string name="_1_pcelinjak">1. Pčelinjak</string>
     <string name="latituda_longituda">Latituda,Longituda</string>
     <string name="slikaj">Slikaj</string>
     <string name="dodaj_sliku_iz_galerije">Dodaj sliku iz galerije</string>
@@ -152,4 +152,19 @@
     <string name="prirodna">Prirodna</string>
     <string name="vrsta_matice">Vrsta matice:</string>
     <string name="bolesti">Bolesti:</string>
+    <string name="broj_ulica_popunjenih_pcelom">Broj ulica popunjenih pčelom:</string>
+    <string name="da_li_je_primeceno">Da li je primećeno:</string>
+    <string name="matica">Matica</string>
+    <string name="mlado_leglo">Mlado leglo</string>
+    <string name="da_li_je_primecen_maticnjak">Da li je primećen maticnjak:</string>
+    <string name="primeceno_rojenje">Primećeno rojenje:</string>
+    <string name="broj_ramova_sa_leglom">Broj ramova sa leglom:</string>
+    <string name="broj_ramova_nsa_vencom_hrane_u_plodistu">Broj ramova \nsa vencom hrane u plodištu:</string>
+    <string name="broj_ramova_sa_polenom">Broj ramova sa polenom:</string>
+    <string name="broj_ramova_sa_leglom_npodignutih_u_mediste">Broj ramova sa leglom \npodignutih u medište:</string>
+    <string name="broj_oduzetih_ramova_nsa_leglom">Broj oduzetih ramova \nsa leglom:</string>
+    <string name="broj_ramova_sa_medom_za_vadjenje">Broj ramova sa medom za vađenje:</string>
+    <string name="broj_izvadjenih_ramova_sa_medom">Broj izvađenih ramova sa medom:</string>
+    <string name="broj_ubacenih_osnova">Broj ubačenih osnova:</string>
+    <string name="broj_ubacenih_praznih_ramova">Broj ubačenih praznih ramova:</string>
 </resources>

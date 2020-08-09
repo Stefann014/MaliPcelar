@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/quantum_yellow100"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:text="Datum pregleda: "
+            android:text="@string/datum_pregleda"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,38 +32,43 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
-            android:text="Datum pregleda"
+            android:background="@drawable/round"
+            android:text="@string/datum_pregleda"
             app:layout_constraintStart_toEndOf="@+id/txtDatumPregleda"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ulica popunjenih pcelom:"
+            android:layout_marginTop="40dp"
+            android:text="@string/broj_ulica_popunjenih_pcelom"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnDatumPregleda" />
 
         <EditText
             android:id="@+id/txtBrojUlicaPopunjenihPcelom"
             android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
             android:ems="10"
             android:inputType="number"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/btnDatumPregleda" />
+            app:layout_constraintTop_toBottomOf="@+id/btnDatumPregleda"
+            tools:ignore="Autofill,LabelFor" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Da li je primeceno:"
+            android:layout_marginTop="40dp"
+            android:text="@string/da_li_je_primeceno"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -75,22 +85,23 @@
                 android:id="@+id/rbMatica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Matica" />
+                android:text="@string/matica" />
 
             <RadioButton
                 android:id="@+id/rbMladoLeglo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mlado leglo" />
+                android:text="@string/mlado_leglo" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
-            android:text="Da li je primecen maticnjak:"
+            android:text="@string/da_li_je_primecen_maticnjak"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupMatica" />
 
@@ -99,17 +110,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupMatica" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
-            android:text="Primeceno rojenje:"
+            android:text="@string/primeceno_rojenje"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -117,225 +129,260 @@
             android:id="@+id/cbRojenje"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
             android:id="@+id/txtBrRam"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ramova sa leglom:"
+            android:layout_marginTop="40dp"
+            android:text="@string/broj_ramova_sa_leglom"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ramova \nsa vencom hrane u plodistu:"
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ramova_nsa_vencom_hrane_u_plodistu"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtBrRam" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ramova sa polenom:"
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ramova_sa_polenom"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ramova sa leglom \npodignutih u mediste:"
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ramova_sa_leglom_npodignutih_u_mediste"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj oduzetih ramova \nsa leglom: "
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_oduzetih_ramova_nsa_leglom"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ramova sa medom za vadjenje:"
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ramova_sa_medom_za_vadjenje"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj izvadjenih ramova sa medom:"
+            android:layout_marginTop="40dp"
+            android:text="@string/broj_izvadjenih_ramova_sa_medom"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ubacenih osnova: "
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ubacenih_osnova"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="Broj ubacenih praznih ramova:"
+            android:layout_marginTop="30dp"
+            android:text="@string/broj_ubacenih_praznih_ramova"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="40dp"
-            android:text="Napomena:"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="40dp"
+            android:text="@string/napomena"
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <EditText
             android:id="@+id/txtBrOduzetihRamovaSaLeglom"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            android:layout_marginEnd="80dp"
+            android:autofillHints=""
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            tools:ignore="LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaPolenom"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaLeglom"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/txtBrRam"
-            app:layout_constraintTop_toBottomOf="@+id/cbRojenje" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbRojenje"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtNapomene"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="80dp"
+            android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="2000"
+            android:maxLines="4"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrUbacenihPraznihRamova"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/txtBrUbacenihOsnova" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrUbacenihOsnova"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrUbacenihOsnova"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaMedom"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaMedomZaVadjenje" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaMedomZaVadjenje"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaMedomZaVadjenje"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/txtBrOduzetihRamovaSaLeglom" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrOduzetihRamovaSaLeglom"
+            tools:ignore=",Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaLeglomPodignutihUMediste"
             android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaPolenom" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRamovaSaPolenom"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/txtBrRamovaSaVencomHraneUPlodistu"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="25dp"
+            android:layout_marginEnd="80dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/txtBrRam" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBrRam"
+            tools:ignore="Autofill,LabelFor" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/round"
+            android:text="@string/sa_uvaj"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNapomene" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
