@@ -68,6 +68,11 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
         if (trenuntiPcelinjak.getSlika() != null && !trenuntiPcelinjak.getSlika().equals("")) {
             Bitmap mBitmap = stringToBitmap(trenuntiPcelinjak.getSlika());
             holder.pcelinjak_slika.setImageBitmap(mBitmap);
+        } else {
+            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.placeholder_za_slike);
+            icon = resizeBitmap(icon);
+            holder.pcelinjak_slika.setImageBitmap(icon);
         }
     }
 
