@@ -284,13 +284,16 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
             txtNaziv.setText(intent.getStringExtra(EXTRA_NAZIV_PCELINJAKA));
             String slika = intent.getStringExtra(EXTRA_SLIKA);
             pcelinjakSlika.setImageBitmap(null);
-            if (slika != null || !slika.equals("")) {
+            if (slika != null && !slika.equals("")) {
                 pcelinjakSlika.setImageBitmap(stringToBitmap(slika));
+            }
+            if (slika.equals("")) {
+                pcelinjakSlika.setImageBitmap(defaultBitMap);
             }
 
         } else {
             setTitle("Dodaj pcelinjak");
-            pcelinjakSlika.setImageBitmap(null);
+            pcelinjakSlika.setImageBitmap(defaultBitMap);
         }
     }
 

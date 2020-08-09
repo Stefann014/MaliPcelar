@@ -70,7 +70,8 @@
             android:parentActivityName=".activity.activity.PcelinjaciActivity" />
         <activity
             android:name=".activity.activity.PcelinjaciActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.activity.PocetniActivity" />
         <activity
             android:name=".activity.activity.Dodaj_IzmeniOpstuNapomenuActivity"
             android:parentActivityName=".activity.activity.OpsteNapomeneActivity" />
