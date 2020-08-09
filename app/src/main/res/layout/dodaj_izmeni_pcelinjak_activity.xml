@@ -11,7 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="35dp"
 
         android:background="@drawable/round"
@@ -36,21 +36,22 @@
 
     <ImageView
         android:id="@+id/pcelinjak_slika"
-        android:layout_width="120dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/placeholder_za_slike"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frgMap" />
+        app:layout_constraintTop_toBottomOf="@+id/btnUkloniSliku" />
 
     <TextView
         android:id="@+id/txtRb"
         android:layout_width="115dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:text="Redni broj:"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,51 +59,45 @@
     <TextView
         android:id="@+id/txtNz"
         android:layout_width="115dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:text="Naziv:"
+        android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRb" />
 
-    <EditText
-        android:id="@+id/txtRedniBroj"
-        android:layout_width="70dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/txtRb"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtNaziv"
         android:layout_width="180dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         app:layout_constraintStart_toEndOf="@+id/txtNz"
         app:layout_constraintTop_toBottomOf="@+id/txtRedniBroj" />
-
 
     <fragment
         android:id="@+id/frgMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNz" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relLayout1"
-        android:layout_width="383dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/white_border"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="@+id/frgMap"
@@ -114,23 +109,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_magnify" />
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_magnify"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <AutoCompleteTextView
             android:id="@+id/txtPretrazi"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/ic_izmeni"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@+id/ic_izmeni"
             android:background="@null"
             android:hint="Unesite adresu, grad ili poštanski broj"
             android:imeOptions="actionSearch"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:textColor="#000"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ic_izmeni"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/ic_gps"
@@ -139,10 +143,10 @@
         android:layout_below="@id/relLayout1"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gps"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/frgMap"
         app:layout_constraintTop_toBottomOf="@+id/relLayout1" />
 
     <ImageView
@@ -150,11 +154,11 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_below="@id/relLayout1"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_info"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frgMap"
         app:layout_constraintTop_toBottomOf="@+id/relLayout1" />
 
 
@@ -163,11 +167,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_below="@id/relLayout1"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="13dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_remove"
         app:layout_constraintBottom_toBottomOf="@+id/frgMap"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/frgMap" />
 
     <Button
         android:id="@+id/btnSacuvaj"
@@ -176,7 +181,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="35dp"
         android:background="@drawable/round"
-        android:text="Sacuvaj"
+        android:text="Sačuvaj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frgMap" />
 
@@ -190,6 +195,16 @@
         android:text="Ukloni sliku"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frgMap" />
+
+    <EditText
+        android:id="@+id/txtRedniBroj"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/txtRb"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
