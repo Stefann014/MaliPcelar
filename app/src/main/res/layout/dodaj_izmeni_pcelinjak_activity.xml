@@ -14,7 +14,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="35dp"
-
         android:background="@drawable/round"
         android:text="@string/slikaj"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +27,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="35dp"
-
         android:background="@drawable/round"
         android:text="@string/dodaj_sliku_iz_galerije"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +37,7 @@
         android:id="@+id/pcelinjak_slika"
         android:layout_width="125dp"
         android:layout_height="125dp"
+        android:background="@drawable/okvir"
         android:layout_marginStart="30dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/placeholder_za_slike"
