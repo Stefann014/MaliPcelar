@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.domen;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -58,6 +59,7 @@ public class OpstaNapomena implements Serializable {
         this.opstaNapomena = opstaNapomena;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Tip:" + tipOpsteNapomene + "Napmena: " + opstaNapomena + "Datum: " + datumNapomene;

@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.domen;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -24,8 +25,8 @@ public class Kosnica implements Serializable {
     String nazivKosnice;
     @ColumnInfo(name = "godina_proizvodnje_matice")
     String godinaProizvodnjeMatice;
-    @ColumnInfo(name = "selekciona")
-    Boolean selekciona;
+    @ColumnInfo(name = "selekcionisana")
+    Boolean selekcionisana;
     @ColumnInfo(name = "prirodna")
     Boolean prirodna;
     @ColumnInfo(name = "bolesti")
@@ -43,12 +44,12 @@ public class Kosnica implements Serializable {
     public Kosnica() {
     }
 
-    public Kosnica(int redniBrojKosnice, int rednibrojPcelinjaka, String naziv, String godinaProizvodnjeMatice, Boolean selekciona, Boolean prirodna, String bolesti, String napomena) {
+    public Kosnica(int redniBrojKosnice, int rednibrojPcelinjaka, String naziv, String godinaProizvodnjeMatice, Boolean selekcionisana, Boolean prirodna, String bolesti, String napomena) {
         this.redniBrojKosnice = redniBrojKosnice;
         this.rednibrojPcelinjaka = rednibrojPcelinjaka;
         this.nazivKosnice = naziv;
         this.godinaProizvodnjeMatice = godinaProizvodnjeMatice;
-        this.selekciona = selekciona;
+        this.selekcionisana = selekcionisana;
         this.prirodna = prirodna;
         this.bolesti = bolesti;
         this.napomena = napomena;
@@ -105,12 +106,12 @@ public class Kosnica implements Serializable {
         this.godinaProizvodnjeMatice = godinaProizvodnjeMatice;
     }
 
-    public Boolean getSelekciona() {
-        return selekciona;
+    public Boolean getSelekcionisana() {
+        return selekcionisana;
     }
 
-    public void setSelekciona(Boolean selekciona) {
-        this.selekciona = selekciona;
+    public void setSelekcionisana(Boolean selekcionisana) {
+        this.selekcionisana = selekcionisana;
     }
 
     public Boolean getPrirodna() {
@@ -145,6 +146,7 @@ public class Kosnica implements Serializable {
         this.rednibrojPcelinjaka = rednibrojPcelinjaka;
     }
 
+    @NonNull
     @Override
     public String toString() {
         if (nazivKosnice == null || nazivKosnice.equals("")) {

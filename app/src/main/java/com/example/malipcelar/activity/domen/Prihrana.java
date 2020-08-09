@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.domen;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -86,6 +87,7 @@ public class Prihrana implements Serializable {
         this.kolicinaPrihrane = kolicinaPrihrane;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return kosnicaID + " " + pcelinjakID + " " + datumPrihrane + " " + vrstaPrihrane + " " + kolicinaPrihrane;

@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.domen;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -75,6 +76,7 @@ public class Lecenje implements Serializable {
         this.bolest = bolest;
     }
 
+    @NonNull
     public String toString() {
         return datumLecenja + ", kosnica RB: " + kosnicaID +
                 ", lecenje od '" + bolest;
