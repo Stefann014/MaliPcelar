@@ -5,9 +5,18 @@ import androidx.annotation.NonNull;
 public class PcelinjakIDatumi {
 
     String pcelinjak;
+    String slika;
     String maxDatumPregled;
     String maxDatumPrihrane;
     String maxDatumLecenja;
+
+    public String getSlika() {
+        return slika;
+    }
+
+    public void setSlika(String slika) {
+        this.slika = slika;
+    }
 
     public String getPcelinjak() {
         return pcelinjak;

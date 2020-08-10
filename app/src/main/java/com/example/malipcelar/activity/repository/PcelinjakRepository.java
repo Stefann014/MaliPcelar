@@ -45,10 +45,6 @@ public class PcelinjakRepository {
         new DeletePcelinjakAsyncTask(pcelinjakDAO).execute(pcelinjak);
     }
 
-    public void deleteAllPcelinjaci() {
-        new DeleteAllPcelinjakAsyncTask(pcelinjakDAO).execute();
-    }
-
     ////////////////////// livedata
     public LiveData<List<Pcelinjak>> getAllPcelinjaci() {
         return allPcelinjaci;
@@ -109,20 +105,6 @@ public class PcelinjakRepository {
         @Override
         protected Void doInBackground(Pcelinjak... pcelinjaci) {
             pcelinjakDAO.delete(pcelinjaci[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteAllPcelinjakAsyncTask extends AsyncTask<Void, Void, Void> {
-        private PcelinjakDAO pcelinjakDAO;
-
-        private DeleteAllPcelinjakAsyncTask(PcelinjakDAO pcelinjakDAO) {
-            this.pcelinjakDAO = pcelinjakDAO;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            pcelinjakDAO.deleteAllPcelinjaci();
             return null;
         }
     }

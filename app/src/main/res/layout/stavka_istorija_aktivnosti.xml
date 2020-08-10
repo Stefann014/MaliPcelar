@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/slikaPcelinjak"
+                    android:id="@+id/slikaPcelinjakIstorija"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"
