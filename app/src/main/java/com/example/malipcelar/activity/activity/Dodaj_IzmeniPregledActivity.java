@@ -230,7 +230,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
 
         int selectedId = radioGroupMatica.getCheckedRadioButtonId();
 
-        RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+        RadioButton selectedRadioButton = findViewById(selectedId);
 
         boolean matica = false;
         boolean mladoLeglo = false;

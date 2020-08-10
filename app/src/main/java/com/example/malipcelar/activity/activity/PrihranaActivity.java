@@ -1,15 +1,18 @@
 package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -21,6 +24,7 @@ import com.example.malipcelar.activity.adapteri.PrihranaAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Prihrana;
+import com.example.malipcelar.activity.fragmenti.DatumPickerFragment;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
 import com.example.malipcelar.activity.fragmenti.PogacaIliSirupBottomSheetDialog;
@@ -28,12 +32,14 @@ import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
 import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
-public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener {
+public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener, DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_KOSNICA =
             "com.example.malipcelar.activity.activity.KOSNICA";
@@ -50,7 +56,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     KosnicaViewModel kosnicaViewModel;
     String maxDatum;
     List<Kosnica> kosnice;
-
+    DialogNovoLecenjeSirup dialogNovoLecenjeSirup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +87,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
 
     @Override
     public void onBtnSirupClicked() {
-        DialogNovoLecenjeSirup dialogNovoLecenjeSirup = new DialogNovoLecenjeSirup();
+        dialogNovoLecenjeSirup = new DialogNovoLecenjeSirup(PrihranaActivity.this);
         dialogNovoLecenjeSirup.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -230,5 +236,20 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
+    }
+
+    public void otvoriKalendar() {
+        DialogFragment datePicker = new DatumPickerFragment();
+        datePicker.show(getSupportFragmentManager(), "date picker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);
     }
 }

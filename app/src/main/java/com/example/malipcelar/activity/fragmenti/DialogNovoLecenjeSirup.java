@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.activity.PrihranaActivity;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -27,8 +28,17 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
     Button btnDatumPrihrane;
     private TextView txtLitri;
     private CheckBox chPrimeniNaSveKosnice;
+    private PrihranaActivity prihranaActivity;
 
     private DialogNovoLecenjeSirupListener listener;
+
+    public DialogNovoLecenjeSirup(PrihranaActivity prihranaActivity) {
+        this.prihranaActivity = prihranaActivity;
+    }
+
+    public void setBtnDatumPrihrane(String btnDatumPrihrane) {
+        this.btnDatumPrihrane.setText(btnDatumPrihrane);
+    }
 
     @NonNull
     @SuppressLint("SetTextI18n")
@@ -49,7 +59,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
         btnDatumPrihrane.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                prihranaActivity.otvoriKalendar();
             }
         });
 
