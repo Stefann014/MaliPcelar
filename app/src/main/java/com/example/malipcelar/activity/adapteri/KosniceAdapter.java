@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,12 +22,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Kosnica;
 
-public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> implements Filterable {
 
     private KosniceAdapter.OnItemClickListener listener;
+    private List<Kosnica> kosnice;
+    private List<Kosnica> sveKosnice;
 
-    public KosniceAdapter() {
+    public KosniceAdapter(List<Kosnica> kosnice) {
         super(DIFF_CALLBACK);
+        this.kosnice = kosnice;
+        sveKosnice = new ArrayList<>(this.kosnice);
     }
 
     private static final DiffUtil.ItemCallback<Kosnica> DIFF_CALLBACK = new DiffUtil.ItemCallback<Kosnica>() {
@@ -90,6 +99,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
         public KosnicaHolder(View itemView) {
             super(itemView);
+
             txtRBiNazivKosnice = itemView.findViewById(R.id.txtRedniBrojKosnice);
             txtPcelinjak = itemView.findViewById(R.id.txtPcelinjak);
 
@@ -179,7 +189,7 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
         void onPrihranaClick(Kosnica kosnica);
 
-        void onLongItemClick(Kosnica item);
+        void onLongItemClick(Kosnica kosnica);
     }
 
     public void setOnItemClickListener(KosniceAdapter.OnItemClickListener listener) {
@@ -190,4 +200,42 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
+
+    @Override
+    public int getItemCount() {
+        return kosnice.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return filtriraj;
+    }
+
+    private Filter filtriraj = new Filter() {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Kosnica> filtriranaLista = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filtriranaLista.addAll(sveKosnice);
+            } else {
+                String parametar = constraint.toString().toLowerCase().trim();
+                for (Kosnica kosnica : sveKosnice) {
+                    if (kosnica.getNazivKosnice().toLowerCase().contains(parametar)) {
+                        filtriranaLista.add(kosnica);
+                    }
+                }
+            }
+            FilterResults rezultat = new FilterResults();
+            rezultat.values = filtriranaLista;
+            return rezultat;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            kosnice.clear();
+            kosnice.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

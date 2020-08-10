@@ -1,15 +1,21 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -42,7 +48,7 @@ public class KosniceActivity extends AppCompatActivity {
     FloatingActionButton btnDodajKosnicu;
     private KosnicaViewModel kosnicaViewModel;
     RecyclerView recyclerView;
-    final KosniceAdapter adapter = new KosniceAdapter();
+    KosniceAdapter adapter;
     List<Kosnica> kosnice;
     List<Integer> zauzetiRBovi;
     int stariRb;
@@ -53,13 +59,10 @@ public class KosniceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kosnica_activity);
-
+        setTitle("Pretraži...");
         srediAtribute();
-        srediRecycleView();
         srediListenere();
         srediKomunikacijuSaViewModel();
-        srediBrisanje();
-        srediIzmeniKosnicuNaKlik();
     }
 
     @Override
@@ -75,7 +78,6 @@ public class KosniceActivity extends AppCompatActivity {
         super.onResume();
         if (pauza == 1) {
             recreate();
-            adapter.notifyDataSetChanged();
         }
         pauza = 0;
     }
@@ -84,7 +86,6 @@ public class KosniceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.pcelinjak = (Pcelinjak) intent.getSerializableExtra(EXTRA_PCELINJAK);
         assert pcelinjak != null;
-        setTitle("Košnice za pčelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka());
         btnDodajKosnicu = findViewById(R.id.btnDodajNovuKosnicu);
         recyclerView = findViewById(R.id.rvKosnice);
         kosnice = null;
@@ -111,7 +112,6 @@ public class KosniceActivity extends AppCompatActivity {
     private void srediRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }
 
@@ -129,7 +129,7 @@ public class KosniceActivity extends AppCompatActivity {
                 if (KosniceActivity.this.kosnice != null && KosniceActivity.this.kosnice.size() == 0) {
                     poruka();
                 }
-                adapter.submitList(kosnice);
+                srediAdapter(kosnice);
             }
         });
 
@@ -140,6 +140,18 @@ public class KosniceActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void srediAdapter(List<Kosnica> kosnice) {
+        adapter = new KosniceAdapter(kosnice);
+        srediRecycleView();
+        adapter.submitList(kosnice);
+        srediOstatak();
+    }
+
+    private void srediOstatak() {
+        srediBrisanje();
+        srediIzmeniKosnicuNaKlik();
     }
 
     private void poruka() {
@@ -288,5 +300,26 @@ public class KosniceActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.kosnice_meni, menu);
+        MenuItem pretraga = menu.findItem(R.id.action_search);
+        SearchView txtPretraga = (SearchView) pretraga.getActionView();
+        txtPretraga.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        txtPretraga.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
 
 }
