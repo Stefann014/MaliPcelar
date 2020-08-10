@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
             "com.example.malipcelar.activity.activity.EXTRA_NAPOMENA";
 
     Button btnDatumPregleda;
+    Button btnSacuvaj;
     TextView txtBrUlicaPopunjenihPcelom;
     RadioButton rbMatica;
     RadioButton rbMladoLeglo;
@@ -109,6 +111,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
         txtBrUbacenihPraznihRamova = findViewById(R.id.txtBrUbacenihPraznihRamova);
         txtNapomena = findViewById(R.id.txtNapomene);
         radioGroupMatica = findViewById(R.id.radioGroupMatica);
+        btnSacuvaj = findViewById(R.id.btnSacuvajPregled);
         srediDatum();
     }
 
@@ -133,16 +136,16 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
         String txtBrUbacenihPraznihRamova = this.txtBrUbacenihPraznihRamova.getText().toString().trim();
         String txtNapomena = this.txtNapomena.getText().toString().trim();
 
-        int brUlicaPopunjenihPcelom = -1;
-        int brRamovaSaLeglom = -1;
-        int brRamovaSaVencomHraneUPlodistu = -1;
-        int brRamovaSaPolenom = -1;
-        int brRamovaSaLeglomPodignutihUMediste = -1;
-        int brOduzetihRamovaSaLeglom = -1;
-        int brRamovaSaMedomZaVadjenje = -1;
-        int brIzvadjenihRamovaSaMedom = -1;
-        int brUbacenihOsnova = -1;
-        int brUbacenihPraznihRamova = -1;
+        int brUlicaPopunjenihPcelom = 0;
+        int brRamovaSaLeglom = 0;
+        int brRamovaSaVencomHraneUPlodistu = 0;
+        int brRamovaSaPolenom = 0;
+        int brRamovaSaLeglomPodignutihUMediste = 0;
+        int brOduzetihRamovaSaLeglom = 0;
+        int brRamovaSaMedomZaVadjenje = 0;
+        int brIzvadjenihRamovaSaMedom = 0;
+        int brUbacenihOsnova = 0;
+        int brUbacenihPraznihRamova = 0;
 
         if (!txtBrUlicaPopunjenihPcelom.isEmpty()) {
             try {
@@ -285,9 +288,15 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
-
+        btnSacuvaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sacuvajPregled();
+            }
+        });
     }
 
+    @SuppressLint("SetTextI18n")
     private void srediIntent() {
         Intent data = getIntent();
 
@@ -357,8 +366,8 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
                 txtBrUbacenihPraznihRamova.setText(brojUbacenihPraznihRamova + "");
             }
 
-            // treba nam sad u formatu 20.05.1997
-            String[] datumi = datum.split("-");
+            String[] datumi = new String[0];
+            if (datum != null) datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatumPregleda.setText(dobarDatum);
 
@@ -387,22 +396,18 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
-                sacuvajPregled();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.ikonica_sacuvaj) {
+            sacuvajPregled();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
-        //treba nam format yyyy-MM-dd
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "-" + datumi[1] + "-" + datumi[0];
     }
 }

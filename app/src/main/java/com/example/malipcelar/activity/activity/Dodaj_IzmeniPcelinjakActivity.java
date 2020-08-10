@@ -697,7 +697,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.sacuvaj_napomenu) {
+        if (item.getItemId() == R.id.ikonica_sacuvaj) {
             sacuvajPcelinjak();
             return true;
         }

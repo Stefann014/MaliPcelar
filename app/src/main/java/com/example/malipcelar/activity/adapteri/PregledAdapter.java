@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,20 +45,19 @@ public class PregledAdapter extends ListAdapter<Pregled, PregledAdapter.PregledH
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PregledAdapter.PregledHolder holder, int position) {
         Pregled trenutniPregled = getItem(position);
 
-        holder.txtDatum.setText("Datum: ");
-        holder.txtSmisliti.setText("Nez jos");
+        holder.txtPcelinjakIKosnica.setText(trenutniPregled.getKosnicaID() + ". košnica u " + trenutniPregled.getPcelinjakID() + ". pčelinjaku");
+        holder.txtNapomena.setText("Napomena: " + trenutniPregled.getNapomena());
         holder.txtDatumPregleda.setText(datumZaPrikaz(trenutniPregled.getDatumPregleda()));
-
     }
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     public Pregled getPregledAt(int position) {
@@ -65,14 +65,14 @@ public class PregledAdapter extends ListAdapter<Pregled, PregledAdapter.PregledH
     }
 
     class PregledHolder extends RecyclerView.ViewHolder {
-        private TextView txtDatum;
-        private TextView txtSmisliti;
+        private TextView txtPcelinjakIKosnica;
+        private TextView txtNapomena;
         private TextView txtDatumPregleda;
 
         public PregledHolder(View itemView) {
             super(itemView);
-            txtDatum = itemView.findViewById(R.id.txtDatumiPregleda);
-            txtSmisliti = itemView.findViewById(R.id.txttxt);
+            txtPcelinjakIKosnica = itemView.findViewById(R.id.txtPcelinjakIKosnica);
+            txtNapomena = itemView.findViewById(R.id.txttxt);
             txtDatumPregleda = itemView.findViewById(R.id.txtDatumPregleda);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +84,25 @@ public class PregledAdapter extends ListAdapter<Pregled, PregledAdapter.PregledH
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick(getItem(position));
+                    }
+                    return false;
+                }
+            });
+
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(Pregled pregled);
+
+        void onLongItemClick(Pregled pregled);
     }
 
     public void setOnItemClickListener(PregledAdapter.OnItemClickListener listener) {

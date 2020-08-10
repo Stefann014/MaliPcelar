@@ -141,7 +141,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.sacuvaj_napomenu:
+            case R.id.ikonica_sacuvaj:
                 sacuvajLecenje();
                 return true;
             default:

@@ -335,7 +335,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.sacuvaj_napomenu) {
+        if (item.getItemId() == R.id.ikonica_sacuvaj) {
             if (btnSacuvaj.isEnabled()) {
                 sacuvajPasu();
             } else {

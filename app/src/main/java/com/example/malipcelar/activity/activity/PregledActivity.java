@@ -1,13 +1,12 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -25,9 +24,6 @@ import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PregledViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class PregledActivity extends AppCompatActivity {
@@ -44,11 +40,9 @@ public class PregledActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     PregledViewModel pregledViewModel;
     KosnicaViewModel kosnicaViewModel;
-
     Kosnica kosnica;
     Pcelinjak pcelinjak;
     List<Pregled> pregledi;
-
     String maxDatum;
 
     final PregledAdapter adapter = new PregledAdapter();
@@ -57,7 +51,7 @@ public class PregledActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pregled_activity);
-
+        setTitle("Pregledi");
         srediAtribute();
         srediListenere();
         srediViewModel();
@@ -97,18 +91,17 @@ public class PregledActivity extends AppCompatActivity {
             boolean mladoLeglo = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MLADO_LEGLO, false);
             boolean maticnjak = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICNJAK, false);
             boolean konstantovanoRojenje = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_KONSTANTOVANO_ROJENJE, false);
-            int brojUlicaPopunjenihPcelom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, -1);
-            int brojRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, -1);
+            int brojUlicaPopunjenihPcelom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, 0);
+            int brojRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, 0);
             int brojRamovaSaVencomHraneUPlodistu = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, -1);
-            int brojRamovaSaPolenom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, -1);
-            int brojRamovaSaLeglomPodignutihUMediste = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, -1);
-            int brojOduzetihRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, -1);
-            int brojRamovaSaMedomZaVadjenje = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, -1);
-            int brojIzvadjenihRamovaSaMedom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, -1);
-            int brojUbacenihOsnova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, -1);
-            int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
+            int brojRamovaSaPolenom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, 0);
+            int brojRamovaSaLeglomPodignutihUMediste = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, 0);
+            int brojOduzetihRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, 0);
+            int brojRamovaSaMedomZaVadjenje = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, 0);
+            int brojIzvadjenihRamovaSaMedom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, 0);
+            int brojUbacenihOsnova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, 0);
+            int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, 0);
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
-
 
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
@@ -116,7 +109,7 @@ public class PregledActivity extends AppCompatActivity {
                     brojUbacenihOsnova, brojUbacenihPraznihRamova, napomena);
             pregledViewModel.insert(pregled);
 
-            Toast.makeText(this, "Pregled je sacuvan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pregled je sačuvan", Toast.LENGTH_SHORT).show();
         } else if (requestCode == IZMENI_PREGLED && resultCode == RESULT_OK) {
             int id = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_ID, -1);
 
@@ -130,19 +123,17 @@ public class PregledActivity extends AppCompatActivity {
             boolean mladoLeglo = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MLADO_LEGLO, false);
             boolean maticnjak = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_MATICNJAK, false);
             boolean konstantovanoRojenje = data.getBooleanExtra(Dodaj_IzmeniPregledActivity.EXTRA_KONSTANTOVANO_ROJENJE, false);
-            int brojUlicaPopunjenihPcelom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, -1);
-            int brojRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, -1);
-            int brojRamovaSaVencomHraneUPlodistu = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, -1);
-            int brojRamovaSaPolenom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, -1);
-            int brojRamovaSaLeglomPodignutihUMediste = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, -1);
-            int brojOduzetihRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, -1);
-            int brojRamovaSaMedomZaVadjenje = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, -1);
-            int brojIzvadjenihRamovaSaMedom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, -1);
-            int brojUbacenihOsnova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, -1);
-            int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, -1);
+            int brojUlicaPopunjenihPcelom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ULICA_POPUNJENIH_PCELOM, 0);
+            int brojRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM, 0);
+            int brojRamovaSaVencomHraneUPlodistu = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_VENCOM_HRANE_U_PLODISTU, 0);
+            int brojRamovaSaPolenom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_POLENOM, 0);
+            int brojRamovaSaLeglomPodignutihUMediste = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_LEGLOM_PODIGNUTIH_U_MEDISTE, 0);
+            int brojOduzetihRamovaSaLeglom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_ODUZETIH_RAMOVA_SA_LEGLOM, 0);
+            int brojRamovaSaMedomZaVadjenje = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_RAMOVA_SA_MEDOM_ZA_VADJENJE, 0);
+            int brojIzvadjenihRamovaSaMedom = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_IZVADJENIH_RAMOVA_SA_MEDOM, 0);
+            int brojUbacenihOsnova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_OSNOVA, 0);
+            int brojUbacenihPraznihRamova = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_BROJ_UBACENIH_PRAZNIH_RAMOVA, 0);
             String napomena = data.getStringExtra(Dodaj_IzmeniPregledActivity.EXTRA_NAPOMENA);
-
-
 
             Pregled pregled = new Pregled(datumPregleda, kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), matica, mladoLeglo, maticnjak, konstantovanoRojenje,
                     brojUlicaPopunjenihPcelom, brojRamovaSaLeglom, brojRamovaSaVencomHraneUPlodistu, brojRamovaSaPolenom,
@@ -155,6 +146,11 @@ public class PregledActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Pregled nije izmenjen", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     private void srediRecycleView() {
@@ -191,6 +187,11 @@ public class PregledActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new PregledAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pregled pregled) {
+                poruka(pregled);
+            }
+
+            @Override
+            public void onLongItemClick(Pregled pregled) {
                 Intent intent = new Intent(PregledActivity.this, Dodaj_IzmeniPregledActivity.class);
 
                 intent.putExtra(Dodaj_IzmeniPregledActivity.EXTRA_ID, pregled.getPregledID());
@@ -215,40 +216,51 @@ public class PregledActivity extends AppCompatActivity {
         });
     }
 
+    private void poruka(Pregled pregled) {
+        String buffer = "Redni broj pčelinjaka: " + pregled.getPcelinjakID() + "\n"
+                + "Redni broj košnice: " + pregled.getKosnicaID() + "\n"
+                + "Datum: " + datumZaPrikaz(pregled.getDatumPregleda()) + "\n"
+                + "Matica: " + pregled.isMatica() + "\n"
+                + "Mlado leglo: " + pregled.isMladoLeglo() + "\n"
+                + "Maticnjak: " + pregled.isMaticnjak() + "\n"
+                + "Konstantovano rojenje: " + pregled.isKonstantovanoRojenje() + "\n"
+                + "Broj ullica popunjenih pčelom: " + pregled.getBrojUlicaPopunjenihPcelom() + "\n"
+                + "Broj ramova sa leglom: " + pregled.getBrojRamovaSaLeglom() + "\n"
+                + "Broj ramova\nsa vencom hrane u plodištu: " + pregled.getBrojRamovaSaVencomHraneUPlodistu() + "\n"
+                + "Broj ramova sa polenom: " + pregled.getBrojRamovaSaPolenom() + "\n"
+                + "Broj ramova\nsa leglom podignutih u medište: " + pregled.getBrojRamovaSaLeglomPodignutihUMediste() + "\n"
+                + "Broj oduzetih ramova sa leglom: " + pregled.getBrojRamovaSaLeglom() + "\n"
+                + "Broj ramova sa medom za vađenje: " + pregled.getBrojRamovaSaMedomZaVadjenje() + "\n"
+                + "Broj izvađenih ramova sa medom: " + pregled.getBrojIzvadjenihRamovaSaMedom() + "\n"
+                + "Broj ubačenih osnova: " + pregled.getBrojUbacenihOsnova() + "\n"
+                + "Broj ubačenih praznih ramova: " + pregled.getBrojUbacenihPraznihRamova() + "\n\n"
+                + "Napomena: " + pregled.getNapomena() + "\n";
+        prikaziPoruku("Pregled", buffer);
+
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
     private void srediBrisanje() {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 pregledViewModel.delete(adapter.getPregledAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(PregledActivity.this, "Pregled je izbrisan", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.glavni_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.izbrisiSve:
-                Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
 }
