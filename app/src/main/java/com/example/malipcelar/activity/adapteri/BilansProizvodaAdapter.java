@@ -58,11 +58,11 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
         KlasaBilans trenuntiPcelinjak = getItem(position);
         holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.getRbINazivPcelinjaka());
         holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
+
         if (trenuntiPcelinjak.getSlikaPcelinjaka() != null && !trenuntiPcelinjak.getSlikaPcelinjaka().equals("")) {
             holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlikaPcelinjaka()));
         }
-
-
+        
         holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: \n" + trenuntiPcelinjak.getUkupnoMeda() + " kg");
         holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: \n" + trenuntiPcelinjak.getUkupnoPolena() + " kg");
         holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: \n" + trenuntiPcelinjak.getUkupnoPropolisa() + " kg");

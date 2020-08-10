@@ -70,6 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:maxLines="2"
                 android:text="@string/adresa"
                 android:textColor="#8A000000"
                 app:layout_constraintStart_toEndOf="@+id/viewID"

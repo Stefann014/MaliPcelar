@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -41,8 +42,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     List<Pcelinjak> pcelinjaci;
     List<Pasa> pase;
 
-    int pauza = 0;
-
     final BilansProizvodaAdapter adapter = new BilansProizvodaAdapter();
 
     @Override
@@ -53,21 +52,6 @@ public class BilansProizvodaActivity extends AppCompatActivity {
         srediAtribute();
         srediRecycleView();
         srediViewModel();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        pauza = 1;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (pauza == 1) {
-            recreate();
-        }
-        pauza = 0;
     }
 
     private void srediRecycleView() {
@@ -120,8 +104,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-                adapter.submitList(bilansi);
+                adapter.submitList(klasaBilans);
             }
         });
         pasaViewModel.getAllPase().observe(this, new Observer<List<Pasa>>() {
