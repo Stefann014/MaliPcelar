@@ -88,7 +88,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
 
                 String poruka = "Tip napomene: " + opstaNapomena.getTipOpsteNapomene() + "\n\n" + opstaNapomena.getOpstaNapomena() + "\n"
                         + "\n\n" + datumZaPrikaz(opstaNapomena.getDatumNapomene());
-
                 prikaziPoruku("Napomena", poruka);
             }
 
@@ -100,7 +99,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA, opstaNapomena.getOpstaNapomena());
                 intent.putExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM, opstaNapomena.getDatumNapomene());
                 startActivityForResult(intent, IZMENI_NAPOMENU);
-
             }
         });
     }
@@ -159,7 +157,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             String napomena = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_NAPOMENA);
             String datum = data.getStringExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_DATUM);
 
-
             assert datum != null;
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
@@ -168,7 +165,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             try {
                 date = sdf.parse(dobarDatum);
                 assert date != null;
-                Log.d("DATUM", date.toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -191,12 +187,12 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             assert date != null;
             alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime() + dvanaestSati, pendingIntent);
 
-            Toast.makeText(this, "Napomena je sacuvana", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Napomena je sačuvana", Toast.LENGTH_SHORT).show();
         } else if (requestCode == IZMENI_NAPOMENU && resultCode == RESULT_OK) {
             int id = data.getIntExtra(Dodaj_IzmeniOpstuNapomenuActivity.EXTRA_ID, -1);
 
             if (id == -1) {
-                Toast.makeText(this, "Napomena ne moze biti izmenjena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Napomena ne može biti izmenjena", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -212,7 +208,6 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
             try {
                 date = sdf.parse(dobarDatum);
                 assert date != null;
-                Log.d("DATUM", date.toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -227,16 +222,13 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             long dvanaestSati = 1000 * 60 * 60 * 12;
-            Log.d("TEN", dvanaestSati + "");
 
             assert alarmManager != null;
             assert date != null;
             alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime() + dvanaestSati, pendingIntent);
 
 
-            Toast.makeText(this, "Opsta napomena je izmenjena", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Opsta napomena nije izmenjena", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Opšta napomena je izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -258,7 +250,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     }
 
     private void poruka() {
-        String buffer = "Opšte napomene služe za unošenje napomena, koje treba da podsete pčelara na njegove obaveze.\n\n\tU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
+        String buffer = "Opšte napomene služe za unošenje napomena, koje treba da podsete pčelara na njegove obaveze.\n\nU slučaju da Vam se ništa ne prikazuje,\nto znači da nema unesenih stavki.";
         prikaziPoruku("Opšte napomene", buffer);
 
     }
@@ -274,8 +266,8 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "LemubitReminderChannel";
-            String description = "Channel for Leumvit reminder";
+            CharSequence name = "Channel";
+            String description = "Channel";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("notifyLemubit", name, importance);
             channel.setDescription(description);

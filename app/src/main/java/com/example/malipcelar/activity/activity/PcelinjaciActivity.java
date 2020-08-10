@@ -138,7 +138,6 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PcelinjaciActivity.this, Dodaj_IzmeniPcelinjakActivity.class);
-
                 ArrayList<Integer> zauzeti = (ArrayList<Integer>) zauzetiRBovi;
                 intent.putExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_ZAUZETI_RB, zauzeti);
 
@@ -155,7 +154,7 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(PcelinjaciActivity.this, dostupan, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
-            Toast.makeText(getApplicationContext(), "Ne mozemo pristupiti mapi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Ne možemo pristupiti mapi", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -175,7 +174,7 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             Pcelinjak pcelinjak = new Pcelinjak(pcelinjakRB, nazivPcelinjaka, lokacija, nadmorskaVisina, slika);
             pcelinjakViewModel.insert(pcelinjak);
             Toast.makeText(this, "Pčelinjak je sačuvan", Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
+
         } else if (requestCode == IZMENI_PCELINJAK && resultCode == RESULT_OK) {
 
             int id = data.getIntExtra(Dodaj_IzmeniPcelinjakActivity.EXTRA_RB, -1);
@@ -194,17 +193,11 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             if (stariRb != -1) {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
             }
-            adapter.notifyDataSetChanged();
-            Toast.makeText(this, pcelinjak.toString(), Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(this, "Pčelinjak nije izmenjen", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void kliknutoDa(Pasa pasa) {
-
     }
 
     @Override

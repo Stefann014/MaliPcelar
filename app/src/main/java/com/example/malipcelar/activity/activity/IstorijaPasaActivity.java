@@ -133,7 +133,7 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
             int id = data.getIntExtra(Dodaj_IzmeniPasuActivity.EXTRA_ID, -1);
 
             if (id == -1) {
-                Toast.makeText(this, "Pasa ne moze biti izmenjena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Paša ne može biti izmenjena", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -156,9 +156,7 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
             pasa.setPasaID(id);
             pasaViewModel.update(pasa);
 
-            Toast.makeText(this, "Pasa je izmenjena", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Pasa nije izmenjena", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Paša je izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
 

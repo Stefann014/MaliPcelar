@@ -158,7 +158,7 @@ public class KosniceActivity extends AppCompatActivity {
 
             int id = data.getIntExtra(Dodaj_IzmeniKosnicuActivity.EXTRA_RB_KOSNICE, -1);
             if (id == -1) {
-                Toast.makeText(this, "Košnica ne moze biti izmenjena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Košnica ne može biti izmenjena", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -176,8 +176,6 @@ public class KosniceActivity extends AppCompatActivity {
             if (stariRb != -1) {
                 kosnicaViewModel.updateRb(stariRb, kosnicaRB);
             }
-        } else {
-            Toast.makeText(this, "Košnica nije izmenjena", Toast.LENGTH_SHORT).show();
         }
     }
 

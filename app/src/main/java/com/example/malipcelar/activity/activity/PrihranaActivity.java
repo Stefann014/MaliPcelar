@@ -51,7 +51,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prihrana_activity);
-
+        setTitle("Prihrane");
         srediAtribute();
         srediListenere();
         srediViewModel();
@@ -185,13 +185,18 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         adapter.setOnItemClickListener(new PrihranaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Prihrana prihrana) {
-
+                String prih;
+                if (prihrana.getVrstaPrihrane().equals("Sirup")) {
+                    prih = "l";
+                } else {
+                    prih = "kg";
+                }
 
                 String poruka = "Pcelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + "\n" +
                         "Kosnica: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + "\n" +
-                        "Datum: " + datumZaPrikaz(prihrana.getDatumPrihrane() + "\n") +
-                        "Vrsta prihrane:" + prihrana.getVrstaPrihrane() + "\n" +
-                        "Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n";
+                        "Datum: " + datumZaPrikaz(prihrana.getDatumPrihrane()) +
+                        "\nVrsta prihrane: " + prihrana.getVrstaPrihrane() + "\n" +
+                        "Količina prihrane: " + prihrana.getKolicinaPrihrane() + " " + prih + "\n\n";
                 prikaziPoruku("Prihrana: ", poruka);
 
             }

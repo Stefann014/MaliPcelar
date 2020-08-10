@@ -114,7 +114,7 @@ public class PregledActivity extends AppCompatActivity {
             int id = data.getIntExtra(Dodaj_IzmeniPregledActivity.EXTRA_ID, -1);
 
             if (id == -1) {
-                Toast.makeText(this, "Napomena ne moze biti izmenjena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Pregled ne može biti izmenjen", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -143,8 +143,6 @@ public class PregledActivity extends AppCompatActivity {
             pregledViewModel.update(pregled);
 
             Toast.makeText(this, "Pregled je izmenjen", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Pregled nije izmenjen", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -172,8 +172,6 @@ public class LecenjeActivity extends AppCompatActivity {
             lecenjeViewModel.update(lecenje);
 
             Toast.makeText(this, "Lečenje je izmenjeno", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Lečenje nije izmenjeno", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -442,10 +442,10 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private void srediAtribute() {
         mestaAutoCompleteAdapter = null;
         mLokacijaDozvoljena = false;
-        autoCompleteTV = (AutoCompleteTextView) findViewById(R.id.txtPretrazi);
-        mGps = (ImageView) findViewById(R.id.ic_gps);
-        mInfo = (ImageView) findViewById(R.id.mesto_info);
-        pcelinjakSlika = (ImageView) findViewById(R.id.pcelinjak_slika);
+        autoCompleteTV = findViewById(R.id.txtPretrazi);
+        mGps = findViewById(R.id.ic_gps);
+        mInfo = findViewById(R.id.mesto_info);
+        pcelinjakSlika = findViewById(R.id.pcelinjak_slika);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.frgMap);
         mMarker = null;
@@ -691,7 +691,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
+        menuInflater.inflate(R.menu.dodaj_novi_meni, menu);
         return true;
     }
 

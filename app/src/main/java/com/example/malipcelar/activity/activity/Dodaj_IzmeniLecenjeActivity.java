@@ -85,7 +85,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         ArrayList<String> bolesti = new ArrayList<>();
         bolesti.add("Nozemoza");
         bolesti.add("Varoa");
-        bolesti.add("Americka kuga");
+        bolesti.add("Američka kuga");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, bolesti); // ako je greska tu je

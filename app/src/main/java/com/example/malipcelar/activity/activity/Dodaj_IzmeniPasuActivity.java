@@ -251,7 +251,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             Date datum2 = sdf.parse(btnDatumDo.getText().toString().trim());
 
             if (datum2 != null && datum1 != null && datum1.getTime() > datum2.getTime()) {
-                Toast.makeText(this, "Datum OD ne moze biti veci od datuma DO", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Datum OD ne može biti veći od datuma DO", Toast.LENGTH_LONG).show();
                 return;
             }
         } catch (ParseException e) {
@@ -329,7 +329,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
+        menuInflater.inflate(R.menu.dodaj_novi_meni, menu);
         return true;
     }
 

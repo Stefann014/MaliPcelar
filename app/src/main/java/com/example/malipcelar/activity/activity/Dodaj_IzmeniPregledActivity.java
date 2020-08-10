@@ -390,7 +390,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
+        menuInflater.inflate(R.menu.dodaj_novi_meni, menu);
         return true;
     }
 
