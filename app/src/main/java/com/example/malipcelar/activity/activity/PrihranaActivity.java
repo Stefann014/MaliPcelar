@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -28,6 +29,9 @@ import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
 public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener {
 
@@ -144,6 +148,10 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         prihranaViewModel.getAllPrihranaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Prihrana>>() {
             @Override
             public void onChanged(@Nullable List<Prihrana> prihrane) {
+                assert prihrane != null;
+                if (prihrane.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(prihrane);
             }
         });
@@ -161,6 +169,14 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
                 PrihranaActivity.this.kosnice = kosnice;
             }
         });
+    }
+
+    private void poruka() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
+        //String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
+        String buffer = "\n\nPozdrav, " + imePcelara + "\n\nKlikom na dugme + možete dodati novu prihranu u košnicu: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + " u pčelinjaku: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + " \n";
+        prikaziPoruku("Prihrana", buffer);
     }
 
     private void srediBrisanje() {

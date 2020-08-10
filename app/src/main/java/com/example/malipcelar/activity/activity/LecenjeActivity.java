@@ -106,7 +106,7 @@ public class LecenjeActivity extends AppCompatActivity {
         String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
         //String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
         String buffer = "\n\nPozdrav, " + imePcelara + "\n\nKlikom na dugme + možete dodati novo lečenje u košnicu: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + " u pčelinjaku: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + " \n";
-        prikaziPoruku("Košnice", buffer);
+        prikaziPoruku("Lečenje", buffer);
     }
 
     private void srediObservere() {

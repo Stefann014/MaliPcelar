@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +26,9 @@ import com.example.malipcelar.activity.viewModel.PregledViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
 public class PregledActivity extends AppCompatActivity {
 
@@ -167,6 +171,10 @@ public class PregledActivity extends AppCompatActivity {
         pregledViewModel.getAllPreglediZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Pregled>>() {
             @Override
             public void onChanged(@Nullable List<Pregled> pregledi) {
+                assert pregledi != null;
+                if (pregledi.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(pregledi);
             }
         });
@@ -180,6 +188,13 @@ public class PregledActivity extends AppCompatActivity {
         });
     }
 
+    private void poruka() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
+        //String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
+        String buffer = "\n\nPozdrav, " + imePcelara + "\n\nKlikom na dugme + možete dodati novi pregled u košnicu: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + " u pčelinjaku: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + " \n";
+        prikaziPoruku("Pregled", buffer);
+    }
 
     private void srediIzmeniPregledNaKlik() {
         adapter.setOnItemClickListener(new PregledAdapter.OnItemClickListener() {
