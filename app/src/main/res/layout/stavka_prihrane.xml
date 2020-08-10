@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtSmislicemoPrihranu"
+                android:id="@+id/txtVrstaIKolicinaPrihrane"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtPcelinjakIKosnicaPrihrana"

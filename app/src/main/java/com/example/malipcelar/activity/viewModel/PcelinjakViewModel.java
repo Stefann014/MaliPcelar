@@ -38,10 +38,6 @@ public class PcelinjakViewModel extends AndroidViewModel {
         pcelinjakRepository.delete(pcelinjak);
     }
 
-    public void deleteAllPcelinjaci() {
-        pcelinjakRepository.deleteAllPcelinjaci();
-    }
-
     public LiveData<List<Pcelinjak>> getAllPcelinjaci() {
         return allPcelinjaci;
     }

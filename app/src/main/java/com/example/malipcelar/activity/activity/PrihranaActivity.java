@@ -20,9 +20,9 @@ import com.example.malipcelar.activity.adapteri.PrihranaAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Prihrana;
-import com.example.malipcelar.activity.fragmenti.PogacaIliSirupBottomSheetDialog;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
+import com.example.malipcelar.activity.fragmenti.PogacaIliSirupBottomSheetDialog;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -194,11 +194,6 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
                         "Kolicina prihrane:" + prihrana.getKolicinaPrihrane() + "\n\n";
                 prikaziPoruku("Prihrana: ", poruka);
 
-            }
-
-            @Override
-            public void onLongItemClick(Prihrana prihrana) {
-                Toast.makeText(PrihranaActivity.this, "AJ DA VIDIMO", Toast.LENGTH_LONG).show();
             }
         });
     }

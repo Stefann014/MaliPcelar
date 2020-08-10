@@ -35,10 +35,6 @@ public class KosnicaViewModel extends AndroidViewModel {
         kosnicaRepository.delete(kosnica);
     }
 
-    public void deleteAllKosnice() {
-        kosnicaRepository.deleteAllKosnice();
-    }
-
     public LiveData<List<Kosnica>> getAllKosniceByRbPcelinjaka(int pcelinjak) {
         return kosnicaRepository.getKosniceByRbPcelinjaka(pcelinjak);
     }

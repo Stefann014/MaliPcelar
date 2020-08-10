@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,20 +44,23 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
         return new PrihranaAdapter.PrihranaHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull PrihranaAdapter.PrihranaHolder holder, int position) {
         Prihrana trenutnaPrihrana = getItem(position);
 
-        holder.txtDatum.setText("Datum lecenja: ");
-        holder.txtSmisliti.setText("Nez jos");
-        holder.txtDatumPrihrane.setText(datumZaPrikaz(trenutnaPrihrana.getDatumPrihrane()));
-
+        holder.txtPcelinjakIkosnica.setText(" " + trenutnaPrihrana.getKosnicaID() + ". košnica u " + trenutnaPrihrana.getPcelinjakID() + ". pčelinjaku ");
+        if (trenutnaPrihrana.getVrstaPrihrane().equals("Sirup")) {
+            holder.txtVrstaIKolicinaPrihrane.setText(" " + trenutnaPrihrana.getVrstaPrihrane() + ": " + trenutnaPrihrana.getKolicinaPrihrane() + "l ");
+        } else {
+            holder.txtVrstaIKolicinaPrihrane.setText(" " + trenutnaPrihrana.getVrstaPrihrane() + ": " + trenutnaPrihrana.getKolicinaPrihrane() + "kg ");
+        }
+        holder.txtDatumPrihrane.setText(" " + datumZaPrikaz(trenutnaPrihrana.getDatumPrihrane()) + " ");
     }
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     public Prihrana getPrihranaAt(int position) {
@@ -64,28 +68,15 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
     }
 
     class PrihranaHolder extends RecyclerView.ViewHolder {
-        private TextView txtDatum;
-        private TextView txtSmisliti;
+        private TextView txtPcelinjakIkosnica;
+        private TextView txtVrstaIKolicinaPrihrane;
         private TextView txtDatumPrihrane;
 
         public PrihranaHolder(View itemView) {
             super(itemView);
-            txtDatum = itemView.findViewById(R.id.txtPcelinjakIKosnicaPrihrana);
-            txtSmisliti = itemView.findViewById(R.id.txtSmislicemoPrihranu);
+            txtPcelinjakIkosnica = itemView.findViewById(R.id.txtPcelinjakIKosnicaPrihrana);
+            txtVrstaIKolicinaPrihrane = itemView.findViewById(R.id.txtVrstaIKolicinaPrihrane);
             txtDatumPrihrane = itemView.findViewById(R.id.txtDatumPrihrane);
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onLongItemClick(getItem(position));
-
-                        return false;
-                    }
-                    return false;
-                }
-            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,8 +92,6 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
 
     public interface OnItemClickListener {
         void onItemClick(Prihrana prihrana);
-
-        void onLongItemClick(Prihrana prihrana);
     }
 
     public void setOnItemClickListener(PrihranaAdapter.OnItemClickListener listener) {
