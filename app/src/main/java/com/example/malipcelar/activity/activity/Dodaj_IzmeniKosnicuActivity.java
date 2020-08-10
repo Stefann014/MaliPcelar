@@ -3,6 +3,9 @@ package com.example.malipcelar.activity.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -98,7 +101,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
 
     private void srediAtribute() {
         txtRedniBroj = findViewById(R.id.txtRBKosnice);
-        spGodinaProizvodnje = (Spinner) findViewById(R.id.spGodinaProizvodnje);
+        spGodinaProizvodnje = findViewById(R.id.spGodinaProizvodnje);
         rbSelekcionisana = findViewById(R.id.rbSelekcionisana);
         rbPrirodna = findViewById(R.id.rbPrirodna);
         txtBolesti = findViewById(R.id.txtBolesti);
@@ -176,7 +179,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
             }
 
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+            RadioButton selectedRadioButton = findViewById(selectedId);
             boolean prirodna = false;
             boolean selekcionisana = false;
 
@@ -223,7 +226,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         }
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
-        RadioButton selectedRadioButton = (RadioButton) findViewById(selectedId);
+        RadioButton selectedRadioButton = findViewById(selectedId);
 
         boolean prirodna = false;
         boolean selekcionisana = false;
@@ -251,4 +254,19 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.dodaj_novi_meni, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.ikonica_sacuvaj) {
+            sacuvajKosnicu();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

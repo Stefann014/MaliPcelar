@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +26,9 @@ import com.example.malipcelar.activity.viewModel.LecenjeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
 public class LecenjeActivity extends AppCompatActivity {
 
@@ -97,10 +101,21 @@ public class LecenjeActivity extends AppCompatActivity {
 
     }
 
+    private void poruka() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
+        //String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
+        String buffer = "\n\nPozdrav, " + imePcelara + "\n\nKlikom na dugme + možete dodati novo lečenje u košnicu: " + kosnica.getRedniBrojKosnice() + ". " + kosnica.getNazivKosnice() + " u pčelinjaku: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + " \n";
+        prikaziPoruku("Košnice", buffer);
+    }
+
     private void srediObservere() {
         lecenjeViewModel.getAllLecenjaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Lecenje>>() {
             @Override
             public void onChanged(@Nullable List<Lecenje> lecenja) {
+                if (lecenja != null && lecenja.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(lecenja);
             }
         });

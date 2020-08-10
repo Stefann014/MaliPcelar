@@ -2,6 +2,7 @@ package com.example.malipcelar.activity.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
 public class KosniceActivity extends AppCompatActivity {
 
@@ -122,6 +126,9 @@ public class KosniceActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Kosnica> kosnice) {
                 KosniceActivity.this.kosnice = kosnice;
+                if (KosniceActivity.this.kosnice != null && KosniceActivity.this.kosnice.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(kosnice);
             }
         });
@@ -133,6 +140,14 @@ public class KosniceActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void poruka() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
+        //String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
+        String buffer = "\n" + imePcelara + "\nKlikom na dugme + možete dodati novu košnicu u pčelinjak: " + pcelinjak.getRedniBrojPcelinjaka() + ". " + pcelinjak.getNazivPcelinjaka() + " \n";
+        prikaziPoruku("Košnice", buffer);
     }
 
     @Override

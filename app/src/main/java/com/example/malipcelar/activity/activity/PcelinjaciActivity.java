@@ -1,7 +1,9 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +27,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.GAZDINSTVO;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
+import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
 public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDaIzbrisesDialog.ExampleDialogListener {
 
@@ -105,6 +111,9 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             @Override
             public void onChanged(@Nullable List<Pcelinjak> pcelinjaci) {
                 PcelinjaciActivity.this.pcelinjaci = pcelinjaci;
+                if (PcelinjaciActivity.this.pcelinjaci.size() == 0) {
+                    poruka();
+                }
                 adapter.submitList(pcelinjaci);
             }
         });
@@ -116,6 +125,23 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             }
         });
 
+    }
+
+    private void poruka() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String imePcelara = sharedPreferences.getString(IME_PCELARA, "");
+        String gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
+        String buffer = "Pozdrav, " + imePcelara + ".\nDa biste mogli da koristite sve naše funkcionalnosti morate dodati novi pčelinjak klikom na dugme plus.\n\n"
+                + "Nadamo se da ćemo biti od pomoći vašem gazdinstvu: '" + gazdinstvo + "'";
+        prikaziPoruku("Pčelinjaci", buffer);
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 
     public void srediAtribute() {
