@@ -1,5 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,20 +44,20 @@ public class LecenjeAdapter extends ListAdapter<Lecenje, LecenjeAdapter.LecenjeH
         return new LecenjeAdapter.LecenjeHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull LecenjeAdapter.LecenjeHolder holder, int position) {
         Lecenje trenutnoLecenje = getItem(position);
 
-        holder.txtDatum.setText("Datum lecenja: ");
-        holder.txtSmisliti.setText("Nez jos");
-        holder.txtDatumLecenja.setText(datumZaPrikaz(trenutnoLecenje.getDatumLecenja()));
+        holder.txtPcelinjakIKosnica.setText(" " + trenutnoLecenje.getKosnicaID() + ". košnica u " + trenutnoLecenje.getPcelinjakID() + ". pčelinjaku ");
+        holder.txtBolest.setText(" Bolest: " + trenutnoLecenje.getBolest() + " ");
+        holder.txtDatumLecenja.setText(" " + datumZaPrikaz(trenutnoLecenje.getDatumLecenja()) + " ");
 
     }
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
     public Lecenje getLecenjeAt(int position) {
@@ -64,14 +65,14 @@ public class LecenjeAdapter extends ListAdapter<Lecenje, LecenjeAdapter.LecenjeH
     }
 
     class LecenjeHolder extends RecyclerView.ViewHolder {
-        private TextView txtDatum;
-        private TextView txtSmisliti;
+        private TextView txtPcelinjakIKosnica;
+        private TextView txtBolest;
         private TextView txtDatumLecenja;
 
         public LecenjeHolder(View itemView) {
             super(itemView);
-            txtDatum = itemView.findViewById(R.id.textDatumiLecenja);
-            txtSmisliti = itemView.findViewById(R.id.txtSmislicemo);
+            txtPcelinjakIKosnica = itemView.findViewById(R.id.txtPcelinjakKosnica);
+            txtBolest = itemView.findViewById(R.id.txtBolestLecenje);
             txtDatumLecenja = itemView.findViewById(R.id.txtDatumLecenja);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +84,25 @@ public class LecenjeAdapter extends ListAdapter<Lecenje, LecenjeAdapter.LecenjeH
                     }
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onLongItemClick(getItem(position));
+                    }
+                    return false;
+                }
+            });
+
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(Lecenje lecenje);
+
+        void onLongItemClick(Lecenje lecenje);
     }
 
     public void setOnItemClickListener(LecenjeAdapter.OnItemClickListener listener) {

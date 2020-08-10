@@ -3,9 +3,6 @@ package com.example.malipcelar.activity.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +36,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
             "com.example.malipcelar.activity.activity.EXTRA_PRIMENI_LECENJE_NA_CEO_PCELINJAK";
 
     Button btnDatumLecenja;
+    Button btnSacuvaj;
     Spinner spBolesti;
     CheckBox chPrimeniLecenjeNaPcelinjak;
     TextView tvLecenje;
@@ -55,21 +53,21 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
 
     private void srediAtribute() {
         btnDatumLecenja = findViewById(R.id.btnDatumLecenja);
+        btnSacuvaj = findViewById(R.id.btnSacuvajLecenje);
         spBolesti = findViewById(R.id.spBolesti);
         chPrimeniLecenjeNaPcelinjak = findViewById(R.id.chPrimeniLecenjeNaPcelinjak);
         tvLecenje = findViewById(R.id.tvLecenje);
         srediSpinner();
         srediDatum();
-
     }
 
     private void srediIntent() {
         Intent data = getIntent();
         if (data.hasExtra(EXTRA_ID)) {
-            setTitle("Izmeni lecenje");
+            setTitle("Izmeni lečenje");
             String datum = data.getStringExtra(EXTRA_DATUM_LECENJA);
 
-            // treba nam sad u formatu 20.05.1997
+            assert datum != null;
             String[] datumi = datum.split("-");
             String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
             btnDatumLecenja.setText(dobarDatum);
@@ -78,7 +76,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
             chPrimeniLecenjeNaPcelinjak.setVisibility(View.INVISIBLE);
             tvLecenje.setVisibility(View.INVISIBLE);
         } else {
-            setTitle("Dodaj pregled");
+            setTitle("Dodaj novo lečenje");
         }
     }
 
@@ -89,7 +87,7 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         bolesti.add("Varoa");
         bolesti.add("Americka kuga");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, bolesti); // ako je greska tu je
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBolesti.setAdapter(adapter);
@@ -118,7 +116,12 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
-
+        btnSacuvaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sacuvajLecenje();
+            }
+        });
     }
 
     @Override
@@ -129,24 +132,6 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         btnDatumLecenja.setText(currentDateString);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.dodaj_novu_napomenu_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ikonica_sacuvaj:
-                sacuvajLecenje();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private void sacuvajLecenje() {
@@ -172,12 +157,10 @@ public class Dodaj_IzmeniLecenjeActivity extends AppCompatActivity implements Da
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
-        //treba nam format yyyy-MM-dd
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "-" + datumi[1] + "-" + datumi[0];
     }
 
 }

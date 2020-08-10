@@ -1,13 +1,12 @@
 package com.example.malipcelar.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -55,7 +54,7 @@ public class LecenjeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecenje_activity);
-
+        setTitle("Lečenja");
         srediAtribute();
         srediListenere();
         srediViewModel();
@@ -125,14 +124,14 @@ public class LecenjeActivity extends AppCompatActivity {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 lecenjeViewModel.delete(adapter.getLecenjeAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(LecenjeActivity.this, "Lecenje je izbrisano", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LecenjeActivity.this, "Lečenje je izbrisano", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
@@ -155,12 +154,12 @@ public class LecenjeActivity extends AppCompatActivity {
                 Lecenje lecenje = new Lecenje(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), datumLecenja, bolest);
                 lecenjeViewModel.insert(lecenje);
             }
-            Toast.makeText(this, "Lecenje je sacuvano", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lečenje je sačuvano", Toast.LENGTH_SHORT).show();
         } else if (requestCode == IZMENI_LECENJE && resultCode == RESULT_OK) {
             int id = data.getIntExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, -1);
 
             if (id == -1) {
-                Toast.makeText(this, "Lecenje ne moze biti izmenjeno", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Lečenje ne može biti izmenjeno", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -172,37 +171,22 @@ public class LecenjeActivity extends AppCompatActivity {
             lecenje.setLecenjeID(id);
             lecenjeViewModel.update(lecenje);
 
-            Toast.makeText(this, "Lecenje je izmenjeno", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lečenje je izmenjeno", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Lecenje nije izmenjeno", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lečenje nije izmenjeno", Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.glavni_meni, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.izbrisiSve:
-                Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     private void srediIzmeniLecenjeNaKlik() {
         adapter.setOnItemClickListener(new LecenjeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Lecenje lecenje) {
-                Intent intent = new Intent(LecenjeActivity.this, Dodaj_IzmeniLecenjeActivity.class);
+                poruka(lecenje);
+            }
 
+            @Override
+            public void onLongItemClick(Lecenje lecenje) {
+                Intent intent = new Intent(LecenjeActivity.this, Dodaj_IzmeniLecenjeActivity.class);
                 intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_ID, lecenje.getLecenjeID());
                 intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_DATUM_LECENJA, lecenje.getDatumLecenja());
                 intent.putExtra(Dodaj_IzmeniLecenjeActivity.EXTRA_BOLEST, lecenje.getBolest());
@@ -210,6 +194,27 @@ public class LecenjeActivity extends AppCompatActivity {
                 startActivityForResult(intent, IZMENI_LECENJE);
             }
         });
+    }
+
+    private void poruka(Lecenje lecenje) {
+        String buffer = "Redni broj pčelinjaka: " + lecenje.getPcelinjakID() + "\n"
+                + "Redni broj košnice: " + lecenje.getKosnicaID() + "\n\n"
+                + "Datum: " + datumZaPrikaz(lecenje.getDatumLecenja()) + "\n\n"
+                + "Bolest: " + lecenje.getBolest() + "\n";
+        prikaziPoruku("Lečenje", buffer);
+    }
+
+    public void prikaziPoruku(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
+    private String datumZaPrikaz(String datum) {
+        String[] datumi = datum.split("-");
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
 }
