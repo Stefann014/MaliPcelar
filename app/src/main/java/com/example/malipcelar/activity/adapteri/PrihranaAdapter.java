@@ -70,7 +70,7 @@ public class PrihranaAdapter extends ListAdapter<Prihrana, PrihranaAdapter.Prihr
 
         public PrihranaHolder(View itemView) {
             super(itemView);
-            txtDatum = itemView.findViewById(R.id.textDatumiPrihrane);
+            txtDatum = itemView.findViewById(R.id.txtPcelinjakIKosnicaPrihrana);
             txtSmisliti = itemView.findViewById(R.id.txtSmislicemoPrihranu);
             txtDatumPrihrane = itemView.findViewById(R.id.txtDatumPrihrane);
 

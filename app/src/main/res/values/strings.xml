@@ -175,4 +175,11 @@
     <string name="izaberite_vrstu_prihrane">Izaberite vrstu prihrane:</string>
     <string name="poga_a">Pogača</string>
     <string name="sirup">Sirup</string>
+    <string name="button">Button</string>
+    <string name="unesite_kilograme">Unesite kilograme:</string>
+    <string name="primeni_na_sve_ko_nice_u_p_elinjaku">Primeni na sve košnice u pčelinjaku:</string>
+    <string name="vrsta_i_koli_ina">Vrsta i količina</string>
+    <string name="_22_05_2020">22.05.2020</string>
+    <string name="_20_05_2020">20.05.2020</string>
+    <string name="asd">-</string>
 </resources>

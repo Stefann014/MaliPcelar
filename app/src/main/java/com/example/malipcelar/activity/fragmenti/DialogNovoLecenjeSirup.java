@@ -46,6 +46,13 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         btnDatumPrihrane.setText(currentDateString);
 
+        btnDatumPrihrane.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         builder.setView(view)
                 .setTitle("Unesi količinu (litri)")
                 .setNegativeButton("Izađi", new DialogInterface.OnClickListener() {
