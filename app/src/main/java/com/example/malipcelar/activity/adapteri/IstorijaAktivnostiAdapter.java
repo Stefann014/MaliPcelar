@@ -53,22 +53,22 @@ public class IstorijaAktivnostiAdapter extends ListAdapter<PcelinjakIDatumi, Ist
     @Override
     public void onBindViewHolder(@NonNull IstorijaAktivnostiAdapter.IstorijaAktivnostiHolder holder, int position) {
         PcelinjakIDatumi trenutnaStavka = getItem(position);
-        holder.txtRedniBrojINazivPcelinjaka.setText(trenutnaStavka.getPcelinjak() + "");
-        holder.txtIstorijaAktivnosti.setText("Pogledajte poslednje aktivnosti ->");
+        holder.txtRedniBrojINazivPcelinjaka.setText(" " + trenutnaStavka.getPcelinjak() + " ");
+        holder.txtIstorijaAktivnosti.setText(" Pogledajte poslednje aktivnosti ➜ ");
         if (trenutnaStavka.getMaxDatumPregled() != null && !trenutnaStavka.getMaxDatumPregled().equals("")) {
-            holder.btnPoslednjiPregled.setText("Datum poslednjeg pregleda: " + datumZaPrikaz(trenutnaStavka.getMaxDatumPregled()));
+            holder.btnPoslednjiPregled.setText(" Datum poslednjeg pregleda: " + datumZaPrikaz(trenutnaStavka.getMaxDatumPregled()) + " ");
         } else {
-            holder.btnPoslednjiPregled.setText("Jos uvek nema unesenih pregleda");
+            holder.btnPoslednjiPregled.setText(" Još uvek nema unesenih pregleda ");
         }
         if (trenutnaStavka.getMaxDatumLecenja() != null && !trenutnaStavka.getMaxDatumLecenja().equals("")) {
-            holder.btnPoslednjeLecenje.setText("Datum poslednjeg lecenja: " + datumZaPrikaz(trenutnaStavka.getMaxDatumLecenja()));
+            holder.btnPoslednjeLecenje.setText(" Datum poslednjeg lečenja: " + datumZaPrikaz(trenutnaStavka.getMaxDatumLecenja()) + " ");
         } else {
-            holder.btnPoslednjeLecenje.setText("Jos uvek nema lecenja");
+            holder.btnPoslednjeLecenje.setText(" Još uvek nema lečenja ");
         }
         if (trenutnaStavka.getMaxDatumPrihrane() != null && !trenutnaStavka.getMaxDatumPrihrane().equals("")) {
-            holder.btnPoslednjaPrihrana.setText("Datum poslednje prihrane: " + datumZaPrikaz(trenutnaStavka.getMaxDatumPrihrane()));
+            holder.btnPoslednjaPrihrana.setText(" Datum poslednje prihrane: " + datumZaPrikaz(trenutnaStavka.getMaxDatumPrihrane()) + " ");
         } else {
-            holder.btnPoslednjaPrihrana.setText("Jos uvek nema unesenih prihrana");
+            holder.btnPoslednjaPrihrana.setText(" Još uvek nema unesenih prihrana ");
         }
     }
 
