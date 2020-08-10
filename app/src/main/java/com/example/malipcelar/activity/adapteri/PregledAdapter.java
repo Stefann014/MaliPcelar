@@ -50,9 +50,9 @@ public class PregledAdapter extends ListAdapter<Pregled, PregledAdapter.PregledH
     public void onBindViewHolder(@NonNull PregledAdapter.PregledHolder holder, int position) {
         Pregled trenutniPregled = getItem(position);
 
-        holder.txtPcelinjakIKosnica.setText(trenutniPregled.getKosnicaID() + ". košnica u " + trenutniPregled.getPcelinjakID() + ". pčelinjaku");
-        holder.txtNapomena.setText("Napomena: " + trenutniPregled.getNapomena());
-        holder.txtDatumPregleda.setText(datumZaPrikaz(trenutniPregled.getDatumPregleda()));
+        holder.txtPcelinjakIKosnica.setText(" " + trenutniPregled.getKosnicaID() + ". košnica u " + trenutniPregled.getPcelinjakID() + ". pčelinjaku ");
+        holder.txtNapomena.setText(" Napomena: " + trenutniPregled.getNapomena() + " ");
+        holder.txtDatumPregleda.setText("" + datumZaPrikaz(trenutniPregled.getDatumPregleda()) + " ");
     }
 
     private String datumZaPrikaz(String datum) {

@@ -108,7 +108,6 @@
     <string name="pogledajte_poslednje_aktivnosti"><![CDATA[Pogledajte poslednje aktivnosti]]></string>
     <string name="naziv_i_redni_broj_p_elinjaka">Naziv i redni broj pčelinjaka</string>
     <string name="tipnapomene">Tip napomene:</string>
-    <string name="datum">Datum</string>
     <string name="sacuvaj">Sacuvaj</string>
     <string name="napomenaq">Napomena:</string>
     <string name="unesite_napomenu">Unesite napomenu</string>
@@ -145,7 +144,6 @@
     <string name="datum_pregleda">Datum pregleda</string>
     <string name="datum_le_enja">Datum lečenja</string>
     <string name="datum_prihrane">Datum prihrane</string>
-    <string name="sa_uvaj">Sačuvaj</string>
     <string name="registarski_broj_naziv">Registarski broj/Naziv:</string>
     <string name="godina_proizvodnje_matice">Godina proizvodnje matice:</string>
     <string name="selekcionisana">Selekcionisana</string>
@@ -167,4 +165,11 @@
     <string name="broj_izvadjenih_ramova_sa_medom">Broj izvađenih ramova sa medom:</string>
     <string name="broj_ubacenih_osnova">Broj ubačenih osnova:</string>
     <string name="broj_ubacenih_praznih_ramova">Broj ubačenih praznih ramova:</string>
+    <string name="_22_05_2020">22.05.2020</string>
+    <string name="p_elinjak_i_ko_nica">Pčelinjak i košnica</string>
+    <string name="bolelst">Bolelst:</string>
+    <string name="sa_uvaj">Sačuvaj</string>
+    <string name="primeni_le_enje_na_ceo_p_elinjak">Primeni lečenje na ceo pčelinjak:</string>
+    <string name="le_enje_od">Lečenje od:</string>
+    <string name="datum">Datum:</string>
 </resources>
