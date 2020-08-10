@@ -172,4 +172,7 @@
     <string name="primeni_le_enje_na_ceo_p_elinjak">Primeni lečenje na ceo pčelinjak:</string>
     <string name="le_enje_od">Lečenje od:</string>
     <string name="datum">Datum:</string>
+    <string name="izaberite_vrstu_prihrane">Izaberite vrstu prihrane:</string>
+    <string name="poga_a">Pogača</string>
+    <string name="sirup">Sirup</string>
 </resources>

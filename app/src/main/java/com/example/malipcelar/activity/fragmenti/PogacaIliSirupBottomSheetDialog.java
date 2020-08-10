@@ -13,13 +13,13 @@ import androidx.annotation.Nullable;
 import com.example.malipcelar.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class BottomSheetDialog extends BottomSheetDialogFragment {
+public class PogacaIliSirupBottomSheetDialog extends BottomSheetDialogFragment {
     private BottomSheetListener listener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
+        View v = inflater.inflate(R.layout.pogaca_ili_sirup, container, false);
         Button pogaca = v.findViewById(R.id.btnPogaca);
         Button sirup = v.findViewById(R.id.btnSirup);
 

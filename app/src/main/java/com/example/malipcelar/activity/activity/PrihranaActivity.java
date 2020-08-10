@@ -20,7 +20,7 @@ import com.example.malipcelar.activity.adapteri.PrihranaAdapter;
 import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Prihrana;
-import com.example.malipcelar.activity.fragmenti.BottomSheetDialog;
+import com.example.malipcelar.activity.fragmenti.PogacaIliSirupBottomSheetDialog;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
 import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
@@ -29,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class PrihranaActivity extends AppCompatActivity implements BottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener {
+public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener {
 
     public static final String EXTRA_KOSNICA =
             "com.example.malipcelar.activity.activity.KOSNICA";
@@ -63,7 +63,7 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         btnDodajNovuPrihranu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialog bottomSheet = new BottomSheetDialog();
+                PogacaIliSirupBottomSheetDialog bottomSheet = new PogacaIliSirupBottomSheetDialog();
                 bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
             }
         });
@@ -122,12 +122,10 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
 
     @NonNull
     private String prevediDatumUFormatZaBazu(String datum) {
-        //treba nam format yyyy-MM-dd
         datum = datum.substring(0, datum.length() - 1);
         datum = datum.replace('.', '-');
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "-" + datumi[1] + "-" + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "-" + datumi[1] + "-" + datumi[0];
     }
 
     private void srediRecycleView() {
@@ -169,12 +167,12 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 prihranaViewModel.delete(adapter.getPrihranaAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(PrihranaActivity.this, "Prihrana je izbrisana", Toast.LENGTH_SHORT).show();
             }
@@ -215,7 +213,6 @@ public class PrihranaActivity extends AppCompatActivity implements BottomSheetDi
 
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
-        String dobarDatum = datumi[2] + "." + datumi[1] + "." + datumi[0];
-        return dobarDatum;
+        return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 }

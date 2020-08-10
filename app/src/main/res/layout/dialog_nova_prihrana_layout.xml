@@ -3,18 +3,17 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:id="@+id/layoutDialog"
-    >
+    android:padding="16dp">
 
 
     <Button
         android:id="@+id/btnDatumPrihrane"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnDatumPrihrane"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Unesite kilograme: "
         app:layout_constraintEnd_toStartOf="@+id/txtKilogramiLitri"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnDatumPrihrane"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toStartOf="@+id/tvKolicina"
         android:layout_toRightOf="@+id/tvKolicina"
         android:inputType="numberDecimal"
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Primeni na sve kosnice u pcelinjaku:"
+        android:text="Primeni na sve košnice u pčelinjaku:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtKilogramiLitri" />
 

@@ -36,7 +36,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_novo_lecenje_layout, null);
+        View view = inflater.inflate(R.layout.dialog_nova_prihrana_layout, null);
         btnDatumPrihrane = view.findViewById(R.id.btnDatumPrihrane);
         txtLitri = view.findViewById(R.id.txtKilogramiLitri);
         chPrimeniNaSveKosnice = view.findViewById(R.id.chPrimeniPrihranuNaSveKosnice);
@@ -47,13 +47,13 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
         btnDatumPrihrane.setText(currentDateString);
 
         builder.setView(view)
-                .setTitle("Unesi kolicinu (litri)")
-                .setNegativeButton("Izadji", new DialogInterface.OnClickListener() {
+                .setTitle("Unesi količinu (litri)")
+                .setNegativeButton("Izađi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 })
-                .setPositiveButton("Sacuvaj", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sačuvaj", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String datum = btnDatumPrihrane.getText().toString();
