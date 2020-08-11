@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.pomocneKlase.DaLiZelisDaIzbrisesDialog;
 import com.example.malipcelar.activity.adapteri.IstorijaPasaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
+import com.example.malipcelar.activity.pomocneKlase.DaLiZelisDaIzbrisesDialog;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
 
 import java.util.List;
@@ -113,6 +113,7 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
     @Override
     public void kliknutoDa(Pasa pasa) {
         pasaViewModel.delete(pasa);
+        Toast.makeText(this, "Paša je izbrisana", Toast.LENGTH_SHORT).show();
     }
 
     @Override

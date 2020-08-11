@@ -235,16 +235,20 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             return;
         }
 
-        if (btnDatumOd.getText().toString().trim().equals("Datum od:") || btnDatumDo.getText().toString().trim().equals("Datum do:")) {
+        String txtDatumOd = btnDatumOd.getText().toString().trim();
+        String txtDatumDo = btnDatumDo.getText().toString().trim();
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            sdf.parse(txtDatumOd);
+            sdf.parse(txtDatumDo);
+        } catch (ParseException e) {
             Toast.makeText(this, "Unesite datume", Toast.LENGTH_LONG).show();
             return;
         }
 
         String datumOd = prevediDatumUFormatZaBazu(btnDatumOd.getText().toString().trim());
         String datumDo = prevediDatumUFormatZaBazu(btnDatumDo.getText().toString().trim());
-
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         try {
             Date datum1 = sdf.parse(btnDatumOd.getText().toString().trim());
