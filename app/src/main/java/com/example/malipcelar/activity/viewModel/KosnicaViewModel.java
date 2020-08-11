@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.domen.Kosnica;
+import com.example.malipcelar.activity.pomocneKlase.KosnicaIDatumi;
 import com.example.malipcelar.activity.repository.KosnicaRepository;
 
 import java.util.List;
@@ -39,16 +40,20 @@ public class KosnicaViewModel extends AndroidViewModel {
         return kosnicaRepository.getKosniceByRbPcelinjaka(pcelinjak);
     }
 
-    public LiveData<Kosnica> getKosnicaByRBKosnice(int rb_kosnice, int pcelinjak) {
-        return kosnicaRepository.getKosnicaByRBKosnice(rb_kosnice,pcelinjak);
+    public LiveData<List<KosnicaIDatumi>> getAllKosniceIDatumeZaPcelinjak(int pcelinjak) {
+        return kosnicaRepository.getAllKosniceIDatumeZaPcelinjak(pcelinjak);
     }
 
-    public LiveData<List<Integer>> getAllRBKosniceZaPcelinjak(int pcelinjak){
-        return  kosnicaRepository.getAllRBKosniceZaPcelinjak(pcelinjak);
+    public LiveData<Kosnica> getKosnicaByRBKosnice(int rb_kosnice, int pcelinjak) {
+        return kosnicaRepository.getKosnicaByRBKosnice(rb_kosnice, pcelinjak);
+    }
+
+    public LiveData<List<Integer>> getAllRBKosniceZaPcelinjak(int pcelinjak) {
+        return kosnicaRepository.getAllRBKosniceZaPcelinjak(pcelinjak);
     }
 
     public void updateRb(int stariRb, int noviRb) {
-        kosnicaRepository.updateRb(stariRb,noviRb);
+        kosnicaRepository.updateRb(stariRb, noviRb);
     }
 
 }

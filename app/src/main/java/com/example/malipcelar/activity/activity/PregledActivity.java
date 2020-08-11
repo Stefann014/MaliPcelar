@@ -178,14 +178,6 @@ public class PregledActivity extends AppCompatActivity {
                 adapter.submitList(pregledi);
             }
         });
-        pregledViewModel.getMaxDatumPregledaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String datum) {
-                maxDatum = datum;
-                kosnica.setDatumPoslednjegPregleda(datum);
-                kosnicaViewModel.update(kosnica);
-            }
-        });
     }
 
     private void poruka() {

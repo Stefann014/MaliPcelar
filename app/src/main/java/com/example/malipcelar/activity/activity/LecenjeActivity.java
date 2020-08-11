@@ -119,14 +119,6 @@ public class LecenjeActivity extends AppCompatActivity {
                 adapter.submitList(lecenja);
             }
         });
-        lecenjeViewModel.getMaxDatumLecenjaZaKosnicu(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String datum) {
-                maxDatum = datum;
-                kosnica.setDatumPoslednjegLecenja(datum);
-                kosnicaViewModel.update(kosnica);
-            }
-        });
         kosnicaViewModel.getAllKosniceByRbPcelinjaka(pcelinjak.getRedniBrojPcelinjaka()).observe(this, new Observer<List<Kosnica>>() {
             @Override
             public void onChanged(List<Kosnica> kosnice) {

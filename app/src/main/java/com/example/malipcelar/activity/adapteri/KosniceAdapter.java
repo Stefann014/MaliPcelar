@@ -20,31 +20,31 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
-import com.example.malipcelar.activity.domen.Kosnica;
+import com.example.malipcelar.activity.pomocneKlase.KosnicaIDatumi;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaHolder> implements Filterable {
+public class KosniceAdapter extends ListAdapter<KosnicaIDatumi, KosniceAdapter.KosnicaHolder> implements Filterable {
 
     private KosniceAdapter.OnItemClickListener listener;
-    private List<Kosnica> kosnice;
-    private List<Kosnica> sveKosnice;
+    private List<KosnicaIDatumi> kosnice;
+    private List<KosnicaIDatumi> sveKosnice;
 
-    public KosniceAdapter(List<Kosnica> kosnice) {
+    public KosniceAdapter(List<KosnicaIDatumi> kosnice) {
         super(DIFF_CALLBACK);
         this.kosnice = kosnice;
         sveKosnice = new ArrayList<>(this.kosnice);
     }
 
-    private static final DiffUtil.ItemCallback<Kosnica> DIFF_CALLBACK = new DiffUtil.ItemCallback<Kosnica>() {
+    private static final DiffUtil.ItemCallback<KosnicaIDatumi> DIFF_CALLBACK = new DiffUtil.ItemCallback<KosnicaIDatumi>() {
         @Override
-        public boolean areItemsTheSame(Kosnica oldItem, Kosnica newItem) {
+        public boolean areItemsTheSame(KosnicaIDatumi oldItem, KosnicaIDatumi newItem) {
             return oldItem.getRednibrojPcelinjaka() == newItem.getRednibrojPcelinjaka() && oldItem.getRedniBrojKosnice() == newItem.getRedniBrojKosnice();
         }
 
         @Override
-        public boolean areContentsTheSame(Kosnica oldItem, Kosnica newItem) {
+        public boolean areContentsTheSame(KosnicaIDatumi oldItem, KosnicaIDatumi newItem) {
 
             return oldItem.getNazivKosnice().equals(newItem.getNazivKosnice());
         }
@@ -61,27 +61,27 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull KosniceAdapter.KosnicaHolder holder, int position) {
-        Kosnica trenutnaKosnica = getItem(position);
+        KosnicaIDatumi trenutnaKosnica = getItem(position);
         holder.txtRBiNazivKosnice.setText(trenutnaKosnica.getRedniBrojKosnice() + ". " + trenutnaKosnica.getNazivKosnice());
         holder.txtPcelinjak.setText(trenutnaKosnica.getRednibrojPcelinjaka() + ". Pčelinjak");
-        if (trenutnaKosnica.getDatumPoslednjegPregleda() != null && !trenutnaKosnica.getDatumPoslednjegPregleda().equals("")) {
-            holder.btnPregled.setText("Datum poslednjeg pregleda:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegPregleda()));
+        if (trenutnaKosnica.getMaxDatumPregleda() != null && !trenutnaKosnica.getMaxDatumPregleda().equals("")) {
+            holder.btnPregled.setText(" Datum poslednjeg pregleda:\n" + datumZaPrikaz(trenutnaKosnica.getMaxDatumPregleda()));
         } else {
-            holder.btnPregled.setText("Još uvek nema unesenih pregleda");
+            holder.btnPregled.setText(" Još uvek nema unesenih pregleda ");
         }
-        if (trenutnaKosnica.getDatumPoslednjegLecenja() != null && !trenutnaKosnica.getDatumPoslednjegLecenja().equals("")) {
-            holder.btnLecenje.setText("Datum poslednjeg lečenja:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjegLecenja()));
+        if (trenutnaKosnica.getMaxDatumLecenja() != null && !trenutnaKosnica.getMaxDatumLecenja().equals("")) {
+            holder.btnLecenje.setText(" Datum poslednjeg lečenja:\n" + datumZaPrikaz(trenutnaKosnica.getMaxDatumLecenja()));
         } else {
-            holder.btnLecenje.setText("Još uvek nema lečenja");
+            holder.btnLecenje.setText(" Još uvek nema lečenja ");
         }
-        if (trenutnaKosnica.getDatumPoslednjePrihrane() != null && !trenutnaKosnica.getDatumPoslednjePrihrane().equals("")) {
-            holder.btnPrihrana.setText("Datum poslednje prihrane:\n" + datumZaPrikaz(trenutnaKosnica.getDatumPoslednjePrihrane()));
+        if (trenutnaKosnica.getMaxDatumPrihrane() != null && !trenutnaKosnica.getMaxDatumPrihrane().equals("")) {
+            holder.btnPrihrana.setText(" Datum poslednje prihrane:\n" + datumZaPrikaz(trenutnaKosnica.getMaxDatumPrihrane()));
         } else {
-            holder.btnPrihrana.setText("Još uvek nema unesenih prihrana");
+            holder.btnPrihrana.setText(" Još uvek nema unesenih prihrana ");
         }
     }
 
-    public Kosnica getKosnicaAt(int position) {
+    public KosnicaIDatumi getKosnicaAt(int position) {
         return getItem(position);
     }
 
@@ -181,15 +181,15 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Kosnica kosnica);
+        void onItemClick(KosnicaIDatumi kosnica);
 
-        void onPregledClick(Kosnica kosnica);
+        void onPregledClick(KosnicaIDatumi kosnica);
 
-        void onLecenjeClick(Kosnica kosnica);
+        void onLecenjeClick(KosnicaIDatumi kosnica);
 
-        void onPrihranaClick(Kosnica kosnica);
+        void onPrihranaClick(KosnicaIDatumi kosnica);
 
-        void onLongItemClick(Kosnica kosnica);
+        void onLongItemClick(KosnicaIDatumi kosnica);
     }
 
     public void setOnItemClickListener(KosniceAdapter.OnItemClickListener listener) {
@@ -215,12 +215,12 @@ public class KosniceAdapter extends ListAdapter<Kosnica, KosniceAdapter.KosnicaH
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Kosnica> filtriranaLista = new ArrayList<>();
+            List<KosnicaIDatumi> filtriranaLista = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
                 filtriranaLista.addAll(sveKosnice);
             } else {
                 String parametar = constraint.toString().toLowerCase().trim();
-                for (Kosnica kosnica : sveKosnice) {
+                for (KosnicaIDatumi kosnica : sveKosnice) {
                     if (kosnica.getNazivKosnice().toLowerCase().contains(parametar)) {
                         filtriranaLista.add(kosnica);
                     }

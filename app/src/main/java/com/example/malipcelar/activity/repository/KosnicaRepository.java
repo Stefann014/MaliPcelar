@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.malipcelar.activity.dao.KosnicaDAO;
 import com.example.malipcelar.activity.database.Database;
 import com.example.malipcelar.activity.domen.Kosnica;
+import com.example.malipcelar.activity.pomocneKlase.KosnicaIDatumi;
 
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class KosnicaRepository {
 
     public LiveData<Kosnica> getKosnicaByRBKosnice(int rb_kosnice, int pcelinjak) {
         return kosnicaDAO.getKosnicaByRB(rb_kosnice, pcelinjak);
+    }
+
+    public LiveData<List<KosnicaIDatumi>> getAllKosniceIDatumeZaPcelinjak(int pcelinjak) {
+        return kosnicaDAO.getAllKosniceIDatumeZaPcelinjak(pcelinjak);
     }
 
     public LiveData<List<Integer>> getAllRBKosniceZaPcelinjak(int pcelinjak) {
