@@ -88,8 +88,8 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:inputType="textCapSentences|textMultiLine"
             android:ems="10"
-            android:inputType="textCapWords"
             app:layout_constraintStart_toEndOf="@+id/txtNz"
             app:layout_constraintTop_toBottomOf="@+id/txtRedniBroj"
             tools:ignore="Autofill,LabelFor" />
