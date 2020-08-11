@@ -258,7 +258,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
 
         if (naziv.isEmpty()) {
-            Toast.makeText(this, "Unesite pčelinjak", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unesite naziv pčelinjaka", Toast.LENGTH_SHORT).show();
             return;
         }
         if (visina == -1000) {

@@ -59,7 +59,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
         btnDatumPrihrane.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prihranaActivity.otvoriKalendar();
+                prihranaActivity.otvoriKalendar("sirup");
             }
         });
 

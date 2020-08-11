@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.activity.PrihranaActivity;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -26,8 +27,17 @@ public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
     Button btnDatumPrihrane;
     private TextView txtKilogrami;
     private CheckBox chPrimeniNaSveKosnice;
+    private PrihranaActivity prihranaActivity;
 
     private DialogNovoLecenjeListener listener;
+
+    public DialogNovoLecenjePogaca(PrihranaActivity prihranaActivity) {
+        this.prihranaActivity = prihranaActivity;
+    }
+
+    public void setBtnDatumPrihrane(String btnDatumPrihrane) {
+        this.btnDatumPrihrane.setText(btnDatumPrihrane);
+    }
 
     @NonNull
     @Override
@@ -42,6 +52,13 @@ public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
         Date c = Calendar.getInstance().getTime();
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         btnDatumPrihrane.setText(currentDateString);
+
+        btnDatumPrihrane.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prihranaActivity.otvoriKalendar("pogaca");
+            }
+        });
 
         builder.setView(view)
                 .setTitle("Unesi količinu (kg)")

@@ -111,7 +111,7 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             @Override
             public void onChanged(@Nullable List<Pcelinjak> pcelinjaci) {
                 PcelinjaciActivity.this.pcelinjaci = pcelinjaci;
-                if (PcelinjaciActivity.this.pcelinjaci.size() == 0) {
+                if (PcelinjaciActivity.this.pcelinjaci != null && PcelinjaciActivity.this.pcelinjaci.size() == 0) {
                     poruka();
                 }
                 adapter.submitList(pcelinjaci);
@@ -216,6 +216,8 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
             Pcelinjak pcelinjak = new Pcelinjak(pcelinjakRB, nazivPcelinjaka, lokacija, nadmorskaVisina, slika);
 
             pcelinjakViewModel.update(pcelinjak);
+            Toast.makeText(this, "Pčelinjak je izmenjen", Toast.LENGTH_SHORT).show();
+
             if (stariRb != -1) {
                 pcelinjakViewModel.updateRb(stariRb, pcelinjakRB);
             }
@@ -229,5 +231,6 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
     @Override
     public void kliknutoDa(Pcelinjak pcelinjak) {
         pcelinjakViewModel.delete(pcelinjak);
+        Toast.makeText(this, "Pčelinjak je izbrisan", Toast.LENGTH_SHORT).show();
     }
 }

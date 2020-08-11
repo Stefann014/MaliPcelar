@@ -57,6 +57,9 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     String maxDatum;
     List<Kosnica> kosnice;
     DialogNovoLecenjeSirup dialogNovoLecenjeSirup;
+    DialogNovoLecenjePogaca dialogNovoLecenjePogaca;
+    boolean sirup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +84,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
 
     @Override
     public void onBtnPogacaClicked() {
-        DialogNovoLecenjePogaca dialogNovoLecenjePogaca = new DialogNovoLecenjePogaca();
+        dialogNovoLecenjePogaca = new DialogNovoLecenjePogaca(PrihranaActivity.this);
         dialogNovoLecenjePogaca.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -115,6 +118,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
             Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, kg);
             prihranaViewModel.insert(prihrana);
         }
+        Toast.makeText(this, "Prihrana je sačuvana", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -128,6 +132,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
             Prihrana prihrana = new Prihrana(kosnica.getRedniBrojKosnice(), pcelinjak.getRedniBrojPcelinjaka(), prevediDatumUFormatZaBazu(datum), vrstaPrihrane, litar);
             prihranaViewModel.insert(prihrana);
         }
+        Toast.makeText(this, "Prihrana je sačuvana", Toast.LENGTH_LONG).show();
     }
 
     @NonNull
@@ -231,7 +236,8 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
 
-    public void otvoriKalendar() {
+    public void otvoriKalendar(String string) {
+        sirup = string.equals("sirup");
         DialogFragment datePicker = new DatumPickerFragment();
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
@@ -243,6 +249,7 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);
+        if(sirup){dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);}
+        else {dialogNovoLecenjePogaca.setBtnDatumPrihrane(currentDateString);}
     }
 }
