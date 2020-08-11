@@ -1,8 +1,11 @@
 package com.example.malipcelar.activity.adapteri;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Base64;
@@ -22,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.pomocneKlase.KlasaBilans;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProizvodaAdapter.BilansProizvodaHolder> {
 
@@ -29,6 +35,8 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
     public BilansProizvodaAdapter() {
         super(DIFF_CALLBACK);
     }
+
+    Context context;
 
     private static final DiffUtil.ItemCallback<KlasaBilans> DIFF_CALLBACK = new DiffUtil.ItemCallback<KlasaBilans>() {
         @Override
@@ -57,18 +65,38 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
     public void onBindViewHolder(@NonNull BilansProizvodaAdapter.BilansProizvodaHolder holder, int position) {
         KlasaBilans trenuntiPcelinjak = getItem(position);
         holder.txtRBiNazivPcelinjaka.setText(trenuntiPcelinjak.getRbINazivPcelinjaka());
-        holder.txtLokacija.setText(trenuntiPcelinjak.getLokacija());
+        String lokacija = srediLokaciju(trenuntiPcelinjak.getLokacija());
+        holder.txtLokacija.setText(lokacija);
 
         if (trenuntiPcelinjak.getSlikaPcelinjaka() != null && !trenuntiPcelinjak.getSlikaPcelinjaka().equals("")) {
             holder.pcelinjak_slika.setImageBitmap(stringToBitmap(trenuntiPcelinjak.getSlikaPcelinjaka()));
         }
-        
+
         holder.btnUkupnoMeda.setText("Ukupno prikupljeno meda: \n" + trenuntiPcelinjak.getUkupnoMeda() + " kg");
         holder.btnUkupnoPolena.setText("Ukupno prikupljeno polena: \n" + trenuntiPcelinjak.getUkupnoPolena() + " kg");
         holder.btnUkupnoPropolisa.setText("Ukupno prikupljeno propolisa: \n" + trenuntiPcelinjak.getUkupnoPropolisa() + " kg");
         holder.btnUkupnoMaticnogMleca.setText("Ukupno prikupljeno matičnog mleča: \n" + trenuntiPcelinjak.getUkupnoMaticnogMleca() + " kg");
         holder.btnUkupnoPerge.setText("Ukupno prikupljeno perge: \n" + trenuntiPcelinjak.getUkupnoPrikupljenePerge() + " kg");
 
+    }
+
+    private String srediLokaciju(String lokacija) {
+        LatLng latLng = srediLatLng(lokacija);
+        String string = "";
+
+        if (latLng != null) {
+            Address address = getAddressFromLatLng(latLng);
+
+            assert address != null;
+            if (address.getLocality() == null) {
+                if (address.getSubAdminArea() != null) {
+                    string = address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();
+                }
+            } else {
+                string = address.getAddressLine(0);
+            }
+        }
+        return string;
     }
 
     static class BilansProizvodaHolder extends RecyclerView.ViewHolder {
@@ -133,4 +161,38 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
         }
     }
 
+    private LatLng srediLatLng(String lokacija) {
+        String[] lokacije = lokacija.split(",");
+        String lok1 = lokacije[0] + "";
+        String lok2 = lokacije[1] + "";
+
+        if (lok1.equals("null") || lok2.equals("null")) {
+            return null;
+        }
+        double latitude = Double.parseDouble(lokacije[0]);
+        double longitude = Double.parseDouble(lokacije[1]);
+        return new LatLng(latitude, longitude);
+    }
+
+    private Address getAddressFromLatLng(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5);
+            if (addresses != null) {
+                return addresses.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        context = recyclerView.getContext();
+    }
 }
