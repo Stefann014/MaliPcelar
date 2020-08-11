@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="50dp"
-                android:background="@drawable/okvir2"
                 android:layout_marginBottom="4dp"
+                android:background="@drawable/okvir2"
                 android:text="@string/_22_05_2020"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="#A5140A"
@@ -50,10 +50,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/okvir2"
                 android:layout_marginEnd="22dp"
                 android:layout_marginBottom="4dp"
                 android:layout_toStartOf="@id/txtDatumOd"
+                android:background="@drawable/okvir2"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/_20_05_2020"
@@ -69,20 +69,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/okvir2"
                 android:text="@string/datum_od"
                 android:textColor="#A5140A"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/txtDatumOd"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/txtPcelinjakPasa" />
 
             <TextView
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="103dp"
                 android:background="@drawable/okvir2"
                 android:text="@string/datum_do"
@@ -90,19 +90,36 @@
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/txtDatumDo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/txtPcelinjakPasa" />
 
             <ImageView
                 android:id="@+id/slikaKanta"
                 android:layout_width="31dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="2dp"
                 android:background="@drawable/white_border"
                 android:src="@drawable/ic_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtPcelinjakPasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginStart="106dp"
+                android:background="@drawable/okvir2"
+
+
+                android:text="@string/_1_pcelinjak"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#A5140A"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -59,8 +59,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="54dp"
                 android:text="@string/naziv_i_redni_broj_kosnice"
                 app:layout_constraintBottom_toTopOf="@+id/txtLokacijaPcelinjaka"
+                app:layout_constraintEnd_toStartOf="@+id/btnStrelicaDole"
                 app:layout_constraintStart_toEndOf="@+id/viewID"
                 app:layout_constraintTop_toTopOf="@+id/viewID" />
 
@@ -70,9 +72,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginEnd="54dp"
                 android:maxLines="2"
                 android:text="@string/adresa"
                 android:textColor="#8A000000"
+                app:layout_constraintEnd_toStartOf="@+id/btnStrelicaDole"
                 app:layout_constraintStart_toEndOf="@+id/viewID"
                 app:layout_constraintTop_toBottomOf="@+id/txtRBPcelinjaka" />
 
@@ -224,10 +228,12 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/round"
                     android:text="@string/ukupno_prikupljene_perge"
                     android:textAllCaps="false"
                     android:textColor="#000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconUkupnoPrikupljenePerge"
                     app:layout_constraintTop_toBottomOf="@+id/btnUkupnoMaticnogMleca" />

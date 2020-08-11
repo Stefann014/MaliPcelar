@@ -1,7 +1,6 @@
 package com.example.malipcelar.activity.adapteri;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
 
     @NonNull
     @Override
-    public IstorijaPasaAdapter.PasaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PasaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stavka_pasa, parent, false);
         return new IstorijaPasaAdapter.PasaHolder(itemView);
@@ -51,12 +50,9 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
     public void onBindViewHolder(@NonNull IstorijaPasaAdapter.PasaHolder holder, int position) {
         Pasa trenutnaPasa = getItem(position);
 
-        Log.d("DATUMOD", trenutnaPasa.getDatumOd());
-        Log.d("DATUMDO", trenutnaPasa.getDatumDo());
-
         holder.txtDatumOd.setText(datumZaPrikaz(trenutnaPasa.getDatumOd()));
         holder.txtDatumDo.setText(datumZaPrikaz(trenutnaPasa.getDatumDo()));
-
+        holder.txtPcelinjak.setText(" " + trenutnaPasa.getPcelinjakID() + ". pčelinjak ");
     }
 
     private String datumZaPrikaz(String datum) {
@@ -67,12 +63,14 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
     class PasaHolder extends RecyclerView.ViewHolder {
         private TextView txtDatumOd;
         private TextView txtDatumDo;
+        private TextView txtPcelinjak;
 
         public PasaHolder(View itemView) {
             super(itemView);
 
             txtDatumOd = itemView.findViewById(R.id.txtDatumOd);
             txtDatumDo = itemView.findViewById(R.id.txtDatumDo);
+            txtPcelinjak = itemView.findViewById(R.id.txtPcelinjakPasa);
             ImageView slikaIzbrisi = itemView.findViewById(R.id.slikaKanta);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +93,7 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
                     return false;
                 }
             });
-            
+
             slikaIzbrisi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -103,10 +101,8 @@ public class IstorijaPasaAdapter extends ListAdapter<Pasa, IstorijaPasaAdapter.P
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.izbrisiPasu((getItem(position)));
                     }
-
                 }
             });
-            
         }
     }
 
