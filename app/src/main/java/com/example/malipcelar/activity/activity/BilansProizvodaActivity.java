@@ -214,7 +214,7 @@ public class BilansProizvodaActivity extends AppCompatActivity {
 
             pasaViewModel.insert(pasa);
 
-            Toast.makeText(this, "Pasa je sacuvana", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Paša je sačuvana", Toast.LENGTH_SHORT).show();
         }
     }
 
