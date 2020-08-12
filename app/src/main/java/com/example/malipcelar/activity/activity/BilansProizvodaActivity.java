@@ -74,8 +74,12 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
-        pasaViewModel = new ViewModelProvider(this).get(PasaViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PcelinjakViewModel.class);
+        pasaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PasaViewModel.class);
 
         srediObservere();
     }

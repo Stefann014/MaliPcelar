@@ -30,6 +30,7 @@ import com.example.malipcelar.activity.adapteri.OpsteNapomeneAdapter;
 import com.example.malipcelar.activity.domen.OpstaNapomena;
 import com.example.malipcelar.activity.pomocneKlase.NotifikacijaZaNapomenu;
 import com.example.malipcelar.activity.viewModel.OpstaNapomenaViewModel;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
@@ -62,7 +63,9 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        opstaNapomenaViewModel = new ViewModelProvider(this).get(OpstaNapomenaViewModel.class);
+        opstaNapomenaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(OpstaNapomenaViewModel.class);
         srediObserver();
 
     }

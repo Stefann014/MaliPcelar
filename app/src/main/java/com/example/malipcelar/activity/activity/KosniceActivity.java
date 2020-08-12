@@ -27,6 +27,7 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.KosnicaIDatumi;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -99,7 +100,9 @@ public class KosniceActivity extends AppCompatActivity {
     }
 
     private void srediKomunikacijuSaViewModel() {
-        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(KosnicaViewModel.class);
         srediObservere();
     }
 

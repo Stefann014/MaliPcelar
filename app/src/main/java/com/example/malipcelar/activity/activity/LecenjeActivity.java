@@ -97,9 +97,12 @@ public class LecenjeActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        lecenjeViewModel = new ViewModelProvider(this).get(LecenjeViewModel.class);
-        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
-
+        lecenjeViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(LecenjeViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(KosnicaViewModel.class);
         srediObservere();
 
     }

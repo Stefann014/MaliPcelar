@@ -22,6 +22,7 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Pregled;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
+import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.example.malipcelar.activity.viewModel.PregledViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -162,8 +163,12 @@ public class PregledActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pregledViewModel = new ViewModelProvider(this).get(PregledViewModel.class);
-        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
+        pregledViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PregledViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(KosnicaViewModel.class);
         srediObservere();
     }
 

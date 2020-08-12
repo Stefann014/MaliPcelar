@@ -101,7 +101,9 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
     }
 
     private void srediKomunikacijuSaViewModel() {
-        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PcelinjakViewModel.class);
         srediObservere();
     }
 

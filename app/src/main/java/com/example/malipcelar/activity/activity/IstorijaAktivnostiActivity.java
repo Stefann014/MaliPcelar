@@ -80,8 +80,12 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     }
 
     private void srediKomunikacijuSaViewModel() {
-        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
-        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PcelinjakViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(KosnicaViewModel.class);
         srediObservere();
     }
 

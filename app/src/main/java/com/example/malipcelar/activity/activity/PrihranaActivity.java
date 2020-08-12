@@ -150,8 +150,12 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     }
 
     private void srediViewModel() {
-        prihranaViewModel = new ViewModelProvider(this).get(PrihranaViewModel.class);
-        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
+        prihranaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PrihranaViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(KosnicaViewModel.class);
         srediObservere();
     }
 

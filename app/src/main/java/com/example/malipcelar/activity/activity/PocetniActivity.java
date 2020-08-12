@@ -48,7 +48,9 @@ public class PocetniActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(this.getApplication()))
+                .get(PcelinjakViewModel.class);
         srediObservere();
     }
 

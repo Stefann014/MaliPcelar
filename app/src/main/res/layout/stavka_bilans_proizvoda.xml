@@ -48,7 +48,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/tip_napomene_spinner_kosnica"
+                    android:src="@drawable/tip_napomene_spinner_pcelinjak"
                     tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
