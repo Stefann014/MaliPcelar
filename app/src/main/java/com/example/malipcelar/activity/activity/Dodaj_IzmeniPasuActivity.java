@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Pcelinjak;
@@ -112,7 +112,6 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
             int pcelinjakID = data.getIntExtra(EXTRA_PCELINJAK_ID, -1);
             Pcelinjak pcelinjak = pronadjiPcelinjak(pcelinjakID);
             pcelinjak.setRedniBrojPcelinjaka(pcelinjakID);
-            //spPcelinjaci.setSelection(((ArrayAdapter<Pcelinjak>) spPcelinjaci.getAdapter()).getPosition(pcelinjak));
             String napomena = data.getStringExtra(EXTRA_NAPOMENA_PASA);
             txtNapomena.setText(napomena);
 
@@ -138,7 +137,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     }
 
     private void srediViewModel() {
-        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
         srediObservere();
     }
 

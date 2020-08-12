@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -99,7 +99,7 @@ public class KosniceActivity extends AppCompatActivity {
     }
 
     private void srediKomunikacijuSaViewModel() {
-        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
         srediObservere();
     }
 

@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -74,8 +74,8 @@ public class BilansProizvodaActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
-        pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
+        pasaViewModel = new ViewModelProvider(this).get(PasaViewModel.class);
 
         srediObservere();
     }

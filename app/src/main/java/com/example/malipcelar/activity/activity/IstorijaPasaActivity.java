@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,9 +46,8 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
     }
 
     private void srediViewModel() {
-        pasaViewModel = ViewModelProviders.of(this).get(PasaViewModel.class);
+        pasaViewModel = new ViewModelProvider(this).get(PasaViewModel.class);
         srediObservere();
-
     }
 
     private void srediObservere() {

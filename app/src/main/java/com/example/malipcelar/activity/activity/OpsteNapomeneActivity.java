@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,7 +62,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        opstaNapomenaViewModel = ViewModelProviders.of(this).get(OpstaNapomenaViewModel.class);
+        opstaNapomenaViewModel = new ViewModelProvider(this).get(OpstaNapomenaViewModel.class);
         srediObserver();
 
     }

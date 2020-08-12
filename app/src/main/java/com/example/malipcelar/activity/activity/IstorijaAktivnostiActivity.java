@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,8 +80,8 @@ public class IstorijaAktivnostiActivity extends AppCompatActivity {
     }
 
     private void srediKomunikacijuSaViewModel() {
-        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
-        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
         srediObservere();
     }
 

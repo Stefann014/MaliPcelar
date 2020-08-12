@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -101,7 +101,7 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
     }
 
     private void srediKomunikacijuSaViewModel() {
-        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
         srediObservere();
     }
 

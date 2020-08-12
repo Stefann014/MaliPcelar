@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -150,8 +150,8 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     }
 
     private void srediViewModel() {
-        prihranaViewModel = ViewModelProviders.of(this).get(PrihranaViewModel.class);
-        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        prihranaViewModel = new ViewModelProvider(this).get(PrihranaViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
         srediObservere();
     }
 
@@ -249,7 +249,10 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        if(sirup){dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);}
-        else {dialogNovoLecenjePogaca.setBtnDatumPrihrane(currentDateString);}
+        if (sirup) {
+            dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);
+        } else {
+            dialogNovoLecenjePogaca.setBtnDatumPrihrane(currentDateString);
+        }
     }
 }

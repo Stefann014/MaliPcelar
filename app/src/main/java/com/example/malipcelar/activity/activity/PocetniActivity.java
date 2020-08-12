@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.malipcelar.R;
@@ -47,7 +48,7 @@ public class PocetniActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pcelinjakViewModel = ViewModelProviders.of(this).get(PcelinjakViewModel.class);
+        pcelinjakViewModel = new ViewModelProvider(this).get(PcelinjakViewModel.class);
         srediObservere();
     }
 

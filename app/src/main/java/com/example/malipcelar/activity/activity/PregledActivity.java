@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -162,8 +162,8 @@ public class PregledActivity extends AppCompatActivity {
     }
 
     private void srediViewModel() {
-        pregledViewModel = ViewModelProviders.of(this).get(PregledViewModel.class);
-        kosnicaViewModel = ViewModelProviders.of(this).get(KosnicaViewModel.class);
+        pregledViewModel = new ViewModelProvider(this).get(PregledViewModel.class);
+        kosnicaViewModel = new ViewModelProvider(this).get(KosnicaViewModel.class);
         srediObservere();
     }
 
