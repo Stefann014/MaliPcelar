@@ -27,7 +27,6 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.pomocneKlase.KosnicaIDatumi;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
-import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -221,10 +220,15 @@ public class KosniceActivity extends AppCompatActivity {
                 kosnica.setNazivKosnice(k.getNazivKosnice());
                 kosnica.setPrirodna(k.isPrirodna());
                 kosnica.setSelekcionisana(k.isSelekcionisana());
-                kosnicaViewModel.delete(kosnica);
+                izbrisiKosnicu(kosnica);
+
                 Toast.makeText(KosniceActivity.this, "Košniica je izbrisana", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+    private void izbrisiKosnicu(Kosnica kosnica) {
+        kosnicaViewModel.delete(kosnica);
     }
 
     private void srediIzmeniKosnicuNaKlik() {

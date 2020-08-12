@@ -136,7 +136,7 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
                     Toast.makeText(OsnovniPodaciActivity.this, "Morate uneti podatke!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                sacuvajPodatke();
+                sacuvajPcelara();
                 btnSacuvaj.setVisibility(View.GONE);
                 btnIzmeni.setVisibility(View.VISIBLE);
                 txtImePcelara.setEnabled(false);
@@ -201,7 +201,7 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
         gazdinstvo = sharedPreferences.getString(GAZDINSTVO, "");
     }
 
-    public void sacuvajPodatke() {
+    public void sacuvajPcelara() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(IME_PCELARA, txtImePcelara.getText().toString());

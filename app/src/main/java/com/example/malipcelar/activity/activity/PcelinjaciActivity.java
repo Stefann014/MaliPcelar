@@ -232,7 +232,13 @@ public class PcelinjaciActivity extends AppCompatActivity implements DaLiZelisDa
 
     @Override
     public void kliknutoDa(Pcelinjak pcelinjak) {
-        pcelinjakViewModel.delete(pcelinjak);
+        izbrisiPcelinjak(pcelinjak);
         Toast.makeText(this, "Pčelinjak je izbrisan", Toast.LENGTH_SHORT).show();
     }
+
+    private void izbrisiPcelinjak(Pcelinjak pcelinjak) {
+        pcelinjakViewModel.delete(pcelinjak);
+    }
+
+
 }

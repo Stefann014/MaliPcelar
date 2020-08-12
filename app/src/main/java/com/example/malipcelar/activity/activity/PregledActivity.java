@@ -22,7 +22,6 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Pregled;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
-import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.example.malipcelar.activity.viewModel.PregledViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -267,10 +266,14 @@ public class PregledActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                pregledViewModel.delete(adapter.getPregledAt(viewHolder.getAdapterPosition()));
+
+                izbrisiPregled(adapter.getPregledAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(PregledActivity.this, "Pregled je izbrisan", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+    }
 
+    private void izbrisiPregled(Pregled pregled) {
+        pregledViewModel.delete(pregled);
     }
 }

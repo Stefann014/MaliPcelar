@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +23,6 @@ import com.example.malipcelar.activity.domen.Lecenje;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.LecenjeViewModel;
-import com.example.malipcelar.activity.viewModel.PcelinjakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -143,11 +141,15 @@ public class LecenjeActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                lecenjeViewModel.delete(adapter.getLecenjeAt(viewHolder.getAdapterPosition()));
+                izbrisiLecenje(adapter.getLecenjeAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(LecenjeActivity.this, "Lečenje je izbrisano", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
+    }
+
+    private void izbrisiLecenje(Lecenje lecenje) {
+        lecenjeViewModel.delete(lecenje);
     }
 
     @Override
