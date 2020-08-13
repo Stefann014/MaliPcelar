@@ -111,8 +111,8 @@
     <string name="sacuvaj">Sacuvaj</string>
     <string name="napomenaq">Napomena:</string>
     <string name="unesite_napomenu">Unesite napomenu</string>
-    <string name="datum_do">Datum do</string>
-    <string name="datum_od">Datum od</string>
+    <string name="datum_do"> Datum do </string>
+    <string name="datum_od"> Datum od </string>
     <string name="asd">-</string>
     <string name="izaberite_pcelinjak">Izaberite pčelinjak:</string>
     <string name="prikupljeno_meda_kg">Prikupljeno meda (kg)</string>

@@ -37,7 +37,7 @@ public class KosnicaViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Kosnica>> getAllKosniceByRbPcelinjaka(int pcelinjak) {
-        return kosnicaRepository.getKosniceByRbPcelinjaka(pcelinjak);
+        return kosnicaRepository.getAllKosniceByRbPcelinjaka(pcelinjak);
     }
 
     public LiveData<List<KosnicaIDatumi>> getAllKosniceIDatumeZaPcelinjak(int pcelinjak) {

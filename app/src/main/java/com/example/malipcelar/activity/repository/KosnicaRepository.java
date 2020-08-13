@@ -21,8 +21,8 @@ public class KosnicaRepository {
         kosnicaDAO = database.kosnicaDAO();
     }
 
-    public LiveData<List<Kosnica>> getKosniceByRbPcelinjaka(int rb_pcelinjak) {
-        return kosnicaDAO.getAllKosnice(rb_pcelinjak);
+    public LiveData<List<Kosnica>> getAllKosniceByRbPcelinjaka(int rb_pcelinjak) {
+        return kosnicaDAO.getAllKosniceByRbPcelinjaka(rb_pcelinjak);
     }
 
     public LiveData<Kosnica> getKosnicaByRBKosnice(int rb_kosnice, int pcelinjak) {
