@@ -1,232 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/quantum_yellow100"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:background="@color/quantum_yellow100">
+
+
+    <Button
+        android:id="@+id/btnSlikaj"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/round"
+        android:text="@string/slikaj"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
+        app:layout_constraintTop_toBottomOf="@+id/btnDodajIzGalerije" />
+
+    <Button
+        android:id="@+id/btnDodajIzGalerije"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/round"
+        android:text="@string/dodaj_sliku_iz_galerije"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
+        app:layout_constraintTop_toBottomOf="@+id/btnSacuvaj" />
+
+    <ImageView
+        android:id="@+id/pcelinjak_slika"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/okvir"
+        android:src="@drawable/placeholder_za_slike"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUkloniSliku"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txtRb"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/redni_broj"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNz"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/naziv"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRb" />
+
+
+    <EditText
+        android:id="@+id/txtNaziv"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textCapSentences|textMultiLine"
+        app:layout_constraintStart_toEndOf="@+id/txtNz"
+        app:layout_constraintTop_toBottomOf="@+id/txtRedniBroj"
+        tools:ignore="Autofill,LabelFor" />
+
+    <fragment
+        android:id="@+id/frgMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNz"
+        tools:ignore="FragmentTagUsage"
+        tools:layout="@layout/ss_mapa" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/relLayout1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/quantum_yellow100">
-
-
-        <Button
-            android:id="@+id/btnSlikaj"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/round"
-            android:text="@string/slikaj"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
-            app:layout_constraintTop_toBottomOf="@+id/btnDodajIzGalerije" />
-
-        <Button
-            android:id="@+id/btnDodajIzGalerije"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="35dp"
-            android:background="@drawable/round"
-            android:text="@string/dodaj_sliku_iz_galerije"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pcelinjak_slika"
-            app:layout_constraintTop_toBottomOf="@+id/btnSacuvaj" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/white_border"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/frgMap"
+        app:layout_constraintStart_toStartOf="@+id/frgMap"
+        app:layout_constraintTop_toTopOf="@+id/frgMap">
 
         <ImageView
-            android:id="@+id/pcelinjak_slika"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/okvir"
-            android:src="@drawable/placeholder_za_slike"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnUkloniSliku"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/txtRb"
-            android:layout_width="115dp"
+            android:id="@+id/ic_izmeni"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="45dp"
-            android:text="@string/redni_broj"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtNz"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/naziv"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRb" />
-
-
-        <EditText
-            android:id="@+id/txtNaziv"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="textCapSentences|textMultiLine"
-            android:ems="10"
-            app:layout_constraintStart_toEndOf="@+id/txtNz"
-            app:layout_constraintTop_toBottomOf="@+id/txtRedniBroj"
-            tools:ignore="Autofill,LabelFor" />
-
-        <fragment
-            android:id="@+id/frgMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_magnify"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNz"
-            tools:layout="@layout/ss_mapa" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relLayout1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/white_border"
-            android:elevation="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/frgMap"
-            app:layout_constraintStart_toStartOf="@+id/frgMap"
-            app:layout_constraintTop_toTopOf="@+id/frgMap">
-
-            <ImageView
-                android:id="@+id/ic_izmeni"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_magnify"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <AutoCompleteTextView
-                android:id="@+id/txtPretrazi"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="2dp"
-                android:layout_toEndOf="@+id/ic_izmeni"
-                android:background="@null"
-                android:hint="@string/unesite_adresu_grad_ili_po_tanski_broj"
-                android:imeOptions="actionSearch"
-                android:inputType="textCapWords"
-                android:textColor="#000"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ic_izmeni"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/ic_gps"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/relLayout1"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_gps"
-            app:layout_constraintEnd_toEndOf="@+id/frgMap"
-            app:layout_constraintTop_toBottomOf="@+id/relLayout1"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/mesto_info"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/relLayout1"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_info"
-            app:layout_constraintStart_toStartOf="@+id/frgMap"
-            app:layout_constraintTop_toBottomOf="@+id/relLayout1"
-            tools:ignore="ContentDescription" />
-
-
-        <ImageView
-            android:id="@+id/skini_pin"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/relLayout1"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="13dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_remove"
-            app:layout_constraintBottom_toBottomOf="@+id/frgMap"
-            app:layout_constraintStart_toStartOf="@+id/frgMap"
-            tools:ignore="ContentDescription" />
-
-        <Button
-            android:id="@+id/btnSacuvaj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="35dp"
-            android:background="@drawable/round"
-            android:text="@string/sa_uvaj"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frgMap" />
-
-        <Button
-            android:id="@+id/btnUkloniSliku"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/round"
-            android:text="@string/ukloni_sliku"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frgMap" />
-
-        <EditText
-            android:id="@+id/txtRedniBroj"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:inputType="number"
-            app:layout_constraintStart_toEndOf="@+id/txtRb"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill,LabelFor" />
+            tools:ignore="ContentDescription" />
+
+        <AutoCompleteTextView
+            android:id="@+id/txtPretrazi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@+id/ic_izmeni"
+            android:background="@null"
+            android:hint="@string/unesite_adresu_grad_ili_po_tanski_broj"
+            android:imeOptions="actionSearch"
+            android:inputType="textCapWords"
+            android:textColor="#000"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ic_izmeni"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    <ImageView
+        android:id="@+id/ic_gps"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/relLayout1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_gps"
+        app:layout_constraintEnd_toEndOf="@+id/frgMap"
+        app:layout_constraintTop_toBottomOf="@+id/relLayout1"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/mesto_info"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/relLayout1"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_info"
+        app:layout_constraintStart_toStartOf="@+id/frgMap"
+        app:layout_constraintTop_toBottomOf="@+id/relLayout1"
+        tools:ignore="ContentDescription" />
+
+
+    <ImageView
+        android:id="@+id/skini_pin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/relLayout1"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="13dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/frgMap"
+        app:layout_constraintStart_toStartOf="@+id/frgMap"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btnSacuvaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/round"
+        android:text="@string/sa_uvaj"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frgMap" />
+
+    <Button
+        android:id="@+id/btnUkloniSliku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round"
+        android:text="@string/ukloni_sliku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frgMap" />
+
+    <EditText
+        android:id="@+id/txtRedniBroj"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/txtRb"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill,LabelFor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
