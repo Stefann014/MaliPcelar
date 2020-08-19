@@ -25,10 +25,6 @@ public class KosnicaRepository {
         return kosnicaDAO.getAllKosniceByRbPcelinjaka(rb_pcelinjak);
     }
 
-    public LiveData<Kosnica> getKosnicaByRBKosnice(int rb_kosnice, int pcelinjak) {
-        return kosnicaDAO.getKosnicaByRB(rb_kosnice, pcelinjak);
-    }
-
     public LiveData<List<KosnicaIDatumi>> getAllKosniceIDatumeZaPcelinjak(int pcelinjak) {
         return kosnicaDAO.getAllKosniceIDatumeZaPcelinjak(pcelinjak);
     }
@@ -54,11 +50,6 @@ public class KosnicaRepository {
     public void delete(Kosnica kosnica) {
         new KosnicaRepository.DeleteKosnicaAsyncTask(kosnicaDAO).execute(kosnica);
     }
-
-    public void deleteAllKosnice() {
-        new KosnicaRepository.DeleteAllKosnicaAsyncTask(kosnicaDAO).execute();
-    }
-
 
     private static class InsertKosnicaAsyncTask extends AsyncTask<Kosnica, Void, Void> {
         private KosnicaDAO kosnicaDAO;
@@ -98,20 +89,6 @@ public class KosnicaRepository {
         @Override
         protected Void doInBackground(Kosnica... kosnice) {
             kosnicaDAO.delete(kosnice[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteAllKosnicaAsyncTask extends AsyncTask<Void, Void, Void> {
-        private KosnicaDAO kosnicaDAO;
-
-        private DeleteAllKosnicaAsyncTask(KosnicaDAO kosnicaDAO) {
-            this.kosnicaDAO = kosnicaDAO;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            kosnicaDAO.deleteAllKosnice();
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package com.example.malipcelar.activity.pomocneKlase;
+package com.example.malipcelar.activity.fragmenti;
 
 import android.app.Dialog;
 import android.content.Context;

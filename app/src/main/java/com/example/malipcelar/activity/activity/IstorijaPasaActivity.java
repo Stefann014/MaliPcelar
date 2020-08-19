@@ -16,7 +16,7 @@ import com.example.malipcelar.R;
 import com.example.malipcelar.activity.adapteri.IstorijaPasaAdapter;
 import com.example.malipcelar.activity.domen.Pasa;
 import com.example.malipcelar.activity.domen.Pcelinjak;
-import com.example.malipcelar.activity.pomocneKlase.DaLiZelisDaIzbrisesDialog;
+import com.example.malipcelar.activity.fragmenti.DaLiZelisDaIzbrisesDialog;
 import com.example.malipcelar.activity.viewModel.PasaViewModel;
 
 import java.util.List;
