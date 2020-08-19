@@ -25,8 +25,8 @@ import com.example.malipcelar.activity.domen.Kosnica;
 import com.example.malipcelar.activity.domen.Pcelinjak;
 import com.example.malipcelar.activity.domen.Prihrana;
 import com.example.malipcelar.activity.fragmenti.DatumPickerFragment;
-import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjePogaca;
-import com.example.malipcelar.activity.fragmenti.DialogNovoLecenjeSirup;
+import com.example.malipcelar.activity.fragmenti.DialogNovaPrihranaPogaca;
+import com.example.malipcelar.activity.fragmenti.DialogNovaPrihranaSirup;
 import com.example.malipcelar.activity.fragmenti.PogacaIliSirupBottomSheetDialog;
 import com.example.malipcelar.activity.viewModel.KosnicaViewModel;
 import com.example.malipcelar.activity.viewModel.PrihranaViewModel;
@@ -39,7 +39,7 @@ import java.util.List;
 import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.IME_PCELARA;
 import static com.example.malipcelar.activity.activity.OsnovniPodaciActivity.SHARED_PREFS;
 
-public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovoLecenjePogaca.DialogNovoLecenjeListener, DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener, DatePickerDialog.OnDateSetListener {
+public class PrihranaActivity extends AppCompatActivity implements PogacaIliSirupBottomSheetDialog.BottomSheetListener, DialogNovaPrihranaPogaca.DialogNovoLecenjeListener, DialogNovaPrihranaSirup.DialogNovoLecenjeSirupListener, DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_KOSNICA =
             "com.example.malipcelar.activity.activity.KOSNICA";
@@ -56,8 +56,8 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
     KosnicaViewModel kosnicaViewModel;
     String maxDatum;
     List<Kosnica> kosnice;
-    DialogNovoLecenjeSirup dialogNovoLecenjeSirup;
-    DialogNovoLecenjePogaca dialogNovoLecenjePogaca;
+    DialogNovaPrihranaSirup dialogNovaPrihranaSirup;
+    DialogNovaPrihranaPogaca dialogNovaPrihranaPogaca;
     boolean sirup;
 
     @Override
@@ -84,14 +84,14 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
 
     @Override
     public void onBtnPogacaClicked() {
-        dialogNovoLecenjePogaca = new DialogNovoLecenjePogaca(PrihranaActivity.this);
-        dialogNovoLecenjePogaca.show(getSupportFragmentManager(), "example dialog");
+        dialogNovaPrihranaPogaca = new DialogNovaPrihranaPogaca(PrihranaActivity.this);
+        dialogNovaPrihranaPogaca.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
     public void onBtnSirupClicked() {
-        dialogNovoLecenjeSirup = new DialogNovoLecenjeSirup(PrihranaActivity.this);
-        dialogNovoLecenjeSirup.show(getSupportFragmentManager(), "example dialog");
+        dialogNovaPrihranaSirup = new DialogNovaPrihranaSirup(PrihranaActivity.this);
+        dialogNovaPrihranaSirup.show(getSupportFragmentManager(), "example dialog");
     }
 
     private void srediAtribute() {
@@ -254,9 +254,9 @@ public class PrihranaActivity extends AppCompatActivity implements PogacaIliSiru
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         if (sirup) {
-            dialogNovoLecenjeSirup.setBtnDatumPrihrane(currentDateString);
+            dialogNovaPrihranaSirup.setBtnDatumPrihrane(currentDateString);
         } else {
-            dialogNovoLecenjePogaca.setBtnDatumPrihrane(currentDateString);
+            dialogNovaPrihranaPogaca.setBtnDatumPrihrane(currentDateString);
         }
     }
 }

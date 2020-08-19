@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
+public class DialogNovaPrihranaSirup extends AppCompatDialogFragment {
 
     Button btnDatumPrihrane;
     private TextView txtLitri;
@@ -32,7 +32,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
 
     private DialogNovoLecenjeSirupListener listener;
 
-    public DialogNovoLecenjeSirup(PrihranaActivity prihranaActivity) {
+    public DialogNovaPrihranaSirup(PrihranaActivity prihranaActivity) {
         this.prihranaActivity = prihranaActivity;
     }
 
@@ -104,7 +104,7 @@ public class DialogNovoLecenjeSirup extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (DialogNovoLecenjeSirup.DialogNovoLecenjeSirupListener) context;
+            listener = (DialogNovaPrihranaSirup.DialogNovoLecenjeSirupListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement ExampleDialogListener");

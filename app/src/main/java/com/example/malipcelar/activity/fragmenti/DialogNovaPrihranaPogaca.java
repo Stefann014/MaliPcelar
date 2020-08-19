@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
+public class DialogNovaPrihranaPogaca extends AppCompatDialogFragment {
 
     Button btnDatumPrihrane;
     private TextView txtKilogrami;
@@ -31,7 +31,7 @@ public class DialogNovoLecenjePogaca extends AppCompatDialogFragment {
 
     private DialogNovoLecenjeListener listener;
 
-    public DialogNovoLecenjePogaca(PrihranaActivity prihranaActivity) {
+    public DialogNovaPrihranaPogaca(PrihranaActivity prihranaActivity) {
         this.prihranaActivity = prihranaActivity;
     }
 
