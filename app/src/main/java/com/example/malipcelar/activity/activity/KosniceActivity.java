@@ -327,7 +327,7 @@ public class KosniceActivity extends AppCompatActivity {
         });
     }
 
-    private void poruka(Kosnica kosnica) {
+    private void poruka(@NonNull Kosnica kosnica) {
         String prir;
         if (kosnica.isPrirodna()) {
             prir = "Prirodna";

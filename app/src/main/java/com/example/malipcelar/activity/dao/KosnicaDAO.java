@@ -24,12 +24,6 @@ public interface KosnicaDAO {
     @Delete
     void delete(Kosnica kosnica);
 
-    @Query("DELETE FROM kosnica_table")
-    void deleteAllKosnice();
-
-    @Query("SELECT * FROM kosnica_table WHERE rb_kosnice = :rb AND pcelinjak = :kosnica")
-    LiveData<Kosnica> getKosnicaByRB(int kosnica, int rb);
-
     @Query("SELECT * FROM kosnica_table WHERE pcelinjak = :pcelinjak ORDER BY rb_kosnice ASC")
     LiveData<List<Kosnica>> getAllKosniceByRbPcelinjaka(int pcelinjak);
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -122,7 +123,8 @@ public class IstorijaPasaActivity extends AppCompatActivity implements DaLiZelis
 
     }
 
-    private String datumZaPrikaz(String datum) {
+    @NonNull
+    private String datumZaPrikaz(@NonNull String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }

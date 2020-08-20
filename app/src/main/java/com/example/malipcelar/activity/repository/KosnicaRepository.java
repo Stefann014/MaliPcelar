@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.KosnicaDAO;
@@ -59,7 +60,7 @@ public class KosnicaRepository {
         }
 
         @Override
-        protected Void doInBackground(Kosnica... kosnice) {
+        protected Void doInBackground(@NonNull Kosnica... kosnice) {
             kosnicaDAO.insert(kosnice[0]);
             return null;
         }
@@ -73,7 +74,7 @@ public class KosnicaRepository {
         }
 
         @Override
-        protected Void doInBackground(Kosnica... kosnice) {
+        protected Void doInBackground(@NonNull Kosnica... kosnice) {
             kosnicaDAO.update(kosnice[0]);
             return null;
         }
@@ -87,7 +88,7 @@ public class KosnicaRepository {
         }
 
         @Override
-        protected Void doInBackground(Kosnica... kosnice) {
+        protected Void doInBackground(@NonNull Kosnica... kosnice) {
             kosnicaDAO.delete(kosnice[0]);
             return null;
         }

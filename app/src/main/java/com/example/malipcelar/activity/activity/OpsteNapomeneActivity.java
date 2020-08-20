@@ -105,7 +105,8 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
         });
     }
 
-    private String datumZaPrikaz(String datum) {
+    @NonNull
+    private String datumZaPrikaz(@NonNull String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
@@ -242,7 +243,7 @@ public class OpsteNapomeneActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.izbrisiSve) {
             opstaNapomenaViewModel.deleteAllOpsteNapomene();
             Toast.makeText(this, "Sve napomene su izbrisane", Toast.LENGTH_SHORT).show();

@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.PregledDAO;
@@ -24,11 +25,6 @@ public class PregledRepository {
         return pregledDAO.getAllPreglediZaKosnicu(kosnicaID, pcelinjakID);
     }
 
-    public LiveData<String> getMaxDatumPregledaZaKosnicu(int kosnicaID, int pcelinjakID) {
-        return pregledDAO.getMaxDatumPregledaZaKosnicu(kosnicaID, pcelinjakID);
-    }
-
-    //
     public void insert(Pregled pregled) {
         new InsertPregledAsyncTask(pregledDAO).execute(pregled);
     }
@@ -51,7 +47,7 @@ public class PregledRepository {
         }
 
         @Override
-        protected Void doInBackground(Pregled... pregledi) {
+        protected Void doInBackground(@NonNull Pregled... pregledi) {
             pregledDAO.insert(pregledi[0]);
             return null;
         }
@@ -65,7 +61,7 @@ public class PregledRepository {
         }
 
         @Override
-        protected Void doInBackground(Pregled... pregledi) {
+        protected Void doInBackground(@NonNull Pregled... pregledi) {
             pregledDAO.update(pregledi[0]);
             return null;
         }
@@ -79,7 +75,7 @@ public class PregledRepository {
         }
 
         @Override
-        protected Void doInBackground(Pregled... pregledi) {
+        protected Void doInBackground(@NonNull Pregled... pregledi) {
             pregledDAO.delete(pregledi[0]);
             return null;
         }

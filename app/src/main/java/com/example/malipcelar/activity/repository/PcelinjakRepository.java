@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.PcelinjakDAO;
@@ -75,7 +76,7 @@ public class PcelinjakRepository {
         }
 
         @Override
-        protected Void doInBackground(Pcelinjak... pcelinjaci) {
+        protected Void doInBackground(@NonNull Pcelinjak... pcelinjaci) {
             pcelinjakDAO.insert(pcelinjaci[0]);
             return null;
         }
@@ -89,7 +90,7 @@ public class PcelinjakRepository {
         }
 
         @Override
-        protected Void doInBackground(Pcelinjak... pcelinjaci) {
+        protected Void doInBackground(@NonNull Pcelinjak... pcelinjaci) {
             pcelinjakDAO.update(pcelinjaci[0]);
             return null;
         }
@@ -103,7 +104,7 @@ public class PcelinjakRepository {
         }
 
         @Override
-        protected Void doInBackground(Pcelinjak... pcelinjaci) {
+        protected Void doInBackground(@NonNull Pcelinjak... pcelinjaci) {
             pcelinjakDAO.delete(pcelinjaci[0]);
             return null;
         }

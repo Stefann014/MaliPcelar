@@ -35,7 +35,4 @@ public class LecenjeViewModel extends AndroidViewModel {
     public LiveData<List<Lecenje>> getAllLecenjaZaKosnicu(int kosnicaID, int pcelinjakID) {
         return lecenjeRepository.getAllLecenjaZaKosnicu(kosnicaID, pcelinjakID);
     }
-    public LiveData<String> getMaxDatumLecenjaZaKosnicu(int kosnicaID, int pcelinjakID) {
-        return lecenjeRepository.getMaxDatumLecenjaZaKosnicu(kosnicaID, pcelinjakID);
-    }
 }

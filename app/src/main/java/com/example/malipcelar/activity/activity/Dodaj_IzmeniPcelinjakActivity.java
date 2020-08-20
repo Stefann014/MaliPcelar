@@ -61,6 +61,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -368,9 +369,9 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         btnSlikaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                Intent slikaj = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (slikaj.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(slikaj, CAMERA_REQUEST_CODE);
                 }
             }
         });
@@ -472,7 +473,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         pcelinjakSlika.setImageBitmap(icon);
     }
 
-    private void pomeriKameru(LatLng latLng, String title) {
+    private void pomeriKameru(LatLng latLng, @NonNull String title) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, (float) Dodaj_IzmeniPcelinjakActivity.DEFAULT_ZOOM));
         if (!title.equals("Moja lokacija")) {
             skiniMarkere();
@@ -592,8 +593,6 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                     adresa.getAddressLine(0));
         }
         iskljuciTastaturu();
-
-
     }
 
     private void postaviAdapterZaAutoComplete() {
@@ -696,7 +695,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.ikonica_sacuvaj) {
             sacuvajPcelinjak();
             return true;
@@ -735,7 +734,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         }
     }
 
-    private static String bitmapToString(Bitmap bitmap) {
+    private static String bitmapToString(@NonNull Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
@@ -743,7 +742,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     }
 
 
-    public static Bitmap resizeBitmap(Bitmap bitmap) {
+    public static Bitmap resizeBitmap(@NonNull Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         float scaleWidth = PREFERRED_WIDTH / width;
@@ -757,6 +756,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         return resizedBitmap;
     }
 
+    @Nullable
     private static Bitmap stringToBitmap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);

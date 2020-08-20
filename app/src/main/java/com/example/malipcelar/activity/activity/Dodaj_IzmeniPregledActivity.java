@@ -395,7 +395,7 @@ public class Dodaj_IzmeniPregledActivity extends AppCompatActivity implements Da
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.ikonica_sacuvaj) {
             sacuvajPregled();
             return true;

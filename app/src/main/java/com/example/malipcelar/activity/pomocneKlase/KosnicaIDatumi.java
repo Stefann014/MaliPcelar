@@ -1,7 +1,5 @@
 package com.example.malipcelar.activity.pomocneKlase;
 
-import androidx.room.ColumnInfo;
-
 public class KosnicaIDatumi {
 
 

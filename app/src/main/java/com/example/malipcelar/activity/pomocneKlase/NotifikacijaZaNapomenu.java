@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -12,7 +13,7 @@ import com.example.malipcelar.R;
 public class NotifikacijaZaNapomenu extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, @NonNull Intent intent) {
         String napomena = intent.getStringExtra("NAPOMENA");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyLemubit").
                 setSmallIcon(R.drawable.ic_alert)

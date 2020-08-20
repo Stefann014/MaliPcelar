@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.PasaDAO;
@@ -46,7 +47,7 @@ public class PasaRepository {
         }
 
         @Override
-        protected Void doInBackground(Pasa... pase) {
+        protected Void doInBackground(@NonNull Pasa... pase) {
             pasaDAO.insert(pase[0]);
             return null;
         }
@@ -60,7 +61,7 @@ public class PasaRepository {
         }
 
         @Override
-        protected Void doInBackground(Pasa... pase) {
+        protected Void doInBackground(@NonNull Pasa... pase) {
             pasaDAO.update(pase[0]);
             return null;
         }
@@ -74,7 +75,7 @@ public class PasaRepository {
         }
 
         @Override
-        protected Void doInBackground(Pasa... pase) {
+        protected Void doInBackground(@NonNull Pasa... pase) {
             pasaDAO.delete(pase[0]);
             return null;
         }

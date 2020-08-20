@@ -120,7 +120,8 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
         }
     }
 
-    private String pretvoriUDatumZaPrikazivanje(String datum) {
+    @NonNull
+    private String pretvoriUDatumZaPrikazivanje(@NonNull String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0] + ".";
     }
@@ -339,7 +340,7 @@ public class Dodaj_IzmeniPasuActivity extends AppCompatActivity implements DateP
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.ikonica_sacuvaj) {
             if (btnSacuvaj.isEnabled()) {
                 sacuvajPasu();

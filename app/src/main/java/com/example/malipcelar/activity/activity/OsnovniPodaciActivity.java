@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -103,7 +104,8 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
 
     }
 
-    private LatLng srediLatLng(String lokacija) {
+    @org.jetbrains.annotations.Nullable
+    private LatLng srediLatLng(@NonNull String lokacija) {
         String[] lokacije = lokacija.split(",");
         String lok1 = lokacije[0] + "";
         String lok2 = lokacije[1] + "";
@@ -116,6 +118,7 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
         return new LatLng(latitude, longitude);
     }
 
+    @org.jetbrains.annotations.Nullable
     private Address getAddressFromLatLng(LatLng latLng) {
         Geocoder geocoder = new Geocoder(OsnovniPodaciActivity.this);
         List<Address> addresses;

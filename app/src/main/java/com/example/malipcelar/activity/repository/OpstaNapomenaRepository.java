@@ -2,6 +2,8 @@ package com.example.malipcelar.activity.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.OpsteNapomeneDAO;
@@ -56,7 +58,7 @@ public class OpstaNapomenaRepository {
         }
 
         @Override
-        protected Void doInBackground(OpstaNapomena... opsteNapomene) {
+        protected Void doInBackground(@NonNull OpstaNapomena... opsteNapomene) {
             opsteNapomeneDAO.insert(opsteNapomene[0]);
             return null;
         }
@@ -70,7 +72,7 @@ public class OpstaNapomenaRepository {
         }
 
         @Override
-        protected Void doInBackground(OpstaNapomena... opsteNapomene) {
+        protected Void doInBackground(@NonNull OpstaNapomena... opsteNapomene) {
             opsteNapomeneDAO.update(opsteNapomene[0]);
             return null;
         }
@@ -84,7 +86,7 @@ public class OpstaNapomenaRepository {
         }
 
         @Override
-        protected Void doInBackground(OpstaNapomena... opsteNapomene) {
+        protected Void doInBackground(@NonNull OpstaNapomena... opsteNapomene) {
             opsteNapomeneDAO.delete(opsteNapomene[0]);
             return null;
         }

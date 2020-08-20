@@ -25,9 +25,6 @@ public interface PcelinjakDAO {
     @Delete
     void delete(Pcelinjak pcelinjak);
 
-    @Query("DELETE FROM pcelinjak_table")
-    void deleteAllPcelinjaci();
-
     @Query("SELECT * FROM pcelinjak_table WHERE rb_pcelinjaka = :rb")
     LiveData<Pcelinjak> getPcelinjakByRB(int rb);
 

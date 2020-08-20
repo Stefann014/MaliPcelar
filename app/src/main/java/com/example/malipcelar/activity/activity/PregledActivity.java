@@ -150,7 +150,8 @@ public class PregledActivity extends AppCompatActivity {
         }
     }
 
-    private String datumZaPrikaz(String datum) {
+    @NonNull
+    private String datumZaPrikaz(@NonNull String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }
@@ -225,7 +226,7 @@ public class PregledActivity extends AppCompatActivity {
         });
     }
 
-    private void poruka(Pregled pregled) {
+    private void poruka(@NonNull Pregled pregled) {
         String buffer = "Redni broj pčelinjaka: " + pregled.getPcelinjakID() + "\n"
                 + "Redni broj košnice: " + pregled.getKosnicaID() + "\n"
                 + "Datum: " + datumZaPrikaz(pregled.getDatumPregleda()) + "\n"

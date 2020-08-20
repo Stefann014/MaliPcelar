@@ -209,7 +209,7 @@ public class LecenjeActivity extends AppCompatActivity {
         });
     }
 
-    private void poruka(Lecenje lecenje) {
+    private void poruka(@NonNull Lecenje lecenje) {
         String buffer = "Redni broj pčelinjaka: " + lecenje.getPcelinjakID() + "\n"
                 + "Redni broj košnice: " + lecenje.getKosnicaID() + "\n\n"
                 + "Datum: " + datumZaPrikaz(lecenje.getDatumLecenja()) + "\n\n"
@@ -225,7 +225,8 @@ public class LecenjeActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private String datumZaPrikaz(String datum) {
+    @NonNull
+    private String datumZaPrikaz(@NonNull String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
     }

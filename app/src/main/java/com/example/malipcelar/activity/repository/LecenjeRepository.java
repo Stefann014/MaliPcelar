@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.LecenjeDAO;
@@ -24,11 +25,6 @@ public class LecenjeRepository {
         return lecenjeDAO.getAllLecenjaZaKosnicu(kosnicaID, pcelinjakID);
     }
 
-    public LiveData<String> getMaxDatumLecenjaZaKosnicu(int kosnicaID, int pcelinjakID) {
-        return lecenjeDAO.getMaxDatumLecenjaZaKosnicu(kosnicaID, pcelinjakID);
-    }
-
-    //
     public void insert(Lecenje lecenje) {
         new LecenjeRepository.InsertLecenjeAsyncTask(lecenjeDAO).execute(lecenje);
     }
@@ -51,7 +47,7 @@ public class LecenjeRepository {
         }
 
         @Override
-        protected Void doInBackground(Lecenje... lecenja) {
+        protected Void doInBackground(@NonNull Lecenje... lecenja) {
             lecenjeDAO.insert(lecenja[0]);
             return null;
         }
@@ -65,7 +61,7 @@ public class LecenjeRepository {
         }
 
         @Override
-        protected Void doInBackground(Lecenje... lecenja) {
+        protected Void doInBackground(@NonNull Lecenje... lecenja) {
             lecenjeDAO.update(lecenja[0]);
             return null;
         }
@@ -79,7 +75,7 @@ public class LecenjeRepository {
         }
 
         @Override
-        protected Void doInBackground(Lecenje... lecenja) {
+        protected Void doInBackground(@NonNull Lecenje... lecenja) {
             lecenjeDAO.delete(lecenja[0]);
             return null;
         }

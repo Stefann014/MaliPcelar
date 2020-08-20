@@ -3,6 +3,7 @@ package com.example.malipcelar.activity.repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.malipcelar.activity.dao.PrihranaDAO;
@@ -24,11 +25,6 @@ public class PrihranaRepository {
         return prihranaDAO.getAllPrihranaZaKosnicu(kosnicaID, pcelinjakID);
     }
 
-    public LiveData<String> getMaxDatumPrihranaZaKosnicu(int kosnicaID, int pcelinjakID) {
-        return prihranaDAO.getMaxDatumPrihranaZaKosnicu(kosnicaID, pcelinjakID);
-    }
-
-    //
     public void insert(Prihrana prihrana) {
         new PrihranaRepository.InsertPrihranaAsyncTask(prihranaDAO).execute(prihrana);
     }
@@ -51,7 +47,7 @@ public class PrihranaRepository {
         }
 
         @Override
-        protected Void doInBackground(Prihrana... prihrane) {
+        protected Void doInBackground(@NonNull Prihrana... prihrane) {
             prihranaDAO.insert(prihrane[0]);
             return null;
         }
@@ -65,7 +61,7 @@ public class PrihranaRepository {
         }
 
         @Override
-        protected Void doInBackground(Prihrana... prihrane) {
+        protected Void doInBackground(@NonNull Prihrana... prihrane) {
             prihranaDAO.update(prihrane[0]);
             return null;
         }
@@ -79,7 +75,7 @@ public class PrihranaRepository {
         }
 
         @Override
-        protected Void doInBackground(Prihrana... prihrane) {
+        protected Void doInBackground(@NonNull Prihrana... prihrane) {
             prihranaDAO.delete(prihrane[0]);
             return null;
         }

@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.malipcelar.R;
 import com.example.malipcelar.activity.domen.Pcelinjak;
@@ -95,7 +94,7 @@ public class PocetniActivity extends AppCompatActivity {
         btnBilansProivoda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               poruka();
+                poruka();
             }
         });
     }

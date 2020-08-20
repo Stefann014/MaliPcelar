@@ -23,10 +23,6 @@ public interface PasaDAO {
     @Delete
     void delete(Pasa pasa);
 
-    @Query("DELETE FROM pasa_table")
-    void deleteAllPase();
-
-
     @Query("SELECT * FROM pasa_table ORDER BY date(datum_od) DESC")
     LiveData<List<Pasa>> getAllPase();
 
