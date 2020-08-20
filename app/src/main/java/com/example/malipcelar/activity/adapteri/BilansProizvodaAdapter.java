@@ -87,7 +87,9 @@ public class BilansProizvodaAdapter extends ListAdapter<KlasaBilans, BilansProiz
         if (latLng != null) {
             Address address = getAddressFromLatLng(latLng);
 
-            assert address != null;
+            if (address == null) {
+                return "Nepoznata adresa";
+            }
             if (address.getLocality() == null) {
                 if (address.getSubAdminArea() != null) {
                     string = address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();

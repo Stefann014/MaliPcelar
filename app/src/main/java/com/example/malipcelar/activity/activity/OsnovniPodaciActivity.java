@@ -82,13 +82,17 @@ public class OsnovniPodaciActivity extends AppCompatActivity {
                     if (latLng != null) {
                         Address address = getAddressFromLatLng(latLng);
 
-                        assert address != null;
-                        if (address.getLocality() == null) {
-                            if (address.getSubAdminArea() != null) {
-                                p.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
-                            }
+
+                        if (address == null) {
+                            p.setLokacija("Nepoznata adresa");
                         } else {
-                            p.setLokacija(address.getAddressLine(0));
+                            if (address.getLocality() == null) {
+                                if (address.getSubAdminArea() != null) {
+                                    p.setLokacija(address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName());
+                                }
+                            } else {
+                                p.setLokacija(address.getAddressLine(0));
+                            }
                         }
                     }
                 }

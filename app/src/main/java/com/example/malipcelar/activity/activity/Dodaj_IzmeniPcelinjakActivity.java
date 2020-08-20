@@ -772,12 +772,12 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
 
         assert manager != null;
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+            obavestenjeNemaGPSa();
 
         }
     }
 
-    private void buildAlertMessageNoGps() {
+    private void obavestenjeNemaGPSa() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Uključite lokaciju, da biste pristupili trenutnoj lokaciji")
                 .setCancelable(false)
