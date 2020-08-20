@@ -606,7 +606,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         try {
             if (mLokacijaDozvoljena) {
                 final Task lokacija = mProvajderLokacije.getLastLocation();
-                lokacija.addOnCompleteListener(new OnCompleteListener() {
+                lokacija.addOnCompleteListener( new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {

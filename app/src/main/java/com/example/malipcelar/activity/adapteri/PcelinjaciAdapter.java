@@ -82,7 +82,10 @@ public class PcelinjaciAdapter extends ListAdapter<Pcelinjak, PcelinjaciAdapter.
 
         if (latLng != null) {
             Address address = getAddressFromLatLng(latLng);
-            assert address != null;
+
+            if (address == null) {
+                return "Ne može se pristupiti adresi";
+            }
             if (address.getLocality() == null) {
 
                 adresa += address.getSubAdminArea() + ", непозната адреса, " + address.getCountryName();
