@@ -24,12 +24,12 @@ public class OpsteNapomeneAdapter extends ListAdapter<OpstaNapomena, OpsteNapome
 
     private static final DiffUtil.ItemCallback<OpstaNapomena> DIFF_CALLBACK = new DiffUtil.ItemCallback<OpstaNapomena>() {
         @Override
-        public boolean areItemsTheSame(OpstaNapomena oldItem, OpstaNapomena newItem) {
+        public boolean areItemsTheSame(@NonNull OpstaNapomena oldItem, @NonNull OpstaNapomena newItem) {
             return oldItem.getOpstaNapomenaID() == newItem.getOpstaNapomenaID();
         }
 
         @Override
-        public boolean areContentsTheSame(OpstaNapomena oldItem, OpstaNapomena newItem) {
+        public boolean areContentsTheSame(@NonNull OpstaNapomena oldItem, @NonNull OpstaNapomena newItem) {
             return oldItem.getTipOpsteNapomene().equals(newItem.getTipOpsteNapomene()) &&
                     oldItem.getOpstaNapomena().equals(newItem.getOpstaNapomena()) &&
                     oldItem.getDatumNapomene().equals(newItem.getDatumNapomene());
@@ -64,6 +64,7 @@ public class OpsteNapomeneAdapter extends ListAdapter<OpstaNapomena, OpsteNapome
         }
     }
 
+    @NonNull
     private String datumZaPrikaz(String datum) {
         String[] datumi = datum.split("-");
         return datumi[2] + "." + datumi[1] + "." + datumi[0];
