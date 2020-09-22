@@ -80,6 +80,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
     private static final int LOCATION_PERMISSION_ZAHTEV = 1234;
     private static final int DEFAULT_ZOOM = 15;
     private static final int GALLERY_REQUEST_CODE = 100;
+    private static final int CAMERA_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final float PREFERRED_WIDTH = 250;
     private static final float PREFERRED_HEIGHT = 250;
@@ -368,9 +369,13 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         btnSlikaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                if (checkPermission()) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                    }
+                } else {
+                    requestPermission();
                 }
             }
         });
@@ -606,7 +611,7 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
         try {
             if (mLokacijaDozvoljena) {
                 final Task lokacija = mProvajderLokacije.getLastLocation();
-                lokacija.addOnCompleteListener( new OnCompleteListener() {
+                lokacija.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
@@ -793,6 +798,17 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 });
         final AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(Dodaj_IzmeniPcelinjakActivity.this, Manifest.permission.CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(Dodaj_IzmeniPcelinjakActivity.this, Manifest.permission.CAMERA)) {
+            ActivityCompat.requestPermissions(Dodaj_IzmeniPcelinjakActivity.this, new String[]{Manifest.permission.CAMERA}, Dodaj_IzmeniPcelinjakActivity.CAMERA_PERMISSION_CODE);
+        }
     }
 
 }

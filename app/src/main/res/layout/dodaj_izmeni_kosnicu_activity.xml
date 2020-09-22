@@ -166,18 +166,16 @@
 
         <EditText
             android:id="@+id/txtRegistarskiBroj"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="42dp"
-            android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="2000"
             android:maxLines="1"
             android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView31"
             app:layout_constraintTop_toBottomOf="@+id/txtRBKosnice"
             tools:ignore="Autofill,LabelFor" />
@@ -194,6 +192,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNapomenaKosnica" />
+
+        <Button
+            android:id="@+id/btnQR"
+            android:layout_width="46dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="42dp"
+            android:background="@color/quantum_black_100"
+            android:text="QR"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/txtRegistarskiBroj"
+            app:layout_constraintTop_toBottomOf="@+id/txtRBKosnice"
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
