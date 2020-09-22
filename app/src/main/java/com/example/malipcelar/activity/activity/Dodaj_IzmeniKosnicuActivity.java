@@ -1,7 +1,9 @@
 package com.example.malipcelar.activity.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +18,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.malipcelar.R;
+import com.example.malipcelar.activity.pomocneKlase.QRSkenerPortret;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +54,8 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
     public static final String EXTRA_ZAUZETI_RB =
             "com.example.malipcelar.activity.activity.EXTRA_ZAUZETI_RB";
 
+    private static final int CAMERA_PERMISSION_CODE = 101;
+
     TextView txtRedniBroj;
     TextView txtRegistarskiBroj;
     Spinner spGodinaProizvodnje;
@@ -55,6 +66,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
     List<Integer> zauzetiRbOvi;
     RadioGroup radioGroup;
     Button btnSacuvaj;
+    Button btnQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +85,26 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
                 sacuvajKosnicu();
             }
         });
+        btnQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkPermission()) {
+                    otvoriQRSkener();
+                } else {
+                    requestPermission();
+                }
+            }
+        });
+    }
+
+    private void otvoriQRSkener() {
+        IntentIntegrator integrator = new IntentIntegrator(Dodaj_IzmeniKosnicuActivity.this);
+        integrator.setPrompt("Skenirajte QR kod");
+        integrator.setCameraId(0);
+        integrator.setOrientationLocked(true);
+        integrator.setBeepEnabled(true);
+        integrator.setCaptureActivity(QRSkenerPortret.class);
+        integrator.initiateScan();
     }
 
     @SuppressLint("SetTextI18n")
@@ -107,6 +139,7 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         txtBolesti = findViewById(R.id.txtBolesti);
         txtNapomena = findViewById(R.id.txtNapomenaKosnica);
         btnSacuvaj = findViewById(R.id.btnSacuvajKosnicu);
+        btnQR = findViewById(R.id.btnQR);
         radioGroup = findViewById(R.id.radioGroup);
         txtRegistarskiBroj = findViewById(R.id.txtRegistarskiBroj);
         srediSpinner();
@@ -269,4 +302,38 @@ public class Dodaj_IzmeniKosnicuActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(Dodaj_IzmeniKosnicuActivity.this, Manifest.permission.CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(Dodaj_IzmeniKosnicuActivity.this, Manifest.permission.CAMERA)) {
+            ActivityCompat.requestPermissions(Dodaj_IzmeniKosnicuActivity.this, new String[]{Manifest.permission.CAMERA}, Dodaj_IzmeniKosnicuActivity.CAMERA_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                otvoriQRSkener();
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                txtRegistarskiBroj.setText("" + result.getContents());
+            }
+        }
+    }
+
 }

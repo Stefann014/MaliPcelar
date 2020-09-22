@@ -682,6 +682,14 @@ public class Dodaj_IzmeniPcelinjakActivity extends AppCompatActivity implements 
                 inicijalizujMapu();
             }
         }
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+                }
+            }
+        }
     }
 
     private void iskljuciTastaturu() {
